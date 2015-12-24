@@ -24,6 +24,11 @@
 		04F0ABCC1C2A3F0F000EB562 /* JXInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABCB1C2A3F0F000EB562 /* JXInfoController.m */; };
 		04F0ABD11C2A8A18000EB562 /* JXTeacherViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABCF1C2A8A18000EB562 /* JXTeacherViewCell.m */; };
 		04F0ABD21C2A8A18000EB562 /* JXTeacherViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F0ABD01C2A8A18000EB562 /* JXTeacherViewCell.xib */; };
+		04F0ABD51C2B9ECA000EB562 /* JXTeacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABD41C2B9ECA000EB562 /* JXTeacher.m */; };
+		04F0ABD71C2BA18B000EB562 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F0ABD61C2BA18B000EB562 /* CoreLocation.framework */; };
+		04F0ABDA1C2BEB5B000EB562 /* JXSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABD91C2BEB5B000EB562 /* JXSearchBar.m */; };
+		04F0ABDF1C2BF36F000EB562 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABDE1C2BF36F000EB562 /* UIView+Extension.m */; };
+		DC3616EA9689F725065AC7AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5C3C437BBA4964B2BC3CA8 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +84,16 @@
 		04F0ABCE1C2A8A18000EB562 /* JXTeacherViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTeacherViewCell.h; sourceTree = "<group>"; };
 		04F0ABCF1C2A8A18000EB562 /* JXTeacherViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTeacherViewCell.m; sourceTree = "<group>"; };
 		04F0ABD01C2A8A18000EB562 /* JXTeacherViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXTeacherViewCell.xib; sourceTree = "<group>"; };
+		04F0ABD31C2B9ECA000EB562 /* JXTeacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTeacher.h; sourceTree = "<group>"; };
+		04F0ABD41C2B9ECA000EB562 /* JXTeacher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTeacher.m; sourceTree = "<group>"; };
+		04F0ABD61C2BA18B000EB562 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		04F0ABD81C2BEB5B000EB562 /* JXSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXSearchBar.h; sourceTree = "<group>"; };
+		04F0ABD91C2BEB5B000EB562 /* JXSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXSearchBar.m; sourceTree = "<group>"; };
+		04F0ABDD1C2BF36F000EB562 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		04F0ABDE1C2BF36F000EB562 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		1B5C3C437BBA4964B2BC3CA8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B32403F5E22DCD8D9463503 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		BB5B21B45822D1FE6B9F39ED /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +101,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F0ABD71C2BA18B000EB562 /* CoreLocation.framework in Frameworks */,
+				DC3616EA9689F725065AC7AE /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +130,8 @@
 				04F0AB701C2A2FCE000EB562 /* JMXMiJiaTests */,
 				04F0AB7B1C2A2FCF000EB562 /* JMXMiJiaUITests */,
 				04F0AB551C2A2FCD000EB562 /* Products */,
+				212E93E6FF4AAFBCA29DA035 /* Pods */,
+				EE2CB9A1A5015F38F4BB83C7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -217,6 +236,7 @@
 		04F0AB8F1C2A34EE000EB562 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				04F0ABDB1C2BF362000EB562 /* Libs */,
 				04F0AB901C2A34EE000EB562 /* Controller */,
 				04F0AB911C2A34EE000EB562 /* Model */,
 				04F0AB921C2A34EE000EB562 /* View */,
@@ -245,6 +265,8 @@
 		04F0AB921C2A34EE000EB562 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04F0ABD81C2BEB5B000EB562 /* JXSearchBar.h */,
+				04F0ABD91C2BEB5B000EB562 /* JXSearchBar.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -403,6 +425,8 @@
 		04F0ABA51C2A34EE000EB562 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04F0ABD31C2B9ECA000EB562 /* JXTeacher.h */,
+				04F0ABD41C2B9ECA000EB562 /* JXTeacher.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -483,6 +507,41 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		04F0ABDB1C2BF362000EB562 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				04F0ABDC1C2BF36F000EB562 /* UIView + Extension */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		04F0ABDC1C2BF36F000EB562 /* UIView + Extension */ = {
+			isa = PBXGroup;
+			children = (
+				04F0ABDD1C2BF36F000EB562 /* UIView+Extension.h */,
+				04F0ABDE1C2BF36F000EB562 /* UIView+Extension.m */,
+			);
+			path = "UIView + Extension";
+			sourceTree = "<group>";
+		};
+		212E93E6FF4AAFBCA29DA035 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5B32403F5E22DCD8D9463503 /* Pods.debug.xcconfig */,
+				BB5B21B45822D1FE6B9F39ED /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EE2CB9A1A5015F38F4BB83C7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				04F0ABD61C2BA18B000EB562 /* CoreLocation.framework */,
+				1B5C3C437BBA4964B2BC3CA8 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -490,9 +549,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04F0AB811C2A2FCF000EB562 /* Build configuration list for PBXNativeTarget "JMXMiJia" */;
 			buildPhases = (
+				83A3183BA898C8B70771B173 /* Check Pods Manifest.lock */,
 				04F0AB501C2A2FCD000EB562 /* Sources */,
 				04F0AB511C2A2FCD000EB562 /* Frameworks */,
 				04F0AB521C2A2FCD000EB562 /* Resources */,
+				A12C9D310757E22F89FCB1A8 /* Embed Pods Frameworks */,
+				AA59FC7D05D96289AA2F2E8A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -609,18 +671,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		83A3183BA898C8B70771B173 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A12C9D310757E22F89FCB1A8 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA59FC7D05D96289AA2F2E8A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		04F0AB501C2A2FCD000EB562 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F0ABDF1C2BF36F000EB562 /* UIView+Extension.m in Sources */,
 				04F0ABC91C2A3EF4000EB562 /* JXTeacherProfileController.m in Sources */,
+				04F0ABDA1C2BEB5B000EB562 /* JXSearchBar.m in Sources */,
 				04F0ABBA1C2A3E82000EB562 /* JXStudentClassController.m in Sources */,
 				04F0ABB11C2A3CDA000EB562 /* JXTabBarController.m in Sources */,
 				04F0ABC31C2A3ECA000EB562 /* JXTeacherController.m in Sources */,
 				04F0ABCC1C2A3F0F000EB562 /* JXInfoController.m in Sources */,
 				04F0ABB41C2A3CF7000EB562 /* JXNavigationController.m in Sources */,
 				04F0AB5C1C2A2FCE000EB562 /* AppDelegate.m in Sources */,
+				04F0ABD51C2B9ECA000EB562 /* JXTeacher.m in Sources */,
 				04F0ABD11C2A8A18000EB562 /* JXTeacherViewCell.m in Sources */,
 				04F0ABC61C2A3EDD000EB562 /* JXTeacherClassController.m in Sources */,
 				04F0AB591C2A2FCD000EB562 /* main.m in Sources */,
@@ -754,6 +867,7 @@
 		};
 		04F0AB821C2A2FCF000EB562 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B32403F5E22DCD8D9463503 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JMXMiJia/JMXMiJia-Prefix.pch";
@@ -767,6 +881,7 @@
 		};
 		04F0AB831C2A2FCF000EB562 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB5B21B45822D1FE6B9F39ED /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JMXMiJia/JMXMiJia-Prefix.pch";
@@ -845,6 +960,7 @@
 				04F0AB831C2A2FCF000EB562 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04F0AB841C2A2FCF000EB562 /* Build configuration list for PBXNativeTarget "JMXMiJiaTests" */ = {
 			isa = XCConfigurationList;
@@ -853,6 +969,7 @@
 				04F0AB861C2A2FCF000EB562 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04F0AB871C2A2FCF000EB562 /* Build configuration list for PBXNativeTarget "JMXMiJiaUITests" */ = {
 			isa = XCConfigurationList;
@@ -861,6 +978,7 @@
 				04F0AB891C2A2FCF000EB562 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -43,7 +43,7 @@
     childVC.view.backgroundColor = [UIColor whiteColor];
     childVC.tabBarItem.image = [UIImage imageNamed:image];
     childVC.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    childVC.title = title;
+    childVC.tabBarItem.title = title;
     [childVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:JXColor(177, 177, 177)} forState:UIControlStateNormal];
     [childVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:JXColor(82, 195, 233)} forState:UIControlStateSelected];
     JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:childVC];

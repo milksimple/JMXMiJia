@@ -34,4 +34,10 @@
 
 // 随机色
 #define JXRandomColor JXColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
+// weakself
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+
+// masonry
+#define MAS_SHORTHAND
 #endif
