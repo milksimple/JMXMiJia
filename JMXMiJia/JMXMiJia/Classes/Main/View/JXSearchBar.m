@@ -18,18 +18,17 @@
 
 @implementation JXSearchBar
 
-static CGFloat const margin = 10;
+static CGFloat const margin = 15;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = JXColor(246, 246, 246);
+        self.backgroundColor = JXColor(249, 249, 249);
         [self setup];
     }
     return self;
 }
 
 - (void)setup {
-    WS(weakSelf);
     
     UITextField *textField = [[UITextField alloc] init];
     textField.backgroundColor = [UIColor whiteColor];
@@ -45,28 +44,58 @@ static CGFloat const margin = 10;
     textField.placeholder = @"输入查找教练";
     
     UIButton *searchButton = [[UIButton alloc] init];
+    [searchButton addTarget:self action:@selector(searchButtonDidClicked) forControlEvents:UIControlEventTouchUpInside];
     [searchButton setTitle:@"搜索" forState:UIControlStateNormal];
+    searchButton.backgroundColor = [UIColor whiteColor];
+    [searchButton setTitleColor:JXColor(200, 200, 200) forState:UIControlStateNormal];
     searchButton.layer.borderWidth = 1;
+    searchButton.layer.borderColor = JXColor(239, 239, 239).CGColor;
     [self addSubview:searchButton];
     self.searchButton = searchButton;
+}
+
+/**
+ *  搜索按钮被点击了
+ */
+- (void)searchButtonDidClicked {
+    // 获得textfield中的内容
+    NSString *searchContent = self.textField.text;
+    if (searchContent) { // 内容不为空
+        // 通知代理
+        if ([self.delegate respondsToSelector:@selector(searchBarButtonDidClickedWithSearchContent:)]) {
+            [self.delegate searchBarButtonDidClickedWithSearchContent:searchContent];
+        }
+    }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    WS(weakSelf);
     
-    MASAttachKeys(self, textField, searchButton);
+    MASAttachKeys(self, self.textField, self.searchButton);
     
-    [textField makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(weakSelf.width).multipliedBy(0.7);
-        make.height.offset(44);
+    [self.textField makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(weakSelf.width).multipliedBy(0.65);
         make.left.offset(margin);
-//        make.top.offset(margin);
-//        make.bottom.offset(-margin);
+        make.top.offset(margin);
+        make.bottom.offset(-margin);
         make.centerY.equalTo(weakSelf);
-        make.right.equalTo(searchButton.left).offset(-margin * 0.5);
+        make.right.equalTo(self.searchButton.left).offset(-margin);
     }];
     
-    [searchButton makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(textField);
-        make.left.equalTo(textField.right).offset(margin * 0.5);
+    [self.searchButton makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.textField);
+        make.left.equalTo(self.textField.right).offset(margin);
         make.right.offset(-margin);
     }];
+}
+
++ (CGFloat)height {
+    return 64;
+}
+
+- (void)quitKeyboard {
+    [self.textField resignFirstResponder];
 }
 
 @end

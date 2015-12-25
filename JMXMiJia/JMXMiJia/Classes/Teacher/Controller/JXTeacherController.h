@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JXTeacherController : UITableViewController
+@interface JXTeacherController : UIViewController
 
 @end

@@ -10,12 +10,22 @@
 #import "JXTeacherViewCell.h"
 #import "JXTeacher.h"
 #import "JXSearchBar.h"
+#import "JXTeacherToolBar.h"
 #import "UIView+Extension.h"
 
-@interface JXTeacherController ()
+@interface JXTeacherController () <UITableViewDataSource, UITableViewDelegate, JXSearchBarDelegate>
+
+@property (nonatomic, weak) UITableView *tableView;
+
+@property (nonatomic, weak) UIView *toolView;
+
+@property (nonatomic, weak) JXSearchBar *searchBar;
 
 @property (nonatomic, strong) NSMutableArray *teachers;
-
+/** tableview上次滚动到的contentOffset的y值 */
+@property (nonatomic, assign) CGFloat lastScroolY;
+/** 是否正在拖动tableview */
+@property (nonatomic, assign) BOOL draging;
 @end
 
 @implementation JXTeacherController
@@ -40,24 +50,57 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     [self.navigationItem setTitle:@"教练列表"];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    [self setupTableView];
+    
+    [self setupToolView];
+}
+
+- (void)setupTableView {
+    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
+    
+    tableView.contentInset = UIEdgeInsetsMake(64 + 50, 0, 0, 0);
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.rowHeight = 70;
     
     [self.tableView registerClass:[JXTeacherViewCell class] forCellReuseIdentifier:@"teacher"];
-    self.tableView.rowHeight = 70;
+}
+
+- (void)setupToolView {
+    UIView *toolView = [[UIView alloc] init];
     
-    [self setupSearchBar];
+    JXSearchBar *searchBar = [[JXSearchBar alloc] init];
+    searchBar.frame = CGRectMake(0, 0, JXScreenW, [JXSearchBar height]);
+    [toolView addSubview:searchBar];
+    searchBar.delegate = self;
+    self.searchBar = searchBar;
+    
+#warning xib为什么不行
+//    JXTeacherToolBar *toolBar = [JXTeacherToolBar toolbar];
+    JXTeacherToolBar *toolBar = [[JXTeacherToolBar alloc] init];
+    toolBar.frame = CGRectMake(0, CGRectGetMaxY(searchBar.frame), JXScreenW, [JXTeacherToolBar height]);
+    [toolView addSubview:toolBar];
+    
+    toolView.frame = CGRectMake(0, 64, JXScreenW, CGRectGetMaxY(toolBar.frame));
+    [self.view insertSubview:toolView aboveSubview:self.tableView];
+    self.toolView = toolView;
 }
 
-- (void)setupSearchBar {
-    NSLog(@"宽度 = %f", [UIScreen mainScreen].bounds.size.width);
-    JXSearchBar *searchBar = [[JXSearchBar alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, 64)];
-//    searchBar.frame = CGRectMake(0, 64, self.view.width, 64);
-    UIWindow *window = [UIApplication sharedApplication].windows.lastObject;
-    [self.tableView addSubview:searchBar];
+#pragma mark - JXSearchBarDelegate
+/**
+ *  搜索按钮被点击了
+ */
+- (void)searchBarButtonDidClickedWithSearchContent:(NSString *)searchContent {
+#warning 调用服务器接口
 }
 
+#pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.teachers.count;
 }
@@ -65,7 +108,44 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JXTeacherViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"teacher" forIndexPath:indexPath];
     cell.teacher = self.teachers[indexPath.row];
+    
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.draging = YES;
+    self.lastScroolY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    self.draging = NO;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.searchBar quitKeyboard];
+    
+    if (self.draging == NO) return;
+    
+    if (scrollView.contentOffset.y > self.lastScroolY) {
+        if (self.toolView.hidden == NO) {
+            [UIView animateWithDuration:0.25 animations:^{
+                self.toolView.y = - 50;
+            } completion:^(BOOL finished) {
+                self.toolView.hidden = YES;
+            }];
+        }
+        
+    }
+    else {
+        if (self.toolView.hidden == YES) {
+            self.toolView.hidden = NO;
+            [UIView animateWithDuration:0.25 animations:^{
+                self.toolView.y = 64;
+            }];
+        }
+        
+    }
 }
 
 @end
