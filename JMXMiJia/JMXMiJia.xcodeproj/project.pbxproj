@@ -30,6 +30,7 @@
 		04F0ABDF1C2BF36F000EB562 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABDE1C2BF36F000EB562 /* UIView+Extension.m */; };
 		04F0ABE21C2CDA56000EB562 /* JXTeacherToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABE11C2CDA56000EB562 /* JXTeacherToolBar.m */; };
 		04F0ABE41C2CDACC000EB562 /* JXTeacherToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F0ABE31C2CDACC000EB562 /* JXTeacherToolBar.xib */; };
+		52A30C861C2FC57000A176A7 /* JXNavLetterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A30C851C2FC57000A176A7 /* JXNavLetterButton.m */; };
 		DC3616EA9689F725065AC7AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5C3C437BBA4964B2BC3CA8 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,11 @@
 		04F0ABE11C2CDA56000EB562 /* JXTeacherToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTeacherToolBar.m; sourceTree = "<group>"; };
 		04F0ABE31C2CDACC000EB562 /* JXTeacherToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXTeacherToolBar.xib; sourceTree = "<group>"; };
 		1B5C3C437BBA4964B2BC3CA8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		52A30C841C2FC57000A176A7 /* JXNavLetterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXNavLetterButton.h; sourceTree = "<group>"; };
+		52A30C851C2FC57000A176A7 /* JXNavLetterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXNavLetterButton.m; sourceTree = "<group>"; };
+		52A30C881C2FC59D00A176A7 /* HMSingleton-ARC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HMSingleton-ARC.h"; sourceTree = "<group>"; };
+		52A30C891C2FC59D00A176A7 /* HMSingleton-MRC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HMSingleton-MRC.h"; sourceTree = "<group>"; };
+		52A30C8A1C2FC59D00A176A7 /* JXSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXSingleton.h; sourceTree = "<group>"; };
 		5B32403F5E22DCD8D9463503 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BB5B21B45822D1FE6B9F39ED /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -273,6 +279,8 @@
 			children = (
 				04F0ABD81C2BEB5B000EB562 /* JXSearchBar.h */,
 				04F0ABD91C2BEB5B000EB562 /* JXSearchBar.m */,
+				52A30C841C2FC57000A176A7 /* JXNavLetterButton.h */,
+				52A30C851C2FC57000A176A7 /* JXNavLetterButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -486,6 +494,7 @@
 		04F0ABDB1C2BF362000EB562 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				52A30C871C2FC59D00A176A7 /* Singleton */,
 				04F0ABDC1C2BF36F000EB562 /* UIView + Extension */,
 			);
 			path = Libs;
@@ -507,6 +516,16 @@
 				BB5B21B45822D1FE6B9F39ED /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		52A30C871C2FC59D00A176A7 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				52A30C881C2FC59D00A176A7 /* HMSingleton-ARC.h */,
+				52A30C891C2FC59D00A176A7 /* HMSingleton-MRC.h */,
+				52A30C8A1C2FC59D00A176A7 /* JXSingleton.h */,
+			);
+			path = Singleton;
 			sourceTree = "<group>";
 		};
 		EE2CB9A1A5015F38F4BB83C7 /* Frameworks */ = {
@@ -589,6 +608,7 @@
 				TargetAttributes = {
 					04F0AB531C2A2FCD000EB562 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = FNKL988VT9;
 					};
 					04F0AB6C1C2A2FCE000EB562 = {
 						CreatedOnToolsVersion = 7.2;
@@ -717,6 +737,7 @@
 				04F0ABBD1C2A3E97000EB562 /* JXStudentController.m in Sources */,
 				04F0ABE21C2CDA56000EB562 /* JXTeacherToolBar.m in Sources */,
 				04F0ABC01C2A3EBC000EB562 /* JXStudentProfileController.m in Sources */,
+				52A30C861C2FC57000A176A7 /* JXNavLetterButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -848,12 +869,15 @@
 			baseConfigurationReference = 5B32403F5E22DCD8D9463503 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JMXMiJia/JMXMiJia-Prefix.pch";
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-9.JMXMiJia";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -862,12 +886,15 @@
 			baseConfigurationReference = BB5B21B45822D1FE6B9F39ED /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JMXMiJia/JMXMiJia-Prefix.pch";
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-9.JMXMiJia";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

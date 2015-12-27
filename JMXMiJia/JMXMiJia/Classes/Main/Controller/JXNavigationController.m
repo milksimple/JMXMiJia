@@ -7,6 +7,8 @@
 //
 
 #import "JXNavigationController.h"
+#import <BBBadgeBarButtonItem.h>
+#import "UIView+Extension.h"
 
 @interface JXNavigationController ()
 

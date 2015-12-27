@@ -12,6 +12,8 @@
 #import "JXSearchBar.h"
 #import "JXTeacherToolBar.h"
 #import "UIView+Extension.h"
+#import <BBBadgeBarButtonItem.h>
+#import "JXNavLetterButton.h"
 
 @interface JXTeacherController () <UITableViewDataSource, UITableViewDelegate, JXSearchBarDelegate>
 

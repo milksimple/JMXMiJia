@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "JXTabBarController.h"
+#import <BBBadgeBarButtonItem.h>
+#import "UIView+Extension.h"
 
 @interface AppDelegate ()
 
@@ -20,9 +22,27 @@
     self.window = [[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[JXTabBarController alloc] init];
-    
+    JXTabBarController *tabBarController = [[JXTabBarController alloc] init];
+    self.window.rootViewController = tabBarController;
     [self.window makeKeyAndVisible];
+    
+    // 信件按钮
+    UIButton *letterButton = [[UIButton alloc] init];
+    [letterButton setImage:[UIImage imageNamed:@"nav_letter"] forState:UIControlStateNormal];
+    BBBadgeBarButtonItem *letterItem = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:letterButton];
+    letterItem.badgeOriginX = 20;
+    letterItem.badgeOriginY = -10;
+        letterItem.badgeMinSize = -10;
+    letterItem.badgeValue = @"1";
+    
+    UIView *customView = letterItem.customView;
+    CGFloat customViewW = 26;
+    CGFloat customViewH = 17.3;
+    CGFloat customViewX = JXScreenW - customViewW - JXScreenW * 0.05;
+    CGFloat customViewY = 20 + (44 - customViewH) * 0.5;
+    customView.frame = CGRectMake(customViewX, customViewY, customViewW, customViewH);
+    [self.window addSubview:customView];
+    
     return YES;
 }
 
@@ -47,5 +67,4 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 @end

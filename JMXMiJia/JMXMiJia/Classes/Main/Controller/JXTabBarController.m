@@ -15,6 +15,9 @@
 #import "JXStudentClassController.h"
 #import "JXStudentController.h"
 #import "JXStudentProfileController.h"
+#import "UIView+Extension.h"
+#import "JXNavLetterButton.h"
+#import <BBBadgeBarButtonItem.h>
 
 @interface JXTabBarController ()
 
