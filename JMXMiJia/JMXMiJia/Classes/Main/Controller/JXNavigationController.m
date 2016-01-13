@@ -22,6 +22,8 @@
     // 设置外观
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]}];
+    
+    
 }
 
 

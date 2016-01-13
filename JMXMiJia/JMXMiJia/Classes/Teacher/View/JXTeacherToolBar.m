@@ -58,33 +58,33 @@
     
     MASAttachKeys(sumUpButton, nearbyButton, filterButton);
     
-    [sumUpButton makeConstraints:^(MASConstraintMaker *make) {
+    [sumUpButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.offset(0);
         make.right.equalTo(nearbyButton.left);
         make.width.equalTo(nearbyButton);
     }];
     
-    [nearbyButton makeConstraints:^(MASConstraintMaker *make) {
+    [nearbyButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(sumUpButton.right).offset(0);
         make.top.bottom.offset(0);
         make.width.equalTo(sumUpButton);
         make.right.equalTo(filterButton.left);
     }];
     
-    [filterButton makeConstraints:^(MASConstraintMaker *make) {
+    [filterButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(nearbyButton.right).offset(0);
         make.top.bottom.right.offset(0);
         make.width.equalTo(sumUpButton);
     }];
     
-    [spearator1 makeConstraints:^(MASConstraintMaker *make) {
+    [spearator1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.offset(1);
         make.height.offset(15);
         make.centerY.offset(0);
         make.left.equalTo(sumUpButton.right);
     }];
     
-    [spearator2 makeConstraints:^(MASConstraintMaker *make) {
+    [spearator2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.offset(1);
         make.height.offset(15);
         make.centerY.offset(0);
