@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '597EB0092BC4329514A08EEC'
+               BlueprintIdentifier = '1C6AA6230C841939A01EF277'
                BlueprintName = 'BBBadgeBarButtonItem'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libBBBadgeBarButtonItem.a'>

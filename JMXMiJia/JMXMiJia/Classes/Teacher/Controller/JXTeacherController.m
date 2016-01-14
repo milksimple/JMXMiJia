@@ -60,6 +60,12 @@
     [self setupToolView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    
+}
+
 - (void)setupTableView {
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.dataSource = self;

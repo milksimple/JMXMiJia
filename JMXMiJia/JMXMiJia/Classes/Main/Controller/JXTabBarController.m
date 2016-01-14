@@ -17,6 +17,7 @@
 #import "JXStudentProfileController.h"
 #import "UIView+Extension.h"
 #import "JXNavLetterButton.h"
+#import <BBBadgeBarButtonItem.h>
 
 @interface JXTabBarController ()
 
@@ -39,6 +40,8 @@
     JXTeacherProfileController *teacherProfileVC = [[JXTeacherProfileController alloc] init];
     [self addChildVC:teacherProfileVC image:@"tabbar_profile_normal" selectedImage:@"tabbar_profile_selected" title:@"个人"];
     
+    
+    
 }
 
 - (void)addChildVC:(UIViewController *)childVC image:(NSString *)image selectedImage:(NSString *)selectedImage title:(NSString *)title {
@@ -49,6 +52,7 @@
     [childVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:JXColor(177, 177, 177)} forState:UIControlStateNormal];
     [childVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:JXColor(82, 195, 233)} forState:UIControlStateSelected];
     JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:childVC];
+    
     [self addChildViewController:nav];
 }
 

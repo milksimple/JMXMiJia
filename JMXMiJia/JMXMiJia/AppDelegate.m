@@ -10,6 +10,10 @@
 #import "JXTabBarController.h"
 #import <BBBadgeBarButtonItem.h>
 #import "UIView+Extension.h"
+#import "JXAccountTool.h"
+#import "JXAccount.h"
+#import "JXLoginViewController.h"
+#import <IQKeyboardManager.h>
 
 @interface AppDelegate ()
 
@@ -17,33 +21,35 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
     self.window.backgroundColor = [UIColor whiteColor];
-    JXTabBarController *tabBarController = [[JXTabBarController alloc] init];
-    self.window.rootViewController = tabBarController;
+    
+    // 判断之前是否登录过
+    JXAccount *account = [JXAccountTool account];
+    if (account) { // 之前登录过
+        JXTabBarController *tabBarController = [[JXTabBarController alloc] init];
+        self.window.rootViewController = tabBarController;
+    }
+    else {
+        JXLoginViewController *loginVC = [[JXLoginViewController alloc] init];
+        self.window.rootViewController = loginVC;
+    }
+    
     [self.window makeKeyAndVisible];
-    
-    // 信件按钮
-    UIButton *letterButton = [[UIButton alloc] init];
-    [letterButton setImage:[UIImage imageNamed:@"nav_letter"] forState:UIControlStateNormal];
-    BBBadgeBarButtonItem *letterItem = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:letterButton];
-    letterItem.badgeOriginX = 20;
-    letterItem.badgeOriginY = -10;
-        letterItem.badgeMinSize = -10;
-    letterItem.badgeValue = @"1";
-    
-    UIView *customView = letterItem.customView;
-    CGFloat customViewW = 26;
-    CGFloat customViewH = 17.3;
-    CGFloat customViewX = JXScreenW - customViewW - JXScreenW * 0.05;
-    CGFloat customViewY = 20 + (44 - customViewH) * 0.5;
-    customView.frame = CGRectMake(customViewX, customViewY, customViewW, customViewH);
-    [self.window addSubview:customView];
+    // 初始化智能键盘
+    [self setupIQKeyboardManager];
     
     return YES;
+}
+
+/**
+ *  初始化智能键盘
+ */
+- (void)setupIQKeyboardManager {
+    IQKeyboardManager *keyboard = [IQKeyboardManager sharedManager];
+    keyboard.enable = YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

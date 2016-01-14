@@ -9,6 +9,8 @@
 #import "JXLoginViewController.h"
 #import <Masonry.h>
 #import "JXIconTextField.h"
+#import "JXRegisterViewController.h"
+#import "JXNavigationController.h"
 
 @interface JXLoginViewController ()
 
@@ -35,16 +37,12 @@
     
     JXIconTextField *nameField = [[JXIconTextField alloc] init];
     nameField.placeholder = @"请输入用户名";
-    nameField.layer.borderWidth = 1;
-    nameField.layer.cornerRadius = fieldH * 0.5;
     [nameField setEditingImage:[UIImage imageNamed:@"login_name_high"] endEditImage:[UIImage imageNamed:@"login_name"]];
     [self.view addSubview:nameField];
     self.nameField = nameField;
     
     JXIconTextField *pwdField = [[JXIconTextField alloc] init];
     pwdField.placeholder = @"请输入密码";
-    pwdField.layer.borderWidth = 1;
-    pwdField.layer.cornerRadius = fieldH * 0.5;
     [pwdField setEditingImage:[UIImage imageNamed:@"login_pwd_high"] endEditImage:[UIImage imageNamed:@"login_pwd"]];
     [self.view addSubview:pwdField];
     self.pwdField = pwdField;
@@ -64,6 +62,8 @@
     UIButton *noAccountBtn = [[UIButton alloc] init];
     [noAccountBtn setTitle:@"还没有账号?" forState:UIControlStateNormal];
     [noAccountBtn setTitleColor:JXColor(182, 182, 182) forState:UIControlStateNormal];
+    // 监听注册按钮点击
+    [noAccountBtn addTarget:self action:@selector(noAccountBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:noAccountBtn];
     
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -110,6 +110,12 @@
  */
 - (void)setupTopView {
     
+}
+
+- (void)noAccountBtnClicked {
+    JXRegisterViewController *registerVC = [[JXRegisterViewController alloc] init];
+    JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:registerVC];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

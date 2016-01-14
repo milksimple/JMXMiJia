@@ -25,6 +25,8 @@
         self.leftViewMode = UITextFieldViewModeAlways;
         self.iconView = iconView;
         
+        self.layer.borderWidth = 1;
+        
         // 监听自己编辑状态的通知
         [JXNotificationCenter addObserver:self selector:@selector(textFieldBeginEditing) name:UITextFieldTextDidBeginEditingNotification object:self];
         [JXNotificationCenter addObserver:self selector:@selector(textFieldEndEditing) name:UITextFieldTextDidEndEditingNotification object:self];
@@ -55,6 +57,8 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    self.layer.cornerRadius = self.frame.size.height * 0.5;
     
     CGFloat leftViewX = 0;
     CGFloat leftViewY = 0;

@@ -23,7 +23,8 @@
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]}];
     
-    
+    UIBarButtonItem *barItem = [UIBarButtonItem appearance];
+    [barItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor]} forState:UIControlStateNormal];
 }
 
 

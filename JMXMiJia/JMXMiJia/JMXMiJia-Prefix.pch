@@ -23,6 +23,8 @@
 // 通知中心
 #define JXNotificationCenter [NSNotificationCenter defaultCenter]
 
+#define JXUserDefaults [NSUserDefaults standardUserDefaults]
+
 #ifdef DEBUG // 处于开发阶段
 #define JXLog(...) NSLog(__VA_ARGS__)
 #else // 处于发布阶段
@@ -43,4 +45,7 @@
 
 // 屏幕宽度
 #define JXScreenW [UIScreen mainScreen].bounds.size.width
+
+// 导航栏上的私信item显示个数，即当前未读私信的个数
+#define JXNavLetterItemBadgeKey @"JXNavLetterItemBadgeKey"
 #endif

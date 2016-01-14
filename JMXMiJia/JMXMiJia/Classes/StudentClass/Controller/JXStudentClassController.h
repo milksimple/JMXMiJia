@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JXMainBaseViewController.h"
 
-@interface JXStudentClassController : UIViewController
+@interface JXStudentClassController : JXMainBaseViewController
 
 @end
