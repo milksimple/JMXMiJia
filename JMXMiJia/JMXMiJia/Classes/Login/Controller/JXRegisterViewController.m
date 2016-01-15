@@ -11,12 +11,13 @@
 #import "JXIconTextField.h"
 #import "MBProgressHUD+MJ.h"
 #import <AFNetworking.h>
+#import "JXAccount.h"
+#import "JXAccountTool.h"
+#import "NSString+MD5.h"
 
 @interface JXRegisterViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 /** 用户名 */
 @property (nonatomic, weak) JXIconTextField *usernameField;
-/** 手机号 */
-@property (nonatomic, weak) JXIconTextField *mobileField;
 /** 密码 */
 @property (nonatomic, weak) JXIconTextField *pwdField;
 /** 确认密码 */
@@ -36,18 +37,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.view.backgroundColor = [UIColor whiteColor];
     CGFloat margin = 20; // field之间的间距
     CGFloat fieldH = 40; // field的高度
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancle)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(cancle)];
     
-    self.usernameField = [self setupTextFieldWithEditingImage:@"register_name_high" endEditImage:@"register_name" placeholder:@"请输入登录名"];
-    
-    self.mobileField = [self setupTextFieldWithEditingImage:@"register_phone_high" endEditImage:@"register_phone" placeholder:@"请输入手机号码"];
+    self.usernameField = [self setupTextFieldWithEditingImage:@"login_name_high" endEditImage:@"login_name" placeholder:@"请输入登录名(手机号)"];
     
     self.pwdField = [self setupTextFieldWithEditingImage:@"login_pwd_high" endEditImage:@"login_pwd" placeholder:@"请输入密码"];
+    [self.pwdField setSecureTextEntry:YES];
     
     self.pwdConfirmField = [self setupTextFieldWithEditingImage:@"register_confirm_pwd_high" endEditImage:@"register_confirm_pwd" placeholder:@"请再次输入密码"];
+    [self.pwdConfirmField setSecureTextEntry:YES];
     
     self.realNameField = [self setupTextFieldWithEditingImage:@"register_name_high" endEditImage:@"register_name" placeholder:@"请输入真实姓名"];
     
@@ -69,7 +71,7 @@
     [self.view addSubview:registerButton];
     self.registerButton = registerButton;
     
-    [@[self.usernameField, self.mobileField, self.pwdField, self.pwdConfirmField, self.realNameField, self.sexField, self.rMobileField, self.registerButton] mas_makeConstraints:^(MASConstraintMaker *make) {
+    [@[self.usernameField, self.pwdField, self.pwdConfirmField, self.realNameField, self.sexField, self.rMobileField, self.registerButton] mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.centerX);
         make.width.equalTo(self.view.width).multipliedBy(0.8);
         make.height.offset(fieldH);
@@ -79,12 +81,8 @@
         make.top.offset(margin * 4);
     }];
     
-    [self.mobileField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.usernameField.bottom).offset(margin);
-    }];
-    
     [self.pwdField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mobileField.bottom).offset(margin);
+        make.top.equalTo(self.usernameField.bottom).offset(margin);
     }];
     
     [self.pwdConfirmField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,28 +119,49 @@
  *  注册按钮被点击了
  */
 - (void)registerButtonClicked {
-//    if (!self.usernameField.text.length || !self.mobileField.text.length || !self.pwdField.text.length || !self.pwdConfirmField || !self.realNameField || !self.sexField || !self.rMobileField) {
-//        [MBProgressHUD showError:@"请将信息填写完整"];
-//    }
-//    
-//    else if (![self.pwdField.text isEqualToString:self.pwdConfirmField.text]) {
-//        [MBProgressHUD showError:@"两次输入的密码不匹配"];
-//    }
-//    else {
+    if (!self.usernameField.text.length || !self.pwdField.text.length || !self.pwdConfirmField || !self.realNameField || !self.sexField || !self.rMobileField) {
+        [MBProgressHUD showError:@"请将信息填写完整"];
+    }
+    
+    else if (![self.pwdField.text isEqualToString:self.pwdConfirmField.text]) {
+        [MBProgressHUD showError:@"两次输入的密码不匹配"];
+    }
+    else {
+        [MBProgressHUD showMessage:@"正在注册..."];
+        
         AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-        paras[@"mobile"] = @"15833913972";
-        paras[@"password"] = @"123456";
-        paras[@"realName"] = @"kkaa";
-//        paras[@"rMobile"] = self.rMobileField.text;
-        paras[@"sex"] = @0;
+        paras[@"mobile"] = self.usernameField.text;
+        // md5加密
+        paras[@"password"] = [NSString md5:self.pwdConfirmField.text];
+        paras[@"realName"] = self.realNameField.text;
+        paras[@"rMobile"] = self.rMobileField.text;
+        if ([self.sexField.text isEqualToString:@"男"]) {
+            paras[@"sex"] = @1;
+        }
+        else {
+            paras[@"sex"] = @0;
+        }
         
+        paras[@"pushToken"] = [JXAccountTool account].pushToken;
         [mgr POST:@"http://10.255.1.24/dschoolAndroid/TraineeReg" parameters:paras progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"responseObject = %@", responseObject);
+            
+            BOOL success = responseObject[@"success"];
+            if (success == 0) { // 注册失败
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:responseObject[@"msg"]];
+            }
+            else { // 注册成功
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showSuccess:responseObject[@"msg"]];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                });
+            }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-             NSLog(@"error = %@", error);
+             NSLog(@"请求失败 - %@", error);
         }];
-//    }
+    }
 }
 
 /**

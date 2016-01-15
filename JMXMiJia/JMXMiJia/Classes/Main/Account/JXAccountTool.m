@@ -33,6 +33,9 @@
 {
     // 加载模型
     JXAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:JXAccountPath];
+    if (account == nil) {
+        account = [[JXAccount alloc] init];
+    }
     return account;
 }
 

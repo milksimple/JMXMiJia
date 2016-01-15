@@ -14,6 +14,8 @@
 #import "JXAccount.h"
 #import "JXLoginViewController.h"
 #import <IQKeyboardManager.h>
+#import "JXAccount.h"
+#import "JXAccountTool.h"
 
 @interface AppDelegate ()
 
@@ -22,13 +24,29 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+//    UIUserNotificationSettings * setting =  [UIUserNotificationSettings settingsForTypes:types categories:nil];
+//    [application registerUserNotificationSettings:setting];
+
+
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        UIUserNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }else
+    {
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+    }
+
+    
     self.window = [[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
     self.window.backgroundColor = [UIColor whiteColor];
     
     // 判断之前是否登录过
     JXAccount *account = [JXAccountTool account];
-    if (account) { // 之前登录过
+    if (account.hasLogin) { // 之前登录过
         JXTabBarController *tabBarController = [[JXTabBarController alloc] init];
         self.window.rootViewController = tabBarController;
     }
@@ -50,6 +68,28 @@
 - (void)setupIQKeyboardManager {
     IQKeyboardManager *keyboard = [IQKeyboardManager sharedManager];
     keyboard.enable = YES;
+}
+
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    [application registerForRemoteNotifications];
+}
+#endif
+
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    JXAccount *account = [JXAccountTool account];
+    NSString *pushToken = [[[[deviceToken description]
+                             
+                             stringByReplacingOccurrencesOfString:@"<" withString:@""]
+                            
+                            stringByReplacingOccurrencesOfString:@">" withString:@""]
+                           
+                           stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    account.pushToken = pushToken;
+    [JXAccountTool saveAccount:account];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

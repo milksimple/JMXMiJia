@@ -11,6 +11,13 @@
 #import "JXIconTextField.h"
 #import "JXRegisterViewController.h"
 #import "JXNavigationController.h"
+#import "MBProgressHUD+MJ.h"
+#import <AFNetworking.h>
+#import "JXAccountTool.h"
+#import "JXAccount.h"
+#import "NSString+MD5.h"
+#import "JXTabBarController.h"
+#import "JXForgotPwdController.h"
 
 @interface JXLoginViewController ()
 
@@ -49,12 +56,14 @@
     
     UIButton *loginBtn = [[UIButton alloc] init];
     [loginBtn setTitle:@"登  录" forState:UIControlStateNormal];
+    [loginBtn addTarget:self action:@selector(loginBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     loginBtn.layer.cornerRadius = fieldH * 0.5;
     loginBtn.backgroundColor = JXColor(252, 125, 29);
     [self.view addSubview:loginBtn];
     self.loginBtn = loginBtn;
     
     UIButton *forgotPwdBtn = [[UIButton alloc] init];
+    [forgotPwdBtn addTarget:self action:@selector(forgotPwdBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [forgotPwdBtn setTitle:@"忘记密码?" forState:UIControlStateNormal];
     [forgotPwdBtn setTitleColor:JXColor(182, 182, 182) forState:UIControlStateNormal];
     [self.view addSubview:forgotPwdBtn];
@@ -110,6 +119,53 @@
  */
 - (void)setupTopView {
     
+}
+
+/**
+ *  登录按钮被点击
+ */
+- (void)loginBtnClicked {
+    if (self.nameField.text.length == 0 || self.pwdField.text.length == 0) {
+        [MBProgressHUD showError:@"请填写账号和密码"];
+    }
+    else {
+        [MBProgressHUD showMessage:@"正在登录..."];
+        
+        AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+        NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+        paras[@"mobile"] = self.nameField.text;
+        // md5加密
+        paras[@"password"] = [NSString md5:self.pwdField.text];
+        paras[@"pushToken"] = [JXAccountTool account].pushToken;
+        [mgr POST:@"http://10.255.1.24/dschoolAndroid/Login" parameters:paras progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            BOOL success = responseObject[@"success"];
+            if (success == 0) { // 登录失败
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:responseObject[@"msg"]];
+            }
+            else { // 登录成功
+                [MBProgressHUD hideHUD];
+                
+                // 存储登录状态
+                JXAccount *account = [JXAccountTool account];
+                account.hasLogin = YES;
+                [JXAccountTool saveAccount:account];
+                
+                // 进入app主页
+                UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                window.rootViewController = [[JXTabBarController alloc] init];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            JXLog(@"请求失败 - %@", error);
+            [MBProgressHUD showError:@"请求网络失败"];
+        }];
+    }
+}
+
+- (void)forgotPwdBtnClicked {
+    JXForgotPwdController *forgotVC = [[JXForgotPwdController alloc] init];
+    JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:forgotVC];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)noAccountBtnClicked {

@@ -25,5 +25,7 @@ typedef enum {
 /** 性别 */
 @property (nonatomic, assign) JXAccountSex sex;
 /** pushToken */
-@property (nonatomic, copy) NSString *deviceToken;
+@property (nonatomic, copy) NSString *pushToken;
+/** 之前登录过 */
+@property (nonatomic, assign) BOOL hasLogin;
 @end

@@ -17,6 +17,9 @@
 		041D30E51C4797D7007C8E43 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30E11C4797D7007C8E43 /* MBProgressHUD+MJ.m */; };
 		041D30E61C4797D7007C8E43 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 041D30E21C4797D7007C8E43 /* MBProgressHUD.bundle */; };
 		041D30E71C4797D7007C8E43 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30E41C4797D7007C8E43 /* MBProgressHUD.m */; };
+		041D30EB1C4883B1007C8E43 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30EA1C4883B1007C8E43 /* NSArray+Log.m */; };
+		041D30EE1C48DCED007C8E43 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30ED1C48DCED007C8E43 /* NSString+MD5.m */; };
+		041D30F11C48F09D007C8E43 /* JXForgotPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30F01C48F09D007C8E43 /* JXForgotPwdController.m */; };
 		04F0AB591C2A2FCD000EB562 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0AB581C2A2FCD000EB562 /* main.m */; };
 		04F0AB5C1C2A2FCE000EB562 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0AB5B1C2A2FCE000EB562 /* AppDelegate.m */; };
 		04F0AB641C2A2FCE000EB562 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F0AB631C2A2FCE000EB562 /* Assets.xcassets */; };
@@ -81,6 +84,12 @@
 		041D30E21C4797D7007C8E43 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		041D30E31C4797D7007C8E43 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		041D30E41C4797D7007C8E43 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		041D30E91C4883B1007C8E43 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
+		041D30EA1C4883B1007C8E43 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
+		041D30EC1C48DCED007C8E43 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		041D30ED1C48DCED007C8E43 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		041D30EF1C48F09D007C8E43 /* JXForgotPwdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXForgotPwdController.h; sourceTree = "<group>"; };
+		041D30F01C48F09D007C8E43 /* JXForgotPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXForgotPwdController.m; sourceTree = "<group>"; };
 		04F0AB541C2A2FCD000EB562 /* JMXMiJia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JMXMiJia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F0AB581C2A2FCD000EB562 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04F0AB5A1C2A2FCE000EB562 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -189,6 +198,8 @@
 				041D30CD1C44FCF0007C8E43 /* JXLoginViewController.m */,
 				041D30DC1C47538A007C8E43 /* JXRegisterViewController.h */,
 				041D30DD1C47538A007C8E43 /* JXRegisterViewController.m */,
+				041D30EF1C48F09D007C8E43 /* JXForgotPwdController.h */,
+				041D30F01C48F09D007C8E43 /* JXForgotPwdController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -212,8 +223,11 @@
 		041D30D21C46273C007C8E43 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				041D30E81C4883B1007C8E43 /* Log */,
 				041D30D31C462752007C8E43 /* UIViewController+Extension.h */,
 				041D30D41C462752007C8E43 /* UIViewController+Extension.m */,
+				041D30EC1C48DCED007C8E43 /* NSString+MD5.h */,
+				041D30ED1C48DCED007C8E43 /* NSString+MD5.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -228,6 +242,15 @@
 				041D30E41C4797D7007C8E43 /* MBProgressHUD.m */,
 			);
 			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		041D30E81C4883B1007C8E43 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				041D30E91C4883B1007C8E43 /* NSArray+Log.h */,
+				041D30EA1C4883B1007C8E43 /* NSArray+Log.m */,
+			);
+			path = Log;
 			sourceTree = "<group>";
 		};
 		04F0AB4B1C2A2FCD000EB562 = {
@@ -712,7 +735,15 @@
 				TargetAttributes = {
 					04F0AB531C2A2FCD000EB562 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = APSBCLHT8R;
+						DevelopmentTeam = 7U2B388HH6;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					04F0AB6C1C2A2FCE000EB562 = {
 						CreatedOnToolsVersion = 7.2;
@@ -826,14 +857,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				041D30EB1C4883B1007C8E43 /* NSArray+Log.m in Sources */,
 				04F0ABDF1C2BF36F000EB562 /* UIView+Extension.m in Sources */,
 				04F0ABC91C2A3EF4000EB562 /* JXTeacherProfileController.m in Sources */,
 				041D30D11C45E557007C8E43 /* JXIconTextField.m in Sources */,
 				04F0ABDA1C2BEB5B000EB562 /* JXSearchBar.m in Sources */,
 				041D30C21C44F606007C8E43 /* JXAccountTool.m in Sources */,
+				041D30EE1C48DCED007C8E43 /* NSString+MD5.m in Sources */,
 				041D30DB1C47494B007C8E43 /* JXMainBaseViewController.m in Sources */,
 				041D30E51C4797D7007C8E43 /* MBProgressHUD+MJ.m in Sources */,
 				04F0ABBA1C2A3E82000EB562 /* JXStudentClassController.m in Sources */,
+				041D30F11C48F09D007C8E43 /* JXForgotPwdController.m in Sources */,
 				04F0ABB11C2A3CDA000EB562 /* JXTabBarController.m in Sources */,
 				041D30E71C4797D7007C8E43 /* MBProgressHUD.m in Sources */,
 				04F0ABC31C2A3ECA000EB562 /* JXTeacherController.m in Sources */,
@@ -989,7 +1023,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jx.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1006,7 +1040,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jx.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
