@@ -10,7 +10,10 @@
 #import "JXIconTextField.h"
 #import <Masonry.h>
 #import "MBProgressHUD+MJ.h"
-#import <AFNetworking.h>
+#import "JXHttpTool.h"
+#import "JXAccount.h"
+#import "JXAccountTool.h"
+#import "JXTabBarController.h"
 
 @interface JXForgotPwdController ()
 /** 用户名 */
@@ -110,18 +113,42 @@
     }
     else {
         // 发送请求
-        AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.usernameField.text;
-        [mgr POST:@"http://10.255.1.24/dschoolAndroid/SendCheckCode" parameters:paras progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            JXLog(@"成功 - %@", responseObject);
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [JXHttpTool post:@"http://10.255.1.24/dschoolAndroid/SendCheckCode" params:paras success:^(id json) {
+            JXLog(@"成功 - %@", json);
+        } failure:^(NSError *error) {
             JXLog(@"失败 - %@", error);
         }];
     }
 }
 
 - (void)resetButtonClicked {
-    
+    if (!self.usernameField.text.length || !self.pwdField.text.length || !self.verifyField.text.length) {
+        [MBProgressHUD showError:@"请将信息填写完整"];
+    }
+    else {
+        [MBProgressHUD showMessage:@"正在重置密码..."];
+        NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+        paras[@"mobile"] = self.usernameField.text;
+        paras[@"password"] = self.pwdField.text;
+        paras[@"checkCode"] = self.verifyField.text;
+        paras[@"pushToken"] = [JXAccountTool account].pushToken;
+        [JXHttpTool post:@"http://10.255.1.24/dschoolAndroid/ResetPassword" params:paras success:^(id json) {
+            [MBProgressHUD hideHUD];
+            if ((BOOL)json[@"success"] == 1) { // 设置成功
+                [MBProgressHUD showSuccess:@"重置密码成功!"];
+                UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                window.rootViewController = [[JXTabBarController alloc] init];
+            }
+            else { // 设置失败
+                [MBProgressHUD showError:json[@"msg"]];
+            }
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showError:@"连接网络失败,请重试"];
+        }];
+    }
 }
 @end
