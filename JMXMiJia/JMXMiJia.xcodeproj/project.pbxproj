@@ -43,6 +43,7 @@
 		04F0ABDF1C2BF36F000EB562 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABDE1C2BF36F000EB562 /* UIView+Extension.m */; };
 		04F0ABE21C2CDA56000EB562 /* JXTeacherToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABE11C2CDA56000EB562 /* JXTeacherToolBar.m */; };
 		04F0ABE41C2CDACC000EB562 /* JXTeacherToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F0ABE31C2CDACC000EB562 /* JXTeacherToolBar.xib */; };
+		524813A41C4935120008828A /* JXHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 524813A31C4935120008828A /* JXHttpTool.m */; };
 		52A30C861C2FC57000A176A7 /* JXNavLetterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A30C851C2FC57000A176A7 /* JXNavLetterButton.m */; };
 		DC3616EA9689F725065AC7AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5C3C437BBA4964B2BC3CA8 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -136,6 +137,8 @@
 		04F0ABE11C2CDA56000EB562 /* JXTeacherToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTeacherToolBar.m; sourceTree = "<group>"; };
 		04F0ABE31C2CDACC000EB562 /* JXTeacherToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXTeacherToolBar.xib; sourceTree = "<group>"; };
 		1B5C3C437BBA4964B2BC3CA8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		524813A21C4935120008828A /* JXHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXHttpTool.h; sourceTree = "<group>"; };
+		524813A31C4935120008828A /* JXHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXHttpTool.m; sourceTree = "<group>"; };
 		52A30C841C2FC57000A176A7 /* JXNavLetterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXNavLetterButton.h; sourceTree = "<group>"; };
 		52A30C851C2FC57000A176A7 /* JXNavLetterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXNavLetterButton.m; sourceTree = "<group>"; };
 		52A30C881C2FC59D00A176A7 /* HMSingleton-ARC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HMSingleton-ARC.h"; sourceTree = "<group>"; };
@@ -368,6 +371,7 @@
 		04F0AB8F1C2A34EE000EB562 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				524813A11C4934BF0008828A /* Tool */,
 				041D30D21C46273C007C8E43 /* Category */,
 				041D30BF1C44F544007C8E43 /* Account */,
 				04F0ABDB1C2BF362000EB562 /* Libs */,
@@ -645,6 +649,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		524813A11C4934BF0008828A /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				524813A21C4935120008828A /* JXHttpTool.h */,
+				524813A31C4935120008828A /* JXHttpTool.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		52A30C871C2FC59D00A176A7 /* Singleton */ = {
 			isa = PBXGroup;
 			children = (
@@ -735,7 +748,7 @@
 				TargetAttributes = {
 					04F0AB531C2A2FCD000EB562 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 7U2B388HH6;
+						DevelopmentTeam = APSBCLHT8R;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -872,6 +885,7 @@
 				041D30E71C4797D7007C8E43 /* MBProgressHUD.m in Sources */,
 				04F0ABC31C2A3ECA000EB562 /* JXTeacherController.m in Sources */,
 				04F0ABCC1C2A3F0F000EB562 /* JXInfoController.m in Sources */,
+				524813A41C4935120008828A /* JXHttpTool.m in Sources */,
 				04F0ABB41C2A3CF7000EB562 /* JXNavigationController.m in Sources */,
 				041D30DE1C47538A007C8E43 /* JXRegisterViewController.m in Sources */,
 				04F0AB5C1C2A2FCE000EB562 /* AppDelegate.m in Sources */,
@@ -1023,7 +1037,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.cc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1040,7 +1054,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.cc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
