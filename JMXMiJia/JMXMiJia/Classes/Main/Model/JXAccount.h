@@ -20,7 +20,7 @@ typedef enum {
 @property (nonatomic, copy) NSString *password;
 /** 真实姓名 */
 @property (nonatomic, copy) NSString *realName;
-/** 推荐人手机号 */
+/** 推荐码 */
 @property (nonatomic, copy) NSString *rMobile;
 /** 性别 */
 @property (nonatomic, assign) JXAccountSex sex;
@@ -28,4 +28,6 @@ typedef enum {
 @property (nonatomic, copy) NSString *pushToken;
 /** 之前登录过 */
 @property (nonatomic, assign) BOOL hasLogin;
+/** 头像地址 */
+@property (nonatomic, copy) NSString *iconUrl;
 @end

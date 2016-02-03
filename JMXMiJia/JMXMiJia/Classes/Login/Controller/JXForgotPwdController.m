@@ -113,12 +113,19 @@
     }
     else {
         // 发送请求
+        [MBProgressHUD showSuccess:@"正在发送信息..."];
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.usernameField.text;
-        [JXHttpTool post:@"http://10.255.1.24/dschoolAndroid/SendCheckCode" params:paras success:^(id json) {
-            JXLog(@"成功 - %@", json);
+        [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/SendCheckCode" params:paras success:^(id json) {
+            BOOL success = [json[@"success"] boolValue];
+            if (success) {
+                [MBProgressHUD showSuccess:json[@"msg"]];
+            }
+            else {
+                [MBProgressHUD showError:json[@"msg"]];
+            }
         } failure:^(NSError *error) {
-            JXLog(@"失败 - %@", error);
+            [MBProgressHUD showError:@"网络请求超时, 请重试!"];
         }];
     }
 }
@@ -134,10 +141,15 @@
         paras[@"password"] = self.pwdField.text;
         paras[@"checkCode"] = self.verifyField.text;
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
-        [JXHttpTool post:@"http://10.255.1.24/dschoolAndroid/ResetPassword" params:paras success:^(id json) {
+        [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/ResetPassword" params:paras success:^(id json) {
             [MBProgressHUD hideHUD];
-            if ((BOOL)json[@"success"] == 1) { // 设置成功
+            if ([json[@"success"] boolValue] == 1) { // 设置成功
                 [MBProgressHUD showSuccess:@"重置密码成功!"];
+                // 存储登录状态
+                JXAccount *account = [JXAccountTool account];
+                account.hasLogin = YES;
+                [JXAccountTool saveAccount:account];
+                
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 window.rootViewController = [[JXTabBarController alloc] init];
             }

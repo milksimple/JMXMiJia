@@ -12,7 +12,7 @@
 #import "JXRegisterViewController.h"
 #import "JXNavigationController.h"
 #import "MBProgressHUD+MJ.h"
-#import <AFNetworking.h>
+#import "JXHttpTool.h"
 #import "JXAccountTool.h"
 #import "JXAccount.h"
 #import "NSString+MD5.h"
@@ -37,6 +37,11 @@
     
     // 设置背景
     [self setupTopView];
+    
+    UIImageView *backView = [[UIImageView alloc] init];
+    
+    backView.image = [UIImage imageNamed:@"login_bg.jpg"];
+    [self.view addSubview:backView];
     
     UIImageView *topView = [[UIImageView alloc] init];
     topView.image = [UIImage imageNamed:@"logo"];
@@ -74,6 +79,12 @@
     // 监听注册按钮点击
     [noAccountBtn addTarget:self action:@selector(noAccountBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:noAccountBtn];
+    
+    [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.offset(0);
+        make.bottom.equalTo(self.view.centerY).offset(-margin);
+
+    }];
     
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.offset(0);
@@ -129,23 +140,24 @@
         [MBProgressHUD showError:@"请填写账号和密码"];
     }
     else {
-        [MBProgressHUD showMessage:@"正在登录..."];
+        [MBProgressHUD showMessage:@"正在登录"];
         
-        AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.nameField.text;
         // md5加密
         paras[@"password"] = [NSString md5:self.pwdField.text];
+//#warning 测试数据
+//        paras[@"password"] = self.pwdField.text;
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
-        [mgr POST:@"http://10.255.1.24/dschoolAndroid/Login" parameters:paras progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            BOOL success = responseObject[@"success"];
+        
+        [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/Login" params:paras success:^(id json) {
+            [MBProgressHUD hideHUD];
+            JXLog(@"%@", json);
+            BOOL success = [json[@"success"] boolValue];
             if (success == 0) { // 登录失败
-                [MBProgressHUD hideHUD];
-                [MBProgressHUD showError:responseObject[@"msg"]];
+                [MBProgressHUD showError:json[@"msg"]];
             }
             else { // 登录成功
-                [MBProgressHUD hideHUD];
-                
                 // 存储登录状态
                 JXAccount *account = [JXAccountTool account];
                 account.hasLogin = YES;
@@ -155,8 +167,9 @@
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 window.rootViewController = [[JXTabBarController alloc] init];
             }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } failure:^(NSError *error) {
             JXLog(@"请求失败 - %@", error);
+            [MBProgressHUD hideHUD];
             [MBProgressHUD showError:@"请求网络失败"];
         }];
     }

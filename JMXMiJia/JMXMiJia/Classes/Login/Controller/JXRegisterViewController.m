@@ -10,10 +10,10 @@
 #import <Masonry.h>
 #import "JXIconTextField.h"
 #import "MBProgressHUD+MJ.h"
-#import <AFNetworking.h>
 #import "JXAccount.h"
 #import "JXAccountTool.h"
 #import "NSString+MD5.h"
+#import "JXHttpTool.h"
 
 @interface JXRegisterViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 /** 用户名 */
@@ -55,6 +55,7 @@
     
     self.sexField = [self setupTextFieldWithEditingImage:@"register_sex_high" endEditImage:@"register_sex" placeholder:@"性别"];
     UIPickerView *sexPicker = [[UIPickerView alloc] init];
+    sexPicker.backgroundColor = [UIColor whiteColor];
     sexPicker.dataSource = self;
     sexPicker.delegate = self;
     self.sexField.inputView = sexPicker;
@@ -129,7 +130,6 @@
     else {
         [MBProgressHUD showMessage:@"正在注册..."];
         
-        AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.usernameField.text;
         // md5加密
@@ -144,22 +144,32 @@
         }
         
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
-        [mgr POST:@"http://10.255.1.24/dschoolAndroid/TraineeReg" parameters:paras progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/TraineeReg" params:paras success:^(id json) {
+            [MBProgressHUD hideHUD];
             
-            BOOL success = responseObject[@"success"];
+            BOOL success = [json[@"success"] boolValue];
             if (success == 0) { // 注册失败
-                [MBProgressHUD hideHUD];
-                [MBProgressHUD showError:responseObject[@"msg"]];
+                
+                [MBProgressHUD showError:json[@"msg"]];
             }
             else { // 注册成功
-                [MBProgressHUD hideHUD];
-                [MBProgressHUD showSuccess:responseObject[@"msg"]];
+                [MBProgressHUD showSuccess:json[@"msg"]];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self dismissViewControllerAnimated:YES completion:nil];
                 });
+                
+                // 将个人信息存入沙盒
+                JXAccount *account = [JXAccountTool account];
+                account.mobile = paras[@"mobile"];
+                account.password = paras[@"password"];
+                account.realName = paras[@"realName"];
+                account.sex = [paras[@"sex"] intValue];
+                account.rMobile = paras[@"rMobile"];
+                [JXAccountTool saveAccount:account];
             }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-             NSLog(@"请求失败 - %@", error);
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+            JXLog(@"请求失败 - %@", error);
         }];
     }
 }
@@ -187,7 +197,6 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSLog(@"didSelectRow = %zd", row);
     if (row == 0) {
         self.sexField.text = @"男";
     }

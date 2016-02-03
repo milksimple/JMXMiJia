@@ -27,5 +27,28 @@
     [barItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor]} forState:UIControlStateNormal];
 }
 
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (self.childViewControllers.count >= 1) {
+        viewController.hidesBottomBarWhenPushed = YES;
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+        button.size = CGSizeMake(70, 30);
+        // 让按钮内部的所有内容左对齐
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        // 让按钮的内容往左边偏移10
+        button.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+        [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+        
+        // 修改导航栏左边的item
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    }
+    [viewController.navigationItem.backBarButtonItem setBackButtonBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [super pushViewController:viewController animated:animated];
+    
+}
 
+- (void)back {
+    [self popViewControllerAnimated:YES];
+}
 @end

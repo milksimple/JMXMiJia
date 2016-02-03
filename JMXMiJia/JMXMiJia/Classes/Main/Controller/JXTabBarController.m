@@ -32,20 +32,19 @@
     [self addChildVC:infoVC image:@"tabbar_info_normal" selectedImage:@"tabbar_info_selected" title:@"资讯"];
     
     JXTeacherController *teacherVC = [[JXTeacherController alloc] init];
-    [self addChildVC:teacherVC image:@"tabbar_person_normal" selectedImage:@"tabbar_person_selected" title:@"老师"];
+    [self addChildVC:teacherVC image:@"tabbar_person_normal" selectedImage:@"tabbar_person_selected" title:@"报名"];
     
     JXTeacherClassController *teacherClassVC = [[JXTeacherClassController alloc] init];
     [self addChildVC:teacherClassVC image:@"tabbar_class_normal" selectedImage:@"tabbar_class_selected" title:@"课堂"];
     
-    JXTeacherProfileController *teacherProfileVC = [[JXTeacherProfileController alloc] init];
-    [self addChildVC:teacherProfileVC image:@"tabbar_profile_normal" selectedImage:@"tabbar_profile_selected" title:@"个人"];
+    JXStudentProfileController *studentProfileVC = [[JXStudentProfileController alloc] init];
+    [self addChildVC:studentProfileVC image:@"tabbar_profile_normal" selectedImage:@"tabbar_profile_selected" title:@"个人"];
     
     
     
 }
 
 - (void)addChildVC:(UIViewController *)childVC image:(NSString *)image selectedImage:(NSString *)selectedImage title:(NSString *)title {
-    childVC.view.backgroundColor = [UIColor whiteColor];
     childVC.tabBarItem.image = [UIImage imageNamed:image];
     childVC.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     childVC.tabBarItem.title = title;

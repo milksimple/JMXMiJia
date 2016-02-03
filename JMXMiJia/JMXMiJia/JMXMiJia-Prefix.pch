@@ -17,8 +17,11 @@
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "UIView+JXExtension.h"
+#import "JXConst.h"
 
 #define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+#define iOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
 
 // 通知中心
 #define JXNotificationCenter [NSNotificationCenter defaultCenter]
@@ -45,7 +48,20 @@
 
 // 屏幕宽度
 #define JXScreenW [UIScreen mainScreen].bounds.size.width
+// 屏幕高度
+#define JXScreenH [UIScreen mainScreen].bounds.size.height
 
 // 导航栏上的私信item显示个数，即当前未读私信的个数
 #define JXNavLetterItemBadgeKey @"JXNavLetterItemBadgeKey"
+
+typedef enum {
+    JXSexFemale = 0, // 女性
+    JXSexMale        // 男性
+} JXSex;
+
+// 标题数组
+#define JXStars @[@"不限", @"一星", @"二星", @"三星", @"四星", @"五星"]
+// 标题数组
+#define JXSexs @[@"不限", @"男", @"女"]
+
 #endif

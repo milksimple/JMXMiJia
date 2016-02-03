@@ -20,22 +20,53 @@ typedef enum {
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+/*
+    school = 阳安驾校;
+	uid = 14447075166381;
+	star = 3;
+	models = C1;
+	price = 4580;
+	distance = 未知;
+	qual = 二级;
+	year = 3年;
+	photo = CoachPhoto?isSource=0&uid=14447075166381;
+	name = 资永俊;
+ 
+ */
+
 @interface JXTeacher : NSObject
 /** 姓名 */
 @property (nonatomic, copy) NSString *name;
+/** id */
+@property (nonatomic, copy) NSString *uid;
 /** 所在驾校 */
 @property (nonatomic, copy) NSString *school;
-/** 评分等级,代表多少颗星 */
-@property (nonatomic, assign) NSUInteger grade;
-/** 教师等级 */
-@property (nonatomic, assign) NSUInteger rank;
+/** 教师级别,比如：二级 */
+@property (nonatomic, copy) NSString *qual;
+/** 教师等级,代表多少颗星 */
+@property (nonatomic, assign) NSUInteger star;
+/** 学费 */
+@property (nonatomic, assign) float price;
+/** 工作年限 */
+@property (nonatomic, assign) NSInteger year;
+/** 学车类别,比如“C1” */
+@property (nonatomic, copy) NSString *models;
+/** 头像地址 */
+@property (nonatomic, copy) NSString *photo;
+/** 当前距离 */
+@property (nonatomic, assign) CGFloat distance;
+
+
 /** 当前位置 */
 @property (nonatomic, strong)  CLLocation *location;
-/** 学费 */
-@property (nonatomic, assign) float fee;
-/** 工作年限 */
-@property (nonatomic, assign) NSInteger workYear;
-/** 学车类别,比如“C1” */
-@property (nonatomic, assign) NSString *teachType;
-
+/** 评分等级 */
+@property (nonatomic, assign) BOOL grade;
+/** 个人介绍 */
+@property (nonatomic, copy) NSString *introduction;
+/** 报名人数 */
+@property (nonatomic, assign) NSUInteger signupCount;
+/** 电话号码 */
+@property (nonatomic, copy) NSString *phone;
+/** 性别 */
+@property (nonatomic, assign) JXSex sex;
 @end

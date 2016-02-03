@@ -24,10 +24,6 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-//    UIUserNotificationSettings * setting =  [UIUserNotificationSettings settingsForTypes:types categories:nil];
-//    [application registerUserNotificationSettings:setting];
-
 
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         UIUserNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
@@ -46,7 +42,13 @@
     
     // 判断之前是否登录过
     JXAccount *account = [JXAccountTool account];
-    if (account.hasLogin) { // 之前登录过
+#warning 测试
+//    account.pushToken = @"232211bf0cdae1a1c5ad737b002d4638ef581ef0eaba1e5f344fff6b536534ce";
+//    account.mobile = @"18213827534";
+//    account.password = @"123456";
+//    [JXAccountTool saveAccount:account];
+    if (!account.hasLogin) { // 之前登录过
+        
         JXTabBarController *tabBarController = [[JXTabBarController alloc] init];
         self.window.rootViewController = tabBarController;
     }

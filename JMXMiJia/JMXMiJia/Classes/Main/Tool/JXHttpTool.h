@@ -7,6 +7,7 @@
 //  封装AFN
 
 #import <Foundation/Foundation.h>
+#import <AFNetworking.h>
 
 @interface JXHttpTool : NSObject
 
@@ -14,4 +15,5 @@
 
 + (void)post:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
++ (void)post:(NSString *)url params:(NSDictionary *)params constructingWithBlock:(void(^)(id<AFMultipartFormData> formData))block success:(void(^)(id json))success failure:(void (^)(NSError *error))failure;
 @end

@@ -15,10 +15,12 @@
 #import "JXTeacherViewCell.h"
 #import <Masonry.h>
 #import "JXTeacher.h"
+#import <UIImageView+WebCache.h>
+#import <UIButton+WebCache.h>
 
 @interface JXTeacherViewCell()
 /** 头像 */
-@property (weak, nonatomic) IBOutlet UIButton *iconButton;
+@property (weak, nonatomic) UIImageView *iconButton;
 /** 勋章 */
 @property (nonatomic, weak) UIImageView *medalView;
 /** 姓名 */
@@ -43,17 +45,6 @@ static NSInteger const margin = 5;
 // 标签的长度
 static CGFloat const JXSignLabelW = 30;
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-    
-}
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -65,10 +56,19 @@ static CGFloat const JXSignLabelW = 30;
 
 - (void)setup {
     /** 头像 */
-    UIButton *iconButton = [[UIButton alloc] init];
-    iconButton.layer.cornerRadius = 30;
+    UIImageView *iconButton = [[UIImageView alloc] init];
+    iconButton.clipsToBounds = YES;
+    iconButton.contentMode = UIViewContentModeTop;
+    
+    /*
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    CGFloat imageWidth = 60;
+    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, imageWidth, imageWidth)];
+    maskLayer.path = bezierPath.CGPath;
+    iconButton.layer.mask = maskLayer;
+    */
+     
     [self.contentView addSubview:iconButton];
-    iconButton.backgroundColor = [UIColor redColor];
     self.iconButton = iconButton;
     
     /** 勋章 */
@@ -95,7 +95,7 @@ static CGFloat const JXSignLabelW = 30;
     [distanceView setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     distanceView.titleLabel.font = JXDistanceFont;
     distanceView.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, 0);
-    distanceView.titleLabel.textAlignment = NSTextAlignmentRight;
+    distanceView.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     distanceView.enabled = NO;
     [distanceView setImage:[UIImage imageNamed:@"distance_gray"] forState:UIControlStateNormal];
     [self.contentView addSubview:distanceView];
@@ -145,9 +145,8 @@ static CGFloat const JXSignLabelW = 30;
     [iconButton makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(margin);
         make.top.offset(margin);
-        make.bottom.offset(- margin);
+        make.bottom.offset(-margin);
         make.width.equalTo(iconButton.height);
-        make.right.equalTo(nameLabel.left).offset(-margin);
     }];
     
     [medalView makeConstraints:^(MASConstraintMaker *make) {
@@ -157,7 +156,7 @@ static CGFloat const JXSignLabelW = 30;
     }];
     
     [nameLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(iconButton.right).offset(margin);
+        make.left.equalTo(iconButton.right).offset(2*margin);
         make.bottom.equalTo(iconButton.centerY);
         make.right.equalTo(schoolLabel.left).offset(-margin);
     }];
@@ -195,7 +194,6 @@ static CGFloat const JXSignLabelW = 30;
     }];
     
     [feeLabel makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(distanceView).priorityLow();
         make.right.equalTo(distanceView);
         make.top.equalTo(teachTypeLabel);
     }];
@@ -208,16 +206,26 @@ static CGFloat const JXSignLabelW = 30;
     }];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.iconButton.layer.cornerRadius = (self.frame.size.height - 2*margin)*0.5;
+}
+
 - (void)setTeacher:(JXTeacher *)teacher {
     _teacher = teacher;
     
+    NSString *iconUrl = [NSString stringWithFormat:@"http://10.255.1.25/dschoolAndroid/%@", teacher.photo];
+//    [self.iconButton sd_setImageWithURL:[NSURL URLWithString:iconUrl] placeholderImage:[UIImage imageNamed:@"login_name_high"]];
+#warning 测试数据
+    self.iconButton.image = arc4random_uniform(2) ? [UIImage imageNamed:@"icon_example"] : [UIImage imageNamed:@"icon_example2"];
     self.nameLabel.text = teacher.name;
     self.schoolLabel.text = teacher.school;
     [self.distanceView setTitle:@"3.6km" forState:UIControlStateNormal];
-    self.rankLabel.text = [NSString stringWithFormat:@"%zd级", teacher.rank];
-    self.workYearLabel.text = [NSString stringWithFormat:@"%zd年", teacher.workYear];
-    self.teachTypeLabel.text = teacher.teachType;
-    self.feeLabel.text = [NSString stringWithFormat:@"￥%zd", (int)teacher.fee];
+    self.rankLabel.text = [NSString stringWithFormat:@"%@", teacher.qual];
+    self.workYearLabel.text = [NSString stringWithFormat:@"%zd年", teacher.year];
+    self.teachTypeLabel.text = teacher.models;
+    self.feeLabel.text = [NSString stringWithFormat:@"￥%zd", (int)teacher.price];
 }
 
 @end
