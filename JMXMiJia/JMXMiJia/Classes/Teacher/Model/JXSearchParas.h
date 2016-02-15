@@ -29,11 +29,11 @@
 /** 搜索关键词 */
 @property (nonatomic, copy) NSString *keyword;
 /** 性别 */
-@property (nonatomic, copy) NSString *sex;
+@property (nonatomic, assign) NSInteger sex;
 /** 所在驾校 */
 @property (nonatomic, copy) NSString *school;
 /** 教师等级,代表多少颗星 */
-@property (nonatomic, copy) NSString *star;
+@property (nonatomic, assign) NSInteger star;
 /** 教练星级费用 */
 @property (nonatomic, assign) NSInteger starFee;
 /** 星级教练代称，如:五星教练 */

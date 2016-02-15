@@ -75,6 +75,7 @@
 - (JXSearchParas *)searchParas {
     if (_searchParas == nil) {
         _searchParas = [[JXSearchParas alloc] init];
+        _searchParas.star = -1;
     }
     return _searchParas;
 }
@@ -161,8 +162,8 @@
     paras[@"mobile"] = self.searchParas.mobile;
     paras[@"password"] = self.searchParas.password;
     paras[@"keyword"] = self.searchParas.keyword;
-    paras[@"sex"] = @([JXSexs indexOfObject:self.searchParas.sex]);
-    paras[@"star"] = @([JXStars indexOfObject:self.searchParas.star]);
+    paras[@"sex"] = @(self.searchParas.sex);
+    paras[@"star"] = @(self.searchParas.star);
     paras[@"school"] = self.searchParas.school;
     
     // 取出最前面的老师
@@ -188,8 +189,8 @@
     paras[@"mobile"] = self.searchParas.mobile;
     paras[@"password"] = self.searchParas.password;
     paras[@"keyword"] = self.searchParas.keyword;
-    paras[@"sex"] = @([JXSexs indexOfObject:self.searchParas.sex]);
-    paras[@"star"] = self.searchParas.star;
+    paras[@"sex"] = @(self.searchParas.sex);
+    paras[@"star"] = @(self.searchParas.star);
     paras[@"school"] = self.searchParas.school;
     
     // 取出后面的老师
@@ -251,40 +252,43 @@
 }
 
 #pragma mark - UITableViewDelegate
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//    self.draging = YES;
-//    self.lastScroolY = scrollView.contentOffset.y;
-//}
+/*
+ * 上滚动工具栏隐藏，下滚动工具栏出现
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.draging = YES;
+    self.lastScroolY = scrollView.contentOffset.y;
+}
 
-//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-//    self.draging = NO;
-//}
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    self.draging = NO;
+}
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    [self.searchBar quitKeyboard];
-//    
-//    if (self.draging == NO) return;
-//    
-//    if (scrollView.contentOffset.y > self.lastScroolY) {
-//        if (self.toolView.hidden == NO) {
-//            [UIView animateWithDuration:0.25 animations:^{
-//                self.toolView.y = - [JXSearchBar height];
-//            } completion:^(BOOL finished) {
-//                self.toolView.hidden = YES;
-//            }];
-//        }
-//        
-//    }
-//    else {
-//        if (self.toolView.hidden == YES) {
-//            self.toolView.hidden = NO;
-//            [UIView animateWithDuration:0.25 animations:^{
-//                self.toolView.y = 64;
-//            }];
-//        }
-//        
-//    }
-//}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.searchBar quitKeyboard];
+    
+    if (self.draging == NO) return;
+    
+    if (scrollView.contentOffset.y > self.lastScroolY) {
+        if (self.toolView.hidden == NO) {
+            [UIView animateWithDuration:0.25 animations:^{
+                self.toolView.y = - [JXSearchBar height];
+            } completion:^(BOOL finished) {
+                self.toolView.hidden = YES;
+            }];
+        }
+        
+    }
+    else {
+        if (self.toolView.hidden == YES) {
+            self.toolView.hidden = NO;
+            [UIView animateWithDuration:0.25 animations:^{
+                self.toolView.y = 64;
+            }];
+        }
+        
+    }
+}
+*/
 
 #pragma mark - table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -16,8 +16,6 @@
 #import "JXChooseSexController.h"
 
 @interface JXFilterViewController () <JXChooseStarControllerDelegate, JXChooseSchoolControllerDelegate, JXChooseSexControllerDelegate>
-/** 搜索参数 */
-@property (nonatomic, strong) JXSearchParas *searchParas;
 
 @property (nonatomic, strong) JXChooseStarController *chooseStarVC;
 
@@ -73,6 +71,7 @@ static NSString * const ID = @"filterViewCell";
     
     // 右上角按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(confirm)];
+    
 }
 
 /**
@@ -109,7 +108,7 @@ static NSString * const ID = @"filterViewCell";
     
     switch (indexPath.row) {
         case 0:
-            cell.detailTextLabel.text = self.searchParas.star;
+            cell.detailTextLabel.text = JXStars[self.searchParas.star];
             if (cell.detailTextLabel.text == nil) {
                 cell.detailTextLabel.text = @"不限";
             }
@@ -121,7 +120,7 @@ static NSString * const ID = @"filterViewCell";
             }
             break;
         case 2:
-            cell.detailTextLabel.text = self.searchParas.sex;
+            cell.detailTextLabel.text = JXSexs[self.searchParas.sex];
             if (cell.detailTextLabel.text == nil) {
                 cell.detailTextLabel.text = @"不限";
             }
@@ -141,24 +140,24 @@ static NSString * const ID = @"filterViewCell";
     
     switch (indexPath.row) {
         case 0: { // 星级
-//            JXChooseStarController *chooseStarVC = [[JXChooseStarController alloc] init];
-//            chooseStarVC.delegate = self;
+            JXChooseStarController *chooseStarVC = [[JXChooseStarController alloc] init];
+            chooseStarVC.delegate = self;
 //            chooseStarVC.defaultStar = self.searchParas.star;
-            [self.navigationController pushViewController:self.chooseStarVC animated:YES];
+            [self.navigationController pushViewController:chooseStarVC animated:YES];
         }
             break;
         case 1: { // 学校
-//            JXChooseSchoolController *chooseSchoolVC = [[JXChooseSchoolController alloc] init];
-//            chooseSchoolVC.delegate = self;
+            JXChooseSchoolController *chooseSchoolVC = [[JXChooseSchoolController alloc] init];
+            chooseSchoolVC.delegate = self;
 //            chooseSchoolVC.defaultSchool = self.searchParas.school;
-            [self.navigationController pushViewController:self.chooseSchoolVC animated:YES];
+            [self.navigationController pushViewController:chooseSchoolVC animated:YES];
         }
             break;
         case 2: {// 性别
-//            JXChooseSexController *chooseSexVC = [[JXChooseSexController alloc] init];
-//            chooseSexVC.delegate = self;
+            JXChooseSexController *chooseSexVC = [[JXChooseSexController alloc] init];
+            chooseSexVC.delegate = self;
 //            chooseSexVC.defaultSex = self.searchParas.sex;
-            [self.navigationController pushViewController:self.chooseSexVC animated:YES];
+            [self.navigationController pushViewController:chooseSexVC animated:YES];
         }
             break;
             

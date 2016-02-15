@@ -47,7 +47,7 @@
 //    account.mobile = @"18213827534";
 //    account.password = @"123456";
 //    [JXAccountTool saveAccount:account];
-    if (!account.hasLogin) { // 之前登录过
+    if (account.hasLogin) { // 之前登录过
         
         JXTabBarController *tabBarController = [[JXTabBarController alloc] init];
         self.window.rootViewController = tabBarController;

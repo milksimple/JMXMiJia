@@ -33,8 +33,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"选择学校";
+    
     // 添加刷新控件
     [self loadSchools];
+    
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,10 +65,10 @@
  *  加载学校数据
  */
 - (void)loadSchools {
-    if (self.schools.count) { // 有值
-        [self.tableView reloadData];
-        return;
-    }
+//    if (self.schools.count) { // 有值
+//        [self.tableView reloadData];
+//        return;
+//    }
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
     JXAccount *account = [JXAccountTool account];
     paras[@"mobile"] = account.mobile;
@@ -80,6 +86,13 @@
             JXSchool *school = [[JXSchool alloc] init];
             school.name = @"不限";
             [self.schools insertObject:school atIndex:0];
+            
+            for (int i = 0; i < self.schools.count; i ++) {
+                JXSchool *school = self.schools[i];
+                if (self.defaultSchool == school.name) {
+                    self.selectedRow = i;
+                }
+            }
             
             [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];

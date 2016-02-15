@@ -8,12 +8,18 @@
 
 #import "JXBaseFeeCell.h"
 
+@interface JXBaseFeeCell()
+@property (weak, nonatomic) IBOutlet UILabel *feeNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *feeLabel;
+
+@end
+
 @implementation JXBaseFeeCell
 
 static NSString * const JXBaseFeeID = @"baseFeeCell";
 
 + (instancetype)baseFeeCell {
-    return [[self alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:JXBaseFeeID];
+    return [[NSBundle mainBundle] loadNibNamed:@"JXBaseFeeCell" owner:nil options:nil].lastObject;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -26,4 +32,10 @@ static NSString * const JXBaseFeeID = @"baseFeeCell";
     return JXBaseFeeID;
 }
 
+- (void)setFee:(JXFee *)fee {
+    _fee = fee;
+    
+    self.feeNameLabel.text = fee.feeName;
+    self.feeLabel.text = [NSString stringWithFormat:@"¥%zd", fee.fee];
+}
 @end

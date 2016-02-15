@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JXFee.h"
+@class JXBaseFee;
 
 @interface JXBaseFeeCell : UITableViewCell
+/** 模型数据 */
+@property (nonatomic, strong) JXBaseFee *baseFee;
+
+/** 模型数据 */
+@property (nonatomic, strong) JXFee *fee;
 
 + (instancetype)baseFeeCell;
 

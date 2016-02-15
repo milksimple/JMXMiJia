@@ -11,7 +11,7 @@
 @protocol JXChooseStarControllerDelegate <NSObject>
 
 @optional
-- (void)chooseStarDidFinished:(NSString *)star;
+- (void)chooseStarDidFinished:(NSInteger)star;
 
 @end
 
@@ -19,6 +19,6 @@
 
 @property (nonatomic, weak) id<JXChooseStarControllerDelegate> delegate;
 /** 默认(上次)选中的星级 */
-@property (nonatomic, copy) NSString *defaultStar;
+@property (nonatomic, assign) NSInteger defaultStar;
 
 @end

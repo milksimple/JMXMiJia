@@ -1,38 +1,29 @@
 //
-//  JXOptionalFeeCell.m
+//  JXTeacherFeeCell.m
 //  JMXMiJia
 //
-//  Created by mac on 16/2/3.
+//  Created by mac on 16/2/14.
 //  Copyright © 2016年 mac. All rights reserved.
 //
 
-#import "JXOptionalFeeCell.h"
+#import "JXTeacherFeeCell.h"
 
-@interface JXOptionalFeeCell()
+@interface JXTeacherFeeCell()
 @property (weak, nonatomic) IBOutlet UILabel *feeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *feeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *optionalButton;
-@property (weak, nonatomic) IBOutlet UILabel *captionLabel;
 
 @end
 
-@implementation JXOptionalFeeCell
+@implementation JXTeacherFeeCell
 
 - (void)awakeFromNib {
     // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
-}
-
-- (void)setSelected:(BOOL)selected {
-    
-}
-
-+ (NSString *)reuseIdentifier {
-    return @"optionalFeeCell";
 }
 
 - (void)setFee:(JXFee *)fee {
@@ -41,24 +32,20 @@
     self.feeNameLabel.text = fee.feeName;
     self.feeLabel.text = [NSString stringWithFormat:@"¥%zd", fee.fee];
     self.optionalButton.selected = fee.copies;
-    
-    if (fee.caption.length == 0) {
-        self.captionLabel.hidden = YES;
-    }
-    else {
-        self.captionLabel.hidden = NO;
-        self.captionLabel.text = fee.caption;
-    }
 }
 
+/**
+ *  选择按钮被点击了
+ */
 - (IBAction)optionalButtonClicked:(UIButton *)optionalButton {
-    // 执行外面定义好的block操作
+    // 调用外部定义好的block
     if (self.optionalButtonClickedAction) {
         self.optionalButtonClickedAction();
     }
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
++ (NSString *)reuseIdentifier {
+    return @"teacherFeeCell";
 }
+
 @end

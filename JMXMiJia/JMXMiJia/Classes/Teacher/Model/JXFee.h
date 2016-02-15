@@ -1,17 +1,20 @@
 //
-//  JXBaseFee.h
+//  JXFee.h
 //  JMXMiJia
 //
-//  Created by mac on 16/2/3.
+//  Created by mac on 16/2/14.
 //  Copyright © 2016年 mac. All rights reserved.
-//  基础费用
+//  费用模型
 
 #import <Foundation/Foundation.h>
 
-@interface JXBaseFee : NSObject
+@interface JXFee : NSObject
 /** 费用名称 */
 @property (nonatomic, copy) NSString *feeName;
 /** 费用 */
 @property (nonatomic, assign) NSInteger fee;
-
+/** 份数 */
+@property (nonatomic, assign) NSInteger copies;
+/** 说明(备注) */
+@property (nonatomic, copy) NSString *caption;
 @end

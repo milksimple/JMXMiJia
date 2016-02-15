@@ -19,7 +19,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"星级";
+    self.navigationItem.title = @"选择星级";
+    
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    self.selectedRow = self.defaultStar;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,7 +51,7 @@
     
     // 默认选中
     cell.accessoryType = UITableViewCellAccessoryNone;
-    if (indexPath.row == self.selectedRow) {
+    if (indexPath.row == JXSelectedStar) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     
@@ -56,7 +60,7 @@
 
 #pragma mark - table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.selectedRow = indexPath.row;
+    JXSelectedStar = indexPath.row;
     
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -71,7 +75,7 @@
         if ([star isEqualToString:@"不限"]) {
             star = nil;
         }
-        [self.delegate chooseStarDidFinished:star];
+//        [self.delegate chooseStarDidFinished:star];
     }
     
 }

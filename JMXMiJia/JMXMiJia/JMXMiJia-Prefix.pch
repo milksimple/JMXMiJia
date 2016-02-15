@@ -55,6 +55,7 @@
 #define JXNavLetterItemBadgeKey @"JXNavLetterItemBadgeKey"
 
 typedef enum {
+    JXSexAny = -1,
     JXSexFemale = 0, // 女性
     JXSexMale        // 男性
 } JXSex;
@@ -62,6 +63,10 @@ typedef enum {
 // 标题数组
 #define JXStars @[@"不限", @"一星", @"二星", @"三星", @"四星", @"五星"]
 // 标题数组
-#define JXSexs @[@"不限", @"男", @"女"]
+#define JXSexs @[@"不限", @"女", @"男"]
+
+static NSInteger JXSelectedStar;
+static NSString *JXSelectedSchool;
+static JXSex JXSelectedSex;
 
 #endif

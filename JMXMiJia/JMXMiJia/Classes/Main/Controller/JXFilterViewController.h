@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "JXSearchParas.h"
 
 @interface JXFilterViewController : UITableViewController
+/** 筛选参数 */
+@property (nonatomic, strong) JXSearchParas *searchParas;
 
 @end

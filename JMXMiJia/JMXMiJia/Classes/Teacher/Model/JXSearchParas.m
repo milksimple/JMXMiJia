@@ -22,10 +22,10 @@
     return account.password;
 }
 
-- (void)setStar:(NSString *)star {
+- (void)setStar:(NSInteger)star {
     _star = star;
     
-    switch ([star integerValue]) {
+    switch (star) {
         case 0: // 普通教练费用
             self.starFee = 0;
             break;
