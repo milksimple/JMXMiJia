@@ -30,4 +30,5 @@ typedef enum {
 @property (nonatomic, assign) BOOL hasLogin;
 /** 头像地址 */
 @property (nonatomic, copy) NSString *iconUrl;
+
 @end

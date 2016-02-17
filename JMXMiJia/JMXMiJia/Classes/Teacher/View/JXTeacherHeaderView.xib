@@ -37,6 +37,9 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="autoOrderButton" destination="vcM-AD-9h8" id="aWy-93-sXu"/>
+            </connections>
             <point key="canvasLocation" x="-32" y="233"/>
         </view>
     </objects>

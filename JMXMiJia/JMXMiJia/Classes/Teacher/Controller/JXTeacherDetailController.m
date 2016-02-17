@@ -12,12 +12,38 @@
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "JXDetailHeaderView.h"
 #import "JXDetailFooterView.h"
+#import "JXFeeDetailController.h"
+#import "JXNavigationController.h"
+#import "JXSearchParas.h"
+#import "JXFeeGroup.h"
+#import "JXFee.h"
+#import <MJExtension.h>
+#import "JXHttpTool.h"
+#import "JXAccountTool.h"
+#import "JXFeeGroupTool.h"
+#import <SVProgressHUD.h>
 
-@interface JXTeacherDetailController ()
+@interface JXTeacherDetailController () <JXTeacherDetailCellDelegate, JXFeeDetailControllerDelegate>
 
 @end
 
 @implementation JXTeacherDetailController
+
+#pragma mark - 懒加载
+- (NSArray *)feeGroups {
+    if (_feeGroups == nil) {
+        _feeGroups = [JXFeeGroup mj_objectArrayWithFilename:@"feeGroup.plist"];
+        
+        JXFeeGroup *starGroup = _feeGroups[2];
+        for (int i = 0; i < starGroup.fees.count; i ++) {
+            if (self.teacher.star == starGroup.fees.count - 1 - i) {
+                JXFee *starFee = starGroup.fees[i];
+                starFee.copies = 1;
+            }
+        }
+    }
+    return _feeGroups;
+}
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
@@ -35,7 +61,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"JXTeacherDetailCell" bundle:nil] forCellReuseIdentifier:@"teacherDetail"];
-    
 }
 
 #pragma mark - Table view data source
@@ -48,6 +73,8 @@
     JXTeacherDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"teacherDetail" forIndexPath:indexPath];
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.teacher = self.teacher;
+    cell.feeGroups = self.feeGroups;
+    cell.delegate = self;
     return cell;
 }
 
@@ -61,7 +88,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     JXDetailHeaderView *header = [JXDetailHeaderView headerView];
-#warning 还没设置数据
     header.teacher = self.teacher;
     return header;
 }
@@ -74,8 +100,24 @@
     JXDetailFooterView *footer = [JXDetailFooterView footerView];
 #warning 还没设置数据
     footer.signupButtonClickedAction = ^{
-        // 报名按钮被点击
-        
+        // 报名按钮被点击，发送数据给服务器
+        NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+        JXAccount *account = [JXAccountTool account];
+        paras[@"mobile"] = account.mobile;
+        paras[@"password"] = account.password;
+        paras[@"cid"] = self.teacher.uid;
+        paras[@"aidItem"] = [JXFeeGroupTool aidItemWithFeeGroups:self.feeGroups];
+        [JXHttpTool post:[NSString stringWithFormat:@"%@/Reservation", JXServerName] params:paras success:^(id json) {
+            BOOL success = [json[@"success"] boolValue];
+            if (success) {
+                [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:json[@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            JXLog(@"请求失败 - %@", error);
+        }];
     };
     
     footer.callButtonClickedAction = ^ {
@@ -93,4 +135,24 @@
     return [JXDetailFooterView footerHeight];
 }
 
+#pragma mark - JXTeacherDetailCellDelegate
+- (void)teacherDetailCellDidClickedFeeDetailButton {
+    JXFeeDetailController *feeDetailVC = [[JXFeeDetailController alloc] init];
+    feeDetailVC.feeGroups = self.feeGroups;
+    
+    feeDetailVC.delegate = self;
+    JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:feeDetailVC];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+#pragma mark - JXFeeDetailControllerDelegate
+- (void)feeDetailDidFinishedChooseWithFeeGroups:(NSArray *)feeGroups {
+    self.feeGroups = feeGroups;
+    
+    [self.tableView reloadData];
+}
+
+- (void)dealloc {
+    JXLog(@"JXTeacherDetailController - dealloc");
+}
 @end

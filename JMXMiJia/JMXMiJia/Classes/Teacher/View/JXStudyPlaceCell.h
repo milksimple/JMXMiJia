@@ -10,7 +10,7 @@
 
 @class JXSchool;
 @interface JXStudyPlaceCell : UITableViewCell
-/** 学校模型 */
+/** 学校 */
 @property (nonatomic, strong) JXSchool *school;
 
 + (instancetype)cell;

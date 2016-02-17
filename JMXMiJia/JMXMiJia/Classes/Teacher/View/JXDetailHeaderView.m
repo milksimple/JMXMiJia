@@ -8,6 +8,7 @@
 
 #import "JXDetailHeaderView.h"
 #import "JXTeacher.h"
+#import "JXSchool.h"
 
 @interface JXDetailHeaderView()
 @property (weak, nonatomic) IBOutlet UIImageView *iconView;

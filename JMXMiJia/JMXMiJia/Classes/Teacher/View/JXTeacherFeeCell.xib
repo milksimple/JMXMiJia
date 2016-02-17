@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfS-Ta-vFa">
-                        <rect key="frame" x="130" y="8" width="60" height="27"/>
+                        <rect key="frame" x="138" y="8" width="60" height="27"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="WqJ-86-Mry"/>
                         </constraints>
@@ -44,7 +44,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="五星教练" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fD7-bh-96x">
-                        <rect key="frame" x="10" y="8" width="100" height="27"/>
+                        <rect key="frame" x="18" y="8" width="100" height="27"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="Et7-Cj-8aG"/>
                         </constraints>
@@ -54,7 +54,9 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="fD7-bh-96x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="0nA-Mt-Gle"/>
                     <constraint firstItem="fD7-bh-96x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="1yU-bC-I4H"/>
+                    <constraint firstItem="fD7-bh-96x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="5yD-1q-oad"/>
                     <constraint firstItem="fD7-bh-96x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="MEV-kY-324"/>
                     <constraint firstItem="gfS-Ta-vFa" firstAttribute="leading" secondItem="fD7-bh-96x" secondAttribute="trailing" constant="20" id="Y3v-oB-Nmi"/>
                     <constraint firstAttribute="bottomMargin" secondItem="fD7-bh-96x" secondAttribute="bottom" id="a8Z-mu-AGd"/>
@@ -66,7 +68,9 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="0nA-Mt-Gle"/>
                         <exclude reference="1yU-bC-I4H"/>
+                        <exclude reference="MEV-kY-324"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

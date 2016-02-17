@@ -20,11 +20,10 @@
 #import "JXAutoOrderHeaderView.h"
 #import "JXAutoOrderFooterView.h"
 
-@interface JXAutoOrderController () <JXAccommodationFeeCellDelegate>
+@interface JXAutoOrderController () <JXAccommodationFeeCellDelegate, JXChooseSchoolControllerDelegate, JXAutoOrderFooterViewDelegate>
+
 /** 费用数组 */
-@property (nonatomic, strong) NSMutableArray *feeGroups;
-/** 筛选模型 */
-@property (nonatomic, strong) JXSearchParas *searchParas;
+@property (nonatomic, strong) NSArray *feeGroups;
 @end
 
 @implementation JXAutoOrderController
@@ -32,11 +31,17 @@
 static NSString * const JXOptionalFeeID = @"optionalFeeCell";
 
 #pragma mark - 懒加载
-- (NSMutableArray *)feeGroups {
+- (NSArray *)feeGroups {
     if (_feeGroups == nil) {
         _feeGroups = [JXFeeGroup mj_objectArrayWithFilename:@"feeGroup.plist"];
     }
     return _feeGroups;
+}
+
+- (void)setSearchParas:(JXSearchParas *)searchParas {
+    _searchParas = searchParas;
+    
+    self.feeGroups = searchParas.feeGroups;
 }
 
 #pragma mark - 初始化
@@ -128,6 +133,7 @@ static NSString * const JXOptionalFeeID = @"optionalFeeCell";
             
             // 设置当前教练选项为1
             fee.copies = !fee.copies;
+            self.searchParas.star = fees.count - 1 - indexPath.row;
             [self.tableView reloadData];
         };
         return teacherFeeCell;
@@ -135,6 +141,7 @@ static NSString * const JXOptionalFeeID = @"optionalFeeCell";
     
     else { // 选择驾校
         JXStudyPlaceCell *studyPlaceCell = [JXStudyPlaceCell cell];
+        studyPlaceCell.school = self.searchParas.school;
         return studyPlaceCell;
     }
 }
@@ -149,6 +156,7 @@ static NSString * const JXOptionalFeeID = @"optionalFeeCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 3) { // 选择场地
         JXChooseSchoolController *chooseSchoolVC = [[JXChooseSchoolController alloc] init];
+        chooseSchoolVC.delegate = self;
         [self.navigationController pushViewController:chooseSchoolVC animated:YES];
     }
 }
@@ -168,6 +176,7 @@ static NSString * const JXOptionalFeeID = @"optionalFeeCell";
     if (section == 3) { // 最下面的确定按钮
         JXAutoOrderFooterView *footer = [JXAutoOrderFooterView footerView];
         footer.totalPay = [self calculateTotalPay];
+        footer.delegate = self;
         return footer;
     }
     return nil;
@@ -213,6 +222,23 @@ static NSString * const JXOptionalFeeID = @"optionalFeeCell";
     if (fee.copies == 0) return;
     fee.copies -= 1;
     [self.tableView reloadData];
+}
+
+#pragma mark - JXChooseSchoolControllerDelegate
+- (void)chooseSchoolDidFinished:(JXSchool *)school {
+    self.searchParas.school = school;
+    [self.tableView reloadData];
+}
+
+#pragma mark - JXAutoOrderFooterViewDelegate
+- (void)autoOrderFooterViewDidClickedConfirmButton {
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.searchParas.feeGroups = self.feeGroups;
+        // 通知代理
+        if ([self.delegate respondsToSelector:@selector(autoOrderDidFinishedWithSearchParas:)]) {
+            [self.delegate autoOrderDidFinishedWithSearchParas:self.searchParas];
+        }
+    }];
 }
 
 @end

@@ -152,7 +152,6 @@
         
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/Login" params:paras success:^(id json) {
             [MBProgressHUD hideHUD];
-            JXLog(@"%@", json);
             BOOL success = [json[@"success"] boolValue];
             if (success == 0) { // 登录失败
                 [MBProgressHUD showError:json[@"msg"]];

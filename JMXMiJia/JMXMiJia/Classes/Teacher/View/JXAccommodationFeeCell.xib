@@ -16,8 +16,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="代办暂住证" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEs-dH-3SA">
-                        <rect key="frame" x="8" y="8" width="100" height="27"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="代办暂住证" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEs-dH-3SA">
+                        <rect key="frame" x="18" y="8" width="100" height="27"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="HFh-Yw-cgX"/>
                         </constraints>
@@ -25,8 +25,8 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥150/天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvW-07-8WA">
-                        <rect key="frame" x="128" y="8" width="60" height="27"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥150/天" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvW-07-8WA">
+                        <rect key="frame" x="138" y="8" width="60" height="27"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="sRQ-xL-cmS"/>
                         </constraints>
@@ -79,13 +79,14 @@
                     <constraint firstAttribute="trailingMargin" secondItem="tfn-I2-tEz" secondAttribute="trailing" id="D5A-us-OoF"/>
                     <constraint firstAttribute="bottomMargin" secondItem="fyc-6l-Cv3" secondAttribute="bottom" id="JZq-Xq-5Cr"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Uuc-8w-DU0" secondAttribute="bottom" id="RGO-qz-87D"/>
+                    <constraint firstItem="dvW-07-8WA" firstAttribute="leading" secondItem="OEs-dH-3SA" secondAttribute="trailing" constant="20" id="TBm-S8-YwU"/>
                     <constraint firstItem="dvW-07-8WA" firstAttribute="leading" secondItem="OEs-dH-3SA" secondAttribute="trailing" constant="20" id="TFn-z4-xlw"/>
                     <constraint firstItem="dvW-07-8WA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="UKy-0G-9Ds"/>
                     <constraint firstAttribute="bottomMargin" secondItem="dvW-07-8WA" secondAttribute="bottom" id="Wpe-cb-Zc8"/>
                     <constraint firstItem="OEs-dH-3SA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="a4H-Xv-ny6"/>
                     <constraint firstItem="fyc-6l-Cv3" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bZV-V4-QTX"/>
                     <constraint firstAttribute="bottomMargin" secondItem="OEs-dH-3SA" secondAttribute="bottom" id="cdO-Xw-0nR"/>
-                    <constraint firstItem="OEs-dH-3SA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="cvd-8J-d89"/>
+                    <constraint firstItem="OEs-dH-3SA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="cvd-8J-d89"/>
                     <constraint firstItem="tfn-I2-tEz" firstAttribute="leading" secondItem="Uuc-8w-DU0" secondAttribute="trailing" id="qYi-KK-iqf"/>
                     <constraint firstItem="Uuc-8w-DU0" firstAttribute="leading" secondItem="fyc-6l-Cv3" secondAttribute="trailing" id="rpE-Nh-PtF"/>
                     <constraint firstItem="fyc-6l-Cv3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="sK8-OY-9Xu"/>
@@ -94,6 +95,7 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="TFn-z4-xlw"/>
                         <exclude reference="JZq-Xq-5Cr"/>
                         <exclude reference="sK8-OY-9Xu"/>
                         <exclude reference="rpE-Nh-PtF"/>

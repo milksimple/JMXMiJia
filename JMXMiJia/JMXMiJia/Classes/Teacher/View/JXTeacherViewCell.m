@@ -17,6 +17,7 @@
 #import "JXTeacher.h"
 #import <UIImageView+WebCache.h>
 #import <UIButton+WebCache.h>
+#import "JXSchool.h"
 
 @interface JXTeacherViewCell()
 /** 头像 */
@@ -27,6 +28,8 @@
 @property (nonatomic, weak) UILabel *nameLabel;
 /** 驾校 */
 @property (nonatomic, weak) UILabel *schoolLabel;
+/** 星级 */
+@property (nonatomic, weak) UIImageView *starView;
 /** 距离 */
 @property (nonatomic, weak) UIButton *distanceView;
 /** 教师等级 */
@@ -101,6 +104,12 @@ static CGFloat const JXSignLabelW = 30;
     [self.contentView addSubview:distanceView];
     self.distanceView = distanceView;
     
+    /** 星级 */
+    UIImageView *starView = [[UIImageView alloc] init];
+    starView.contentMode = UIViewContentModeCenter;
+    [self.contentView addSubview:starView];
+    self.starView = starView;
+    
     /** 教师等级 */
     UILabel *rankLabel = [[UILabel alloc] init];
     rankLabel.textAlignment = NSTextAlignmentCenter;
@@ -166,6 +175,12 @@ static CGFloat const JXSignLabelW = 30;
         make.bottom.equalTo(nameLabel);
     }];
     
+    [starView makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(schoolLabel.right).offset(margin);
+        make.top.bottom.equalTo(schoolLabel);
+        make.width.equalTo(@56);
+    }];
+    
     [rankLabel makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(nameLabel.bottom).offset(margin);
         make.left.equalTo(nameLabel);
@@ -221,6 +236,7 @@ static CGFloat const JXSignLabelW = 30;
     self.iconButton.image = arc4random_uniform(2) ? [UIImage imageNamed:@"icon_example"] : [UIImage imageNamed:@"icon_example2"];
     self.nameLabel.text = teacher.name;
     self.schoolLabel.text = teacher.school;
+    self.starView.image = [UIImage imageNamed:[NSString stringWithFormat:@"star_%zd", teacher.star]];
     [self.distanceView setTitle:@"3.6km" forState:UIControlStateNormal];
     self.rankLabel.text = [NSString stringWithFormat:@"%@", teacher.qual];
     self.workYearLabel.text = [NSString stringWithFormat:@"%zd年", teacher.year];

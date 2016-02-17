@@ -7,6 +7,7 @@
 //  筛选view
 
 #import <UIKit/UIKit.h>
+#import "JXSearchParas.h"
 
 @interface JXFilterView : UIView
 

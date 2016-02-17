@@ -11,7 +11,7 @@
 @protocol JXChooseSexControllerDelegate <NSObject>
 
 @optional
-- (void)chooseSexDidFinished:(NSString *)sex;
+- (void)chooseSexDidFinished:(JXSex)sex;
 
 @end
 
@@ -19,6 +19,6 @@
 
 @property (nonatomic, weak) id<JXChooseSexControllerDelegate> delegate;
 /** 默认(上次)选择的性别 */
-@property (nonatomic, copy) NSString *defaultSex;
+@property (nonatomic, assign) JXSex defaultSex;
 
 @end

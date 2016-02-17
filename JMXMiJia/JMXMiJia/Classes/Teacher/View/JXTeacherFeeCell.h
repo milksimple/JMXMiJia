@@ -11,10 +11,7 @@ typedef void (^JXTeacherFeeCellDidClickedOptionalButtonAction)();
 #import <UIKit/UIKit.h>
 #import "JXFee.h"
 
-@class JXTeacherFee;
 @interface JXTeacherFeeCell : UITableViewCell
-
-@property (nonatomic, strong) JXTeacherFee *teacherFee;
 
 @property (nonatomic, strong) JXFee *fee;
 

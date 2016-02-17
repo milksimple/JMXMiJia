@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择场地" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ns-cH-ORk">
-                        <rect key="frame" x="8" y="8" width="100" height="27"/>
+                        <rect key="frame" x="18" y="8" width="100" height="27"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="WQH-LI-JXG"/>
                         </constraints>
@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不限" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I42-zb-sSR">
-                        <rect key="frame" x="128" y="8" width="60" height="27"/>
+                        <rect key="frame" x="138" y="8" width="60" height="27"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="Uvr-1h-C6O"/>
                         </constraints>
@@ -39,9 +39,15 @@
                     <constraint firstItem="9ns-cH-ORk" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="GDY-kb-dbs"/>
                     <constraint firstItem="I42-zb-sSR" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="Tfb-de-C8U"/>
                     <constraint firstItem="I42-zb-sSR" firstAttribute="leading" secondItem="9ns-cH-ORk" secondAttribute="trailing" constant="20" id="wDB-iK-lBb"/>
+                    <constraint firstItem="9ns-cH-ORk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="yXj-iT-CSR"/>
                     <constraint firstItem="9ns-cH-ORk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ycu-ko-1Kv"/>
                     <constraint firstItem="9ns-cH-ORk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="ynM-XX-D48"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="ycu-ko-1Kv"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="placeLabel" destination="I42-zb-sSR" id="qli-kf-M6f"/>

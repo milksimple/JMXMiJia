@@ -10,7 +10,6 @@
 #define JXAccountPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"account.archive"]
 
 #import "JXAccountTool.h"
-#import "JXAccount.h"
 
 @implementation JXAccountTool
 /**

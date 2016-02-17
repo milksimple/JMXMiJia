@@ -9,7 +9,7 @@
 #import "JXChooseSexController.h"
 
 @interface JXChooseSexController ()
-@property (nonatomic, assign) NSInteger selectedRow;
+
 @end
 
 @implementation JXChooseSexController
@@ -47,7 +47,7 @@
     
     // 默认选中
     cell.accessoryType = UITableViewCellAccessoryNone;
-    if (indexPath.row == self.selectedRow) {
+    if (indexPath.row == self.defaultSex + 1) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     
@@ -56,8 +56,6 @@
 
 #pragma mark - table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.selectedRow = indexPath.row;
-    
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
     selectedCell.tintColor = [UIColor lightGrayColor];
@@ -68,10 +66,7 @@
     
     // 通知代理选择的项目
     if ([self.delegate respondsToSelector:@selector(chooseSexDidFinished:)]) {
-        NSString *sex = JXSexs[indexPath.row];
-        if ([sex isEqualToString:@"不限"]) {
-            sex = nil;
-        }
+        JXSex sex = (JXSex)(indexPath.row - 1);
         [self.delegate chooseSexDidFinished:sex];
     }
     

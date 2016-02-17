@@ -25,4 +25,10 @@
     [self.confirmButton setTitle:[NSString stringWithFormat:@"确定选择总计:¥%zd", totalPay] forState:UIControlStateNormal];
 }
 
+- (IBAction)confirm:(UIButton *)confirmButton {
+    if ([self.delegate respondsToSelector:@selector(autoOrderFooterViewDidClickedConfirmButton)]) {
+        [self.delegate autoOrderFooterViewDidClickedConfirmButton];
+    }
+}
+
 @end

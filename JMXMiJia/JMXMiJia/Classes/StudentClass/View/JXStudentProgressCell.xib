@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="JXStudentProgressCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="class_progress_0" translatesAutoresizingMaskIntoConstraints="NO" id="rgs-ym-LaJ">
+                        <rect key="frame" x="30" y="23" width="260" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="rgs-ym-LaJ" secondAttribute="height" multiplier="976:101" id="PIu-6a-hC0"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="科目一" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MhU-Bp-0Qe">
+                        <rect key="frame" x="-13" y="50" width="86" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="科目三" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KlF-Zb-VAk">
+                        <rect key="frame" x="160" y="50" width="87" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="科目四" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hl0-Ud-c7s">
+                        <rect key="frame" x="247" y="50" width="86" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="科目二" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PW3-e9-4si">
+                        <rect key="frame" x="73" y="50" width="87" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="KlF-Zb-VAk" firstAttribute="leading" secondItem="PW3-e9-4si" secondAttribute="trailing" id="1Gq-KM-yBY"/>
+                    <constraint firstAttribute="trailing" secondItem="rgs-ym-LaJ" secondAttribute="trailing" constant="30" id="3QF-kL-Duh"/>
+                    <constraint firstItem="hl0-Ud-c7s" firstAttribute="centerX" secondItem="rgs-ym-LaJ" secondAttribute="trailing" id="6RY-zu-4xU"/>
+                    <constraint firstItem="rgs-ym-LaJ" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9fK-WR-CNZ"/>
+                    <constraint firstItem="hl0-Ud-c7s" firstAttribute="height" secondItem="MhU-Bp-0Qe" secondAttribute="height" id="Fej-lf-w9Y"/>
+                    <constraint firstItem="MhU-Bp-0Qe" firstAttribute="centerX" secondItem="rgs-ym-LaJ" secondAttribute="leading" id="Fh0-Kc-fYT"/>
+                    <constraint firstItem="KlF-Zb-VAk" firstAttribute="height" secondItem="MhU-Bp-0Qe" secondAttribute="height" id="Klc-kP-dHM"/>
+                    <constraint firstItem="PW3-e9-4si" firstAttribute="width" secondItem="MhU-Bp-0Qe" secondAttribute="width" id="MEI-Ko-eaH"/>
+                    <constraint firstItem="hl0-Ud-c7s" firstAttribute="top" secondItem="MhU-Bp-0Qe" secondAttribute="top" id="QVy-gF-5Wg"/>
+                    <constraint firstItem="hl0-Ud-c7s" firstAttribute="width" secondItem="MhU-Bp-0Qe" secondAttribute="width" id="Qmi-Af-wXs"/>
+                    <constraint firstItem="KlF-Zb-VAk" firstAttribute="width" secondItem="MhU-Bp-0Qe" secondAttribute="width" id="ToY-7W-A3n"/>
+                    <constraint firstItem="PW3-e9-4si" firstAttribute="height" secondItem="MhU-Bp-0Qe" secondAttribute="height" id="TqS-Pm-Ldl"/>
+                    <constraint firstItem="PW3-e9-4si" firstAttribute="leading" secondItem="MhU-Bp-0Qe" secondAttribute="trailing" id="aAT-gW-WUl"/>
+                    <constraint firstItem="KlF-Zb-VAk" firstAttribute="top" secondItem="MhU-Bp-0Qe" secondAttribute="top" id="h0T-EC-icq"/>
+                    <constraint firstItem="hl0-Ud-c7s" firstAttribute="leading" secondItem="KlF-Zb-VAk" secondAttribute="trailing" id="kbq-Jr-ehu"/>
+                    <constraint firstItem="PW3-e9-4si" firstAttribute="top" secondItem="MhU-Bp-0Qe" secondAttribute="top" id="lZc-m6-7jy"/>
+                    <constraint firstItem="MhU-Bp-0Qe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="s0S-82-VkQ"/>
+                    <constraint firstItem="rgs-ym-LaJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="uHL-lm-lmX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="318" y="322"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="class_progress_0" width="325" height="33"/>
+    </resources>
+</document>

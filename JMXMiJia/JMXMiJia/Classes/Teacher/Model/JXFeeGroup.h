@@ -13,4 +13,5 @@
 @property (nonatomic, copy) NSString *feeType;
 /** 数组里面都是JXFee模型 */
 @property (nonatomic, strong) NSArray *fees;
+
 @end

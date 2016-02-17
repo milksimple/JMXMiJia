@@ -15,6 +15,8 @@ typedef void (^TeacherHeaderClickedButtonAction)();
 @property (nonatomic, copy) TeacherHeaderClickedButtonAction orderButtonClickedAction;
 
 + (instancetype)headerView;
+/** 自主订单总价 */
+@property (nonatomic, assign) NSInteger totalPay;
 
 + (CGFloat)headerHeight;
 @end

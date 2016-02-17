@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+@class JXSearchParas;
+
+@protocol JXAutoOrderControllerDelegate <NSObject>
+
+@optional
+- (void)autoOrderDidFinishedWithSearchParas:(JXSearchParas *)searchParas;
+
+@end
 
 @interface JXAutoOrderController : UITableViewController
+/** 筛选参数模型 */
+@property (nonatomic, strong) JXSearchParas *searchParas;
+
+@property (nonatomic, weak) id<JXAutoOrderControllerDelegate> delegate;
 
 @end

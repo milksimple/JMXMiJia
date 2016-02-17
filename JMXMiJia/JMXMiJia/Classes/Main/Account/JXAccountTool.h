@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JXAccount.h"
 
-@class JXAccount;
 @interface JXAccountTool : NSObject
 /**
  *  存储账号信息

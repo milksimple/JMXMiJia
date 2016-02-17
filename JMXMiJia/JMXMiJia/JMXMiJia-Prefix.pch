@@ -61,12 +61,10 @@ typedef enum {
 } JXSex;
 
 // 标题数组
-#define JXStars @[@"不限", @"一星", @"二星", @"三星", @"四星", @"五星"]
+#define JXStars @[@"不限", @"普通", @"一星", @"二星", @"三星", @"四星", @"五星"]
 // 标题数组
 #define JXSexs @[@"不限", @"女", @"男"]
 
-static NSInteger JXSelectedStar;
-static NSString *JXSelectedSchool;
-static JXSex JXSelectedSex;
+#define JXServerName @"http://10.255.1.25/dschoolAndroid"
 
 #endif

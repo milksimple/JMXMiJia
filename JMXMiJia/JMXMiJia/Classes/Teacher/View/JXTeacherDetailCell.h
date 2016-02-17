@@ -7,11 +7,22 @@
 //  教师详情页的cell
 
 #import <UIKit/UIKit.h>
-
 @class JXTeacher;
-@interface JXTeacherDetailCell : UITableViewCell
 
+@protocol JXTeacherDetailCellDelegate <NSObject>
+
+@optional
+- (void)teacherDetailCellDidClickedFeeDetailButton;
+
+@end
+
+@interface JXTeacherDetailCell : UITableViewCell
+/** 教师模型 */
 @property (nonatomic, strong) JXTeacher *teacher;
+/** 费用组模型，决定报名学费 */
+@property (nonatomic, strong) NSArray *feeGroups;
 
 @property (nonatomic, assign) CGFloat rowHeight;
+
+@property (nonatomic, weak) id<JXTeacherDetailCellDelegate> delegate;
 @end

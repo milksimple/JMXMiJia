@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @class JXTeacher;
+@class JXSearchParas;
+
 @interface JXTeacherDetailController : UITableViewController
 /** 教师模型 */
 @property (nonatomic, strong) JXTeacher *teacher;
-
+/** 用来显示学费明细 */
+@property (nonatomic, strong) NSArray *feeGroups;
 @end

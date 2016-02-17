@@ -10,7 +10,7 @@
 
 @interface JXChooseStarController ()
 
-@property (nonatomic, assign) NSInteger selectedRow;
+//@property (nonatomic, assign) NSInteger selectedRow;
 
 @end
 
@@ -22,8 +22,6 @@
     self.navigationItem.title = @"选择星级";
     
     self.tableView.tableFooterView = [[UIView alloc] init];
-    
-    self.selectedRow = self.defaultStar;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -51,7 +49,7 @@
     
     // 默认选中
     cell.accessoryType = UITableViewCellAccessoryNone;
-    if (indexPath.row == JXSelectedStar) {
+    if (indexPath.row == self.defaultStar + 1) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     
@@ -60,8 +58,6 @@
 
 #pragma mark - table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    JXSelectedStar = indexPath.row;
-    
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -71,11 +67,8 @@
     
     // 通知代理选择的项目
     if ([self.delegate respondsToSelector:@selector(chooseStarDidFinished:)]) {
-        NSString *star = JXStars[indexPath.row];
-        if ([star isEqualToString:@"不限"]) {
-            star = nil;
-        }
-//        [self.delegate chooseStarDidFinished:star];
+        NSInteger star = indexPath.row - 1;
+        [self.delegate chooseStarDidFinished:star];
     }
     
 }
@@ -83,9 +76,5 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *deselectedCell = [tableView cellForRowAtIndexPath:indexPath];
     deselectedCell.accessoryType = UITableViewCellAccessoryNone;
-}
-
-- (void)dealloc {
-    JXLog(@"chooseStar --- dealloc");
 }
 @end

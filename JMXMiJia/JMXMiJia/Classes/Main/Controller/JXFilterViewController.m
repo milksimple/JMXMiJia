@@ -29,12 +29,16 @@
 static NSString * const ID = @"filterViewCell";
 
 #pragma mark - 懒加载
-- (JXSearchParas *)searchParas {
-    if (_searchParas == nil) {
-        _searchParas = [[JXSearchParas alloc] init];
-    }
-    return _searchParas;
-}
+//- (JXSearchParas *)searchParas {
+//    if (_searchParas == nil) {
+//        _searchParas = [[JXSearchParas alloc] init];
+//        // 默认值
+//        _searchParas.star = -1;
+//        _searchParas.sex = JXSexAny;
+//        _searchParas.school = @"不限";
+//    }
+//    return _searchParas;
+//}
 
 - (JXChooseStarController *)chooseStarVC {
     if (_chooseStarVC == nil) {
@@ -108,22 +112,16 @@ static NSString * const ID = @"filterViewCell";
     
     switch (indexPath.row) {
         case 0:
-            cell.detailTextLabel.text = JXStars[self.searchParas.star];
-            if (cell.detailTextLabel.text == nil) {
-                cell.detailTextLabel.text = @"不限";
-            }
+            cell.detailTextLabel.text = JXStars[self.searchParas.star + 1]; // star不限是-1
             break;
         case 1:
-            cell.detailTextLabel.text = self.searchParas.school;
+            cell.detailTextLabel.text = self.searchParas.school.name;
             if (cell.detailTextLabel.text == nil) {
                 cell.detailTextLabel.text = @"不限";
             }
             break;
         case 2:
-            cell.detailTextLabel.text = JXSexs[self.searchParas.sex];
-            if (cell.detailTextLabel.text == nil) {
-                cell.detailTextLabel.text = @"不限";
-            }
+            cell.detailTextLabel.text = JXSexs[self.searchParas.sex + 1];
             break;
     }
     
@@ -142,21 +140,21 @@ static NSString * const ID = @"filterViewCell";
         case 0: { // 星级
             JXChooseStarController *chooseStarVC = [[JXChooseStarController alloc] init];
             chooseStarVC.delegate = self;
-//            chooseStarVC.defaultStar = self.searchParas.star;
+            chooseStarVC.defaultStar = self.searchParas.star;
             [self.navigationController pushViewController:chooseStarVC animated:YES];
         }
             break;
         case 1: { // 学校
             JXChooseSchoolController *chooseSchoolVC = [[JXChooseSchoolController alloc] init];
             chooseSchoolVC.delegate = self;
-//            chooseSchoolVC.defaultSchool = self.searchParas.school;
+            chooseSchoolVC.defaultSchool = self.searchParas.school;
             [self.navigationController pushViewController:chooseSchoolVC animated:YES];
         }
             break;
         case 2: {// 性别
             JXChooseSexController *chooseSexVC = [[JXChooseSexController alloc] init];
             chooseSexVC.delegate = self;
-//            chooseSexVC.defaultSex = self.searchParas.sex;
+            chooseSexVC.defaultSex = self.searchParas.sex;
             [self.navigationController pushViewController:chooseSexVC animated:YES];
         }
             break;
@@ -167,25 +165,21 @@ static NSString * const ID = @"filterViewCell";
 }
 
 #pragma mark - JXChooseStarControllerDelegate
-- (void)chooseStarDidFinished:(NSString *)star {
+- (void)chooseStarDidFinished:(NSInteger)star {
     self.searchParas.star = star;
     [self.tableView reloadData];
 }
 
 #pragma mark - JXChooseSchoolControllerDelegate
-- (void)chooseSchoolDidFinished:(NSString *)school {
+- (void)chooseSchoolDidFinished:(JXSchool *)school {
     self.searchParas.school = school;
     [self.tableView reloadData];
 }
 
 #pragma mark - JXChooseSexControllerDelegate
-- (void)chooseSexDidFinished:(NSString *)sex {
+- (void)chooseSexDidFinished:(JXSex)sex {
     self.searchParas.sex = sex;
     [self.tableView reloadData];
-}
-
-- (void)dealloc {
-    JXLog(@"dealloc");
 }
 
 @end

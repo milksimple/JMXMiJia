@@ -9,6 +9,8 @@
 #import "JXSearchParas.h"
 #import "JXAccount.h"
 #import "JXAccountTool.h"
+#import "JXFeeGroup.h"
+#import "JXFee.h"
 
 @implementation JXSearchParas
 
@@ -54,4 +56,35 @@
             break;
     }
 }
+
+- (void)setFeeGroups:(NSArray *)feeGroups {
+    _feeGroups = feeGroups;
+    
+    // 费用总额
+    NSInteger totalPay = 0;
+    for (JXFeeGroup *feeGroup in self.feeGroups) {
+        for (JXFee *fee in feeGroup.fees) {
+            totalPay += fee.fee * fee.copies;
+        }
+    }
+    self.totalPay = totalPay;
+    
+    // 可选费用
+    NSInteger optionalTotalPay = 0;
+    JXFeeGroup *optionalFeeGroup = feeGroups[1];
+    for (JXFee *optionalFee in optionalFeeGroup.fees) {
+        optionalTotalPay += optionalFee.fee * optionalFee.copies;
+    }
+    self.optionalTotalPay = optionalTotalPay;
+    
+    // 星级
+    JXFeeGroup *starGroup = self.feeGroups[2];
+    for (int i = 0; i < starGroup.fees.count; i ++) {
+        JXFee *fee = starGroup.fees[i];
+        if (fee.copies == 1) {
+            self.star = starGroup.fees.count - 1 - i;
+        }
+    }
+}
+
 @end

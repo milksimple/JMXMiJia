@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class JXSchool;
+
 @protocol JXChooseSchoolControllerDelegate <NSObject>
 
 @optional
-- (void)chooseSchoolDidFinished:(NSString *)school;
+- (void)chooseSchoolDidFinished:(JXSchool *)school;
 
 @end
 
@@ -18,5 +20,6 @@
 
 @property (nonatomic, weak) id<JXChooseSchoolControllerDelegate> delegate;
 /** 默认(上次)选中的学校 */
-@property (nonatomic, copy) NSString *defaultSchool;
+@property (nonatomic, strong) JXSchool *defaultSchool;
+
 @end

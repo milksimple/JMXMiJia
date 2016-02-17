@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Bw-aA-iCc">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Bw-aA-iCc">
                     <rect key="frame" x="48" y="60" width="224" height="40"/>
                     <color key="backgroundColor" red="0.98039215686274506" green="0.73333333333333328" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="拨打报名电话:4221234567">
@@ -27,7 +27,7 @@
                         <action selector="call:" destination="Mgz-2O-nl7" eventType="touchUpInside" id="vBn-vS-4vd"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eby-4E-VLx">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eby-4E-VLx">
                     <rect key="frame" x="48" y="10" width="224" height="40"/>
                     <color key="backgroundColor" red="0.98039215686274506" green="0.58431372549019611" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>

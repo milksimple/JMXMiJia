@@ -19,6 +19,7 @@ typedef enum {
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+@class JXSchool;
 
 /*
     school = 阳安驾校;

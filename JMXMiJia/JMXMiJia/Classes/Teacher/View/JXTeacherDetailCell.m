@@ -9,6 +9,7 @@
 #import "JXTeacherDetailCell.h"
 #import "NSString+Extension.h"
 #import "JXTeacher.h"
+#import "JXFeeGroupTool.h"
 
 @interface JXTeacherDetailCell()
 //@property (nonatomic, weak) UILabel *qualifiLabel;
@@ -36,7 +37,7 @@
 
 @implementation JXTeacherDetailCell
 
-static NSString *intro = @"打发点附近阿迪设计费借力打力手机翻尽量少打飞机阿斯顿浪费大家萨芬吉林省到家了附近阿斯顿浪费拉动是解放军阿迪设计费 垃圾点附近拉三等奖 圣诞节弗拉圣诞节 的时间里房间爱上了就了解拉德斯基发链接啊 离开的减肥垃圾啊冻死了快放假了卡机拉动是浪费了教练的撒发的是解放军打死了房间爱大书法家了淑女坊拉伸的 烦死了放假了进来撒法拉利发";
+static NSString *intro = @"暂无介绍";
 - (void)setTeacher:(JXTeacher *)teacher {
     _teacher = teacher;
     
@@ -47,13 +48,28 @@ static NSString *intro = @"打发点附近阿迪设计费借力打力手机翻�
 //    self.titleLab5.text = @"个人介绍";
     self.qualifiLabel.text = teacher.models;
     self.signupCountLabel.text = [NSString stringWithFormat:@"%zd人", teacher.signupCount];
-    self.feeLabel.text = [NSString stringWithFormat:@"￥%.0f", teacher.price];
     self.phoneLabel.text = teacher.phone;
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:intro];
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
     [paraStyle setLineSpacing:5];
     [attributedStr addAttribute:NSParagraphStyleAttributeName value:paraStyle range:NSMakeRange(0, attributedStr.length)];
     self.introduceLabel.attributedText = attributedStr;
+}
+
+- (void)setFeeGroups:(NSArray *)feeGroups {
+    _feeGroups = feeGroups;
+    
+    self.feeLabel.text = [NSString stringWithFormat:@"￥%zd", [JXFeeGroupTool totalPayWithFeeGroups:feeGroups]];
+}
+
+/**
+ *  学费明细按钮被点击了
+ */
+- (IBAction)feeDetailButtonClicked {
+    // 通知代理
+    if ([self.delegate respondsToSelector:@selector(teacherDetailCellDidClickedFeeDetailButton)]) {
+        [self.delegate teacherDetailCellDidClickedFeeDetailButton];
+    }
 }
 
 @end

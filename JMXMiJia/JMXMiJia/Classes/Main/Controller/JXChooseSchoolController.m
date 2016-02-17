@@ -18,7 +18,6 @@
 @interface JXChooseSchoolController ()
 /** 学校数组 */
 @property (nonatomic, strong) NSMutableArray *schools;
-@property (nonatomic, assign) NSInteger selectedRow;
 @end
 
 @implementation JXChooseSchoolController
@@ -36,7 +35,7 @@
     self.title = @"选择学校";
     
     // 添加刷新控件
-    [self loadSchools];
+    [self setupRefresh];
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     
@@ -49,9 +48,6 @@
     [self.tableView reloadData];
 }
 
-/**
- *  添加刷新控件
-
 - (void)setupRefresh {
     // 添加下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadSchools)];
@@ -59,7 +55,6 @@
     // 开始下拉刷新
     [self.tableView.mj_header beginRefreshing];
 }
-  */
 
 /**
  *  加载学校数据
@@ -87,12 +82,12 @@
             school.name = @"不限";
             [self.schools insertObject:school atIndex:0];
             
-            for (int i = 0; i < self.schools.count; i ++) {
-                JXSchool *school = self.schools[i];
-                if (self.defaultSchool == school.name) {
-                    self.selectedRow = i;
-                }
-            }
+//            for (int i = 0; i < self.schools.count; i ++) {
+//                JXSchool *school = self.schools[i];
+//                if (self.defaultSchool == school.name) {
+//                    self.selectedRow = i;
+//                }
+//            }
             
             [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
@@ -126,7 +121,7 @@
     
     // 默认选中
     cell.accessoryType = UITableViewCellAccessoryNone;
-    if (indexPath.row == self.selectedRow) {
+    if ([self.defaultSchool.name isEqualToString:cell.textLabel.text]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     return cell;
@@ -134,8 +129,6 @@
 
 #pragma mark - table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.selectedRow = indexPath.row;
-    
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
     selectedCell.tintColor = [UIColor lightGrayColor];
@@ -147,11 +140,7 @@
     // 通知代理选择的项目
     if ([self.delegate respondsToSelector:@selector(chooseSchoolDidFinished:)]) {
         JXSchool *school = self.schools[indexPath.row];
-        NSString *name = school.name;
-        if ([name isEqualToString:@"不限"]) {
-            name = nil;
-        }
-        [self.delegate chooseSchoolDidFinished:name];
+        [self.delegate chooseSchoolDidFinished:school];
     }
 }
 

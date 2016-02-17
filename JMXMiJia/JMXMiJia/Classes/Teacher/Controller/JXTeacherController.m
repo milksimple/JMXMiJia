@@ -27,8 +27,9 @@
 #import "JXFilterViewController.h"
 #import <MJRefresh.h>
 #import "JXAutoOrderController.h"
+#import "JXFeeGroupTool.h"
 
-@interface JXTeacherController () <UITableViewDataSource, UITableViewDelegate, JXSearchBarDelegate>
+@interface JXTeacherController () <UITableViewDataSource, UITableViewDelegate, JXSearchBarDelegate, JXAutoOrderControllerDelegate>
 
 @property (nonatomic, weak) UITableView *tableView;
 
@@ -45,8 +46,8 @@
 @property (nonatomic, strong) JXSearchParas *searchParas;
 /** 筛选view */
 @property (nonatomic, weak) JXFilterView *filterView;
-/** 筛选控制器 */
-@property (nonatomic, strong) JXFilterViewController *filterVC;
+/** 自主订单的总金额 */
+@property (nonatomic, assign) NSInteger totalPay;
 @end
 
 @implementation JXTeacherController
@@ -76,16 +77,18 @@
     if (_searchParas == nil) {
         _searchParas = [[JXSearchParas alloc] init];
         _searchParas.star = -1;
+        _searchParas.sex = JXSexAny;
+//        _searchParas.school = @"不限";
     }
     return _searchParas;
 }
 
-- (JXFilterViewController *)filterVC {
-    if (_filterVC == nil) {
-        _filterVC = [[JXFilterViewController alloc] init];
-    }
-    return _filterVC;
-}
+//- (JXFilterViewController *)filterVC {
+//    if (_filterVC == nil) {
+//        _filterVC = [[JXFilterViewController alloc] init];
+//    }
+//    return _filterVC;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -164,16 +167,21 @@
     paras[@"keyword"] = self.searchParas.keyword;
     paras[@"sex"] = @(self.searchParas.sex);
     paras[@"star"] = @(self.searchParas.star);
-    paras[@"school"] = self.searchParas.school;
-    
+    paras[@"school"] = self.searchParas.school.uid;
+
     // 取出最前面的老师
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/CoachFace" params:paras success:^(id json) {
         // 停止刷新状态
         [self.tableView.mj_header endRefreshing];
         
         // 字典数组转模型数组
-        NSArray *newTeachers = [JXTeacher mj_objectArrayWithKeyValuesArray:json[@"rows"]];
-        [self.teachers insertObjects:newTeachers atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, newTeachers.count)]];
+        NSMutableArray *newTeachers = [JXTeacher mj_objectArrayWithKeyValuesArray:json[@"rows"]];
+        if (self.searchParas.feeGroups) {
+            for (JXTeacher *newTeacher in newTeachers) {
+                newTeacher.price = [JXFeeGroupTool totalPayWithFeeGroups:self.searchParas.feeGroups];
+            }
+        }
+        self.teachers = newTeachers;
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
@@ -191,7 +199,7 @@
     paras[@"keyword"] = self.searchParas.keyword;
     paras[@"sex"] = @(self.searchParas.sex);
     paras[@"star"] = @(self.searchParas.star);
-    paras[@"school"] = self.searchParas.school;
+    paras[@"school"] = self.searchParas.school.uid;
     
     // 取出后面的老师
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/CoachFace" params:paras success:^(id json) {
@@ -232,8 +240,10 @@
  *  筛选按钮被点击了
  */
 - (void)searchBarDidClickedFilterButton {
+    JXFilterViewController *filterVC = [[JXFilterViewController alloc] init];
+    filterVC.searchParas = self.searchParas;
+    JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:filterVC];
     JXFilterView *filterView = [JXFilterView filterView];
-    JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:self.filterVC];
     filterView.contentViewController = nav;
     [filterView show];
     self.filterView = filterView;
@@ -294,17 +304,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     JXTeacher *teacher = self.teachers[indexPath.row];
     JXTeacherDetailController *detailVC = [[JXTeacherDetailController alloc] initWithStyle:UITableViewStylePlain];
+    // 教师数据
     detailVC.teacher = teacher;
+    // 学费明细数据
+    detailVC.feeGroups = self.searchParas.feeGroups;
     [self.navigationController pushViewController:detailVC animated:YES];
     
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     JXTeacherHeaderView *header = [JXTeacherHeaderView headerView];
-    
+    header.totalPay = [JXFeeGroupTool totalPayWithFeeGroups:self.searchParas.feeGroups];
     __weak typeof(self) weakSelf = self;
     header.orderButtonClickedAction = ^{
         JXAutoOrderController *autoOrderVC = [[JXAutoOrderController alloc] init];
+        // 传递数据
+        autoOrderVC.searchParas = weakSelf.searchParas;
+        autoOrderVC.delegate = weakSelf;
         JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:autoOrderVC];
         [weakSelf presentViewController:nav animated:YES completion:nil];
     };
@@ -331,6 +347,13 @@
     [self.filterView dismiss];
     NSDictionary *userInfo = noti.userInfo;
     JXSearchParas *searchParas = userInfo[@"JXSearchParasKey"];
+    searchParas.feeGroups = nil;
+    self.searchParas = searchParas;
+    [self.tableView.mj_header beginRefreshing];
+}
+
+#pragma mark - JXAutoOrderControllerDelegate
+- (void)autoOrderDidFinishedWithSearchParas:(JXSearchParas *)searchParas {
     self.searchParas = searchParas;
     [self.tableView.mj_header beginRefreshing];
 }
