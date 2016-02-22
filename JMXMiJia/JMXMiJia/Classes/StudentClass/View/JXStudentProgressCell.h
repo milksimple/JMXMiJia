@@ -7,9 +7,13 @@
 //  学生课堂进度
 
 #import <UIKit/UIKit.h>
+@class JXStudentProgress;
 
 @interface JXStudentProgressCell : UITableViewCell
 
 + (instancetype)cell;
+/** 进度模型 */
+@property (nonatomic, strong) NSArray *progresses;
 
++ (CGFloat)rowHeight;
 @end

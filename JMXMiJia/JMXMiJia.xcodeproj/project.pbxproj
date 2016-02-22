@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040FEE771C7AED6000E0CE5A /* JXStudentProgressDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEE751C7AED6000E0CE5A /* JXStudentProgressDetailCell.m */; };
+		040FEE781C7AED6000E0CE5A /* JXStudentProgressDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040FEE761C7AED6000E0CE5A /* JXStudentProgressDetailCell.xib */; };
+		040FEE7C1C7AF85800E0CE5A /* JXStudentScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEE7A1C7AF85800E0CE5A /* JXStudentScoreCell.m */; };
+		040FEE7D1C7AF85800E0CE5A /* JXStudentScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040FEE7B1C7AF85800E0CE5A /* JXStudentScoreCell.xib */; };
+		040FEE801C7B01FD00E0CE5A /* JXStudentProgressHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEE7F1C7B01FD00E0CE5A /* JXStudentProgressHeader.m */; };
+		040FEE821C7B020B00E0CE5A /* JXStudentProgressHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040FEE811C7B020B00E0CE5A /* JXStudentProgressHeader.xib */; };
 		04129CE11C5748FE0098C7AB /* JXTeachersTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04129CE01C5748FE0098C7AB /* JXTeachersTool.m */; };
 		04129CE41C58BE1F0098C7AB /* JXSearchParas.m in Sources */ = {isa = PBXBuildFile; fileRef = 04129CE31C58BE1F0098C7AB /* JXSearchParas.m */; };
 		04129CE71C59B0F80098C7AB /* JXFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04129CE61C59B0F80098C7AB /* JXFilterView.m */; };
@@ -128,6 +134,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		040FEE741C7AED6000E0CE5A /* JXStudentProgressDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXStudentProgressDetailCell.h; sourceTree = "<group>"; };
+		040FEE751C7AED6000E0CE5A /* JXStudentProgressDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXStudentProgressDetailCell.m; sourceTree = "<group>"; };
+		040FEE761C7AED6000E0CE5A /* JXStudentProgressDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXStudentProgressDetailCell.xib; sourceTree = "<group>"; };
+		040FEE791C7AF85800E0CE5A /* JXStudentScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXStudentScoreCell.h; sourceTree = "<group>"; };
+		040FEE7A1C7AF85800E0CE5A /* JXStudentScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXStudentScoreCell.m; sourceTree = "<group>"; };
+		040FEE7B1C7AF85800E0CE5A /* JXStudentScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXStudentScoreCell.xib; sourceTree = "<group>"; };
+		040FEE7E1C7B01FD00E0CE5A /* JXStudentProgressHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXStudentProgressHeader.h; sourceTree = "<group>"; };
+		040FEE7F1C7B01FD00E0CE5A /* JXStudentProgressHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXStudentProgressHeader.m; sourceTree = "<group>"; };
+		040FEE811C7B020B00E0CE5A /* JXStudentProgressHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXStudentProgressHeader.xib; sourceTree = "<group>"; };
 		04129CDF1C5748FE0098C7AB /* JXTeachersTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTeachersTool.h; sourceTree = "<group>"; };
 		04129CE01C5748FE0098C7AB /* JXTeachersTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTeachersTool.m; sourceTree = "<group>"; };
 		04129CE21C58BE1F0098C7AB /* JXSearchParas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JXSearchParas.h; path = ../../Teacher/Model/JXSearchParas.h; sourceTree = "<group>"; };
@@ -707,6 +722,15 @@
 				04A2BF491C746AF4008CE488 /* JXStudentProgressCell.h */,
 				04A2BF4A1C746AF4008CE488 /* JXStudentProgressCell.m */,
 				04A2BF4B1C746AF4008CE488 /* JXStudentProgressCell.xib */,
+				040FEE741C7AED6000E0CE5A /* JXStudentProgressDetailCell.h */,
+				040FEE751C7AED6000E0CE5A /* JXStudentProgressDetailCell.m */,
+				040FEE761C7AED6000E0CE5A /* JXStudentProgressDetailCell.xib */,
+				040FEE791C7AF85800E0CE5A /* JXStudentScoreCell.h */,
+				040FEE7A1C7AF85800E0CE5A /* JXStudentScoreCell.m */,
+				040FEE7B1C7AF85800E0CE5A /* JXStudentScoreCell.xib */,
+				040FEE7E1C7B01FD00E0CE5A /* JXStudentProgressHeader.h */,
+				040FEE7F1C7B01FD00E0CE5A /* JXStudentProgressHeader.m */,
+				040FEE811C7B020B00E0CE5A /* JXStudentProgressHeader.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1092,6 +1116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				041D31351C4F806A007C8E43 /* JXTeacherHeaderView.xib in Resources */,
+				040FEE781C7AED6000E0CE5A /* JXStudentProgressDetailCell.xib in Resources */,
 				041D312B1C4F287C007C8E43 /* JXDetailHeaderView.xib in Resources */,
 				04F0AB671C2A2FCE000EB562 /* LaunchScreen.storyboard in Resources */,
 				04A2BED11C702BDB008CE488 /* JXAccommodationFeeCell.xib in Resources */,
@@ -1104,8 +1129,10 @@
 				041D31481C51BF52007C8E43 /* JXAutoOrderCell.xib in Resources */,
 				041D30FB1C4CBF00007C8E43 /* JXProfileMoneyCell.xib in Resources */,
 				041D30E61C4797D7007C8E43 /* MBProgressHUD.bundle in Resources */,
+				040FEE7D1C7AF85800E0CE5A /* JXStudentScoreCell.xib in Resources */,
 				04A2BEF01C70824D008CE488 /* JXHangBranchCell.xib in Resources */,
 				04F0ABE41C2CDACC000EB562 /* JXTeacherToolBar.xib in Resources */,
+				040FEE821C7B020B00E0CE5A /* JXStudentProgressHeader.xib in Resources */,
 				04A2BECC1C701288008CE488 /* JXBaseFeeCell.xib in Resources */,
 				04A2BEE01C7060D4008CE488 /* JXStudyPlaceCell.xib in Resources */,
 				041D315C1C560AF7007C8E43 /* JXChangePwdController.xib in Resources */,
@@ -1198,6 +1225,7 @@
 				041D312E1C4F395C007C8E43 /* JXDetailFooterView.m in Sources */,
 				041D30F41C4C9502007C8E43 /* JXProfileHeaderView.m in Sources */,
 				04F0ABDA1C2BEB5B000EB562 /* JXSearchBar.m in Sources */,
+				040FEE7C1C7AF85800E0CE5A /* JXStudentScoreCell.m in Sources */,
 				041D31511C51E150007C8E43 /* JXProfileInfoIconCell.m in Sources */,
 				041D30C21C44F606007C8E43 /* JXAccountTool.m in Sources */,
 				041D31091C4DDAA2007C8E43 /* NSString+Extension.m in Sources */,
@@ -1205,6 +1233,7 @@
 				04A2BEFE1C71B0F2008CE488 /* JXAutoOrderFooterView.m in Sources */,
 				041D313F1C509375007C8E43 /* JXAutoOrderController.m in Sources */,
 				041D30DB1C47494B007C8E43 /* JXMainBaseViewController.m in Sources */,
+				040FEE801C7B01FD00E0CE5A /* JXStudentProgressHeader.m in Sources */,
 				041D30E51C4797D7007C8E43 /* MBProgressHUD+MJ.m in Sources */,
 				041D30F81C4CBB41007C8E43 /* JXProfileMoneyCell.m in Sources */,
 				041D31021C4CE68A007C8E43 /* JXTeacherDetailCell.m in Sources */,
@@ -1260,6 +1289,7 @@
 				041D30FE1C4CE5ED007C8E43 /* JXTeacherDetailController.m in Sources */,
 				04A2BEEB1C70793D008CE488 /* JXFeeGroup.m in Sources */,
 				52A30C861C2FC57000A176A7 /* JXNavLetterButton.m in Sources */,
+				040FEE771C7AED6000E0CE5A /* JXStudentProgressDetailCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

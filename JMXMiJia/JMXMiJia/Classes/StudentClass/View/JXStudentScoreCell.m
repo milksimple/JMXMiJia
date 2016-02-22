@@ -1,18 +1,14 @@
 //
-//  JXStudentProgressCell.m
+//  JXStudentScoreCell.m
 //  JMXMiJia
 //
-//  Created by mac on 16/2/17.
+//  Created by mac on 16/2/22.
 //  Copyright © 2016年 mac. All rights reserved.
 //
 
-#import "JXStudentProgressCell.h"
+#import "JXStudentScoreCell.h"
 
-@implementation JXStudentProgressCell
-
-+ (instancetype)cell {
-    return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([JXStudentProgressCell class]) owner:nil options:nil].lastObject;
-}
+@implementation JXStudentScoreCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -24,8 +20,12 @@
     // Configure the view for the selected state
 }
 
++ (instancetype)cell {
+    return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([JXStudentScoreCell class]) owner:nil options:nil].lastObject;
+}
+
 + (CGFloat)rowHeight {
-    return 80;
+    return 100;
 }
 
 @end

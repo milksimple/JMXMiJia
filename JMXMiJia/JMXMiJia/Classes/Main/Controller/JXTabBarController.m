@@ -34,8 +34,8 @@
     JXTeacherController *teacherVC = [[JXTeacherController alloc] init];
     [self addChildVC:teacherVC image:@"tabbar_person_normal" selectedImage:@"tabbar_person_selected" title:@"报名"];
     
-    JXTeacherClassController *teacherClassVC = [[JXTeacherClassController alloc] init];
-    [self addChildVC:teacherClassVC image:@"tabbar_class_normal" selectedImage:@"tabbar_class_selected" title:@"课堂"];
+    JXStudentClassController *studentClassVC = [[JXStudentClassController alloc] init];
+    [self addChildVC:studentClassVC image:@"tabbar_class_normal" selectedImage:@"tabbar_class_selected" title:@"课堂"];
     
     JXStudentProfileController *studentProfileVC = [[JXStudentProfileController alloc] init];
     [self addChildVC:studentProfileVC image:@"tabbar_profile_normal" selectedImage:@"tabbar_profile_selected" title:@"个人"];

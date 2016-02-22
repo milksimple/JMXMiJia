@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface JXStudentProgress : NSObject
-/**  */
-@property (nonatomic, assign) NSInteger progress;
+/** 阶段 */
+@property (nonatomic, assign) NSInteger phrase;
 
 /** 完成状态 */
-
+@property (nonatomic, assign) BOOL complete;
 /** 开始时间 */
-
+@property (nonatomic, copy) NSString *startTime;
 /** 完成时间 */
-
+@property (nonatomic, copy) NSString *finishTime;
 @end
