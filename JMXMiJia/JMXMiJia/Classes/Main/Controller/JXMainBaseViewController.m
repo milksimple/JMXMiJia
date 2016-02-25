@@ -43,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    self.navigationItem.rightBarButtonItem = self.letterItem;
+    self.view.backgroundColor = JXGlobalBgColor;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -12,6 +12,7 @@
 #import "JXStudentProgressDetailCell.h"
 #import "JXStudentScoreCell.h"
 #import "JXStudentProgressHeader.h"
+#import "JXStudentProgressFooter.h"
 
 @interface JXStudentClassController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -120,5 +121,22 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return [JXStudentProgressHeader headerHeight];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == 2) {
+        JXStudentProgressFooter *footer = [JXStudentProgressFooter footer];
+        return footer;
+    }
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 2) {
+        return [JXStudentProgressFooter footerHeight];
+    }
+    else {
+        return 1;
+    }
 }
 @end

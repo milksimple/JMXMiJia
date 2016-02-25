@@ -40,6 +40,9 @@
 // 随机色
 #define JXRandomColor JXColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
 
+// 全局背景色
+#define JXGlobalBgColor JXColor(239, 239, 239)
+
 // weakself
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 

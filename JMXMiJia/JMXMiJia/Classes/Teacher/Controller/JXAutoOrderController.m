@@ -157,6 +157,7 @@ static NSString * const JXOptionalFeeID = @"optionalFeeCell";
     if (indexPath.section == 3) { // 选择场地
         JXChooseSchoolController *chooseSchoolVC = [[JXChooseSchoolController alloc] init];
         chooseSchoolVC.delegate = self;
+        chooseSchoolVC.defaultSchool = self.searchParas.school;
         [self.navigationController pushViewController:chooseSchoolVC animated:YES];
     }
 }

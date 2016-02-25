@@ -18,7 +18,7 @@ PODS:
   - FMDB (2.6):
     - FMDB/standard (= 2.6)
   - FMDB/standard (2.6)
-  - IQKeyboardManager (3.3.6)
+  - IQKeyboardManager (3.3.7)
   - Masonry (0.6.4)
   - MJExtension (3.0.10)
   - MJRefresh (3.1.0)
@@ -42,7 +42,7 @@ SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BBBadgeBarButtonItem: c2fbca0bff18e21b70defc9438a8a5048008e7ca
   FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
-  IQKeyboardManager: 037cf3aec1d0a045108859a47818714eb1bfc149
+  IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4

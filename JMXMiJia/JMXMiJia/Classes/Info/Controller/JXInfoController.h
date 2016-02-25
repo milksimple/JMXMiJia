@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JXInfoController : UIViewController
+@interface JXInfoController : UITableViewController
 
 @end

@@ -16,12 +16,14 @@
 #import <Masonry.h>
 #import "JXTeacher.h"
 #import <UIImageView+WebCache.h>
-#import <UIButton+WebCache.h>
+//#import <UIButton+WebCache.h>
+#import <SDWebImageManager.h>
+
 #import "JXSchool.h"
 
-@interface JXTeacherViewCell()
+@interface JXTeacherViewCell() <SDWebImageManagerDelegate>
 /** 头像 */
-@property (weak, nonatomic) UIImageView *iconButton;
+@property (weak, nonatomic) UIImageView *iconView;
 /** 勋章 */
 @property (nonatomic, weak) UIImageView *medalView;
 /** 姓名 */
@@ -40,6 +42,8 @@
 @property (nonatomic, weak) UILabel *teachTypeLabel;
 /** 学费 */
 @property (nonatomic, weak) UILabel *feeLabel;
+
+@property (nonatomic, strong) SDWebImageManager *manager;
 @end
 
 @implementation JXTeacherViewCell
@@ -47,6 +51,14 @@
 static NSInteger const margin = 5;
 // 标签的长度
 static CGFloat const JXSignLabelW = 30;
+
+- (SDWebImageManager *)manager {
+    if (_manager == nil) {
+        _manager = [SDWebImageManager sharedManager];
+        _manager.delegate = self;
+    }
+    return _manager;
+}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -59,9 +71,10 @@ static CGFloat const JXSignLabelW = 30;
 
 - (void)setup {
     /** 头像 */
-    UIImageView *iconButton = [[UIImageView alloc] init];
-    iconButton.clipsToBounds = YES;
-    iconButton.contentMode = UIViewContentModeTop;
+    UIImageView *iconView = [[UIImageView alloc] init];
+    iconView.backgroundColor = [UIColor redColor];
+//    iconView.clipsToBounds = YES;
+    iconView.contentMode = UIViewContentModeCenter;
     
     /*
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
@@ -71,11 +84,12 @@ static CGFloat const JXSignLabelW = 30;
     iconButton.layer.mask = maskLayer;
     */
      
-    [self.contentView addSubview:iconButton];
-    self.iconButton = iconButton;
+    [self.contentView addSubview:iconView];
+    self.iconView = iconView;
     
     /** 勋章 */
     UIImageView *medalView = [[UIImageView alloc] init];
+    
     [self.contentView addSubview:medalView];
 #warning 测试数据
     medalView.image = [UIImage imageNamed:@"grade"];
@@ -149,24 +163,23 @@ static CGFloat const JXSignLabelW = 30;
     separatorView.backgroundColor = JXColor(229, 229, 229);
     [self.contentView addSubview:separatorView];
     
-    MASAttachKeys(self.contentView, iconButton, medalView, nameLabel, schoolLabel, distanceView, rankLabel, workYearLabel, teachTypeLabel, feeLabel);
+    MASAttachKeys(self.contentView, iconView, medalView, nameLabel, schoolLabel, distanceView, rankLabel, workYearLabel, teachTypeLabel, feeLabel);
     
-    [iconButton makeConstraints:^(MASConstraintMaker *make) {
+    [iconView makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(margin);
-        make.top.offset(margin);
-        make.bottom.offset(-margin);
-        make.width.equalTo(iconButton.height);
+        make.width.height.equalTo(@50);
+        make.centerY.equalTo(self.contentView.centerY);
     }];
     
     [medalView makeConstraints:^(MASConstraintMaker *make) {
         make.width.offset(13);
         make.height.offset(18.33);
-        make.bottom.right.equalTo(iconButton);
+        make.bottom.right.equalTo(iconView);
     }];
     
     [nameLabel makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(iconButton.right).offset(2*margin);
-        make.bottom.equalTo(iconButton.centerY);
+        make.left.equalTo(iconView.right).offset(2*margin);
+        make.bottom.equalTo(iconView.centerY);
         make.right.equalTo(schoolLabel.left).offset(-margin);
     }];
     
@@ -224,16 +237,30 @@ static CGFloat const JXSignLabelW = 30;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.iconButton.layer.cornerRadius = (self.frame.size.height - 2*margin)*0.5;
+//    self.iconView.layer.cornerRadius = (self.frame.size.height - 2*margin)*0.5;
 }
 
 - (void)setTeacher:(JXTeacher *)teacher {
     _teacher = teacher;
     
     NSString *iconUrl = [NSString stringWithFormat:@"http://10.255.1.25/dschoolAndroid/%@", teacher.photo];
-//    [self.iconButton sd_setImageWithURL:[NSURL URLWithString:iconUrl] placeholderImage:[UIImage imageNamed:@"login_name_high"]];
+    JXLog(@"iconUrl = %@", iconUrl);
+//    [self.iconView sd_setImageWithURL:[NSURL URLWithString:iconUrl] placeholderImage:[UIImage imageNamed:@"login_name_high"]];
+
+    __weak typeof(self) weakSelf = self;
+    [self.manager downloadImageWithURL:[NSURL URLWithString:iconUrl] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        JXLog(@"$$image.size = %@", NSStringFromCGSize(image.size));
+        
+        // 先缩小
+        UIImage *scaleImage = [self compressImage:image toTargetWidth:50];
+        
+        // 再裁剪
+        UIImage *newImage = [self circleImageWithImage:scaleImage];
+        JXLog(@"$$newImage.size = %@", NSStringFromCGSize(newImage.size));
+        weakSelf.iconView.image = newImage;
+    }];
 #warning 测试数据
-    self.iconButton.image = arc4random_uniform(2) ? [UIImage imageNamed:@"icon_example"] : [UIImage imageNamed:@"icon_example2"];
+//    self.iconButton.image = arc4random_uniform(2) ? [UIImage imageNamed:@"icon_example"] : [UIImage imageNamed:@"icon_example2"];
     self.nameLabel.text = teacher.name;
     self.schoolLabel.text = teacher.school;
     self.starView.image = [UIImage imageNamed:[NSString stringWithFormat:@"star_%zd", teacher.star]];
@@ -242,6 +269,96 @@ static CGFloat const JXSignLabelW = 30;
     self.workYearLabel.text = [NSString stringWithFormat:@"%zd年", teacher.year];
     self.teachTypeLabel.text = teacher.models;
     self.feeLabel.text = [NSString stringWithFormat:@"￥%zd", (int)teacher.price];
+}
+
+- (UIImage *)circleImageWithImage:(UIImage *)originImage
+{
+    // 开启图形上下文
+    UIGraphicsBeginImageContext(originImage.size);
+    
+    // 获得上下文
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    // 矩形框
+    CGRect rect = CGRectMake(0, 0, originImage.size.width, originImage.size.height);
+    
+    // 添加一个圆
+    CGContextAddEllipseInRect(ctx, CGRectMake(0, 0, originImage.size.width, originImage.size.width));
+    
+    // 裁剪(裁剪成刚才添加的图形形状)
+    CGContextClip(ctx);
+    
+    // 往圆上面画一张图片
+    [originImage drawInRect:rect];
+    
+    // 获得上下文中的图片
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // 关闭图形上下文
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+/*!
+ *  @author 黄仪标, 15-12-01 16:12:01
+ *
+ *  压缩图片至目标尺寸
+ *
+ *  @param sourceImage 源图片
+ *  @param targetWidth 图片最终尺寸的宽
+ *
+ *  @return 返回按照源图片的宽、高比例压缩至目标宽、高的图片
+ */
+- (UIImage *)compressImage:(UIImage *)sourceImage toTargetWidth:(CGFloat)targetWidth {
+    CGSize imageSize = sourceImage.size;
+    
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    
+    CGFloat targetHeight = (targetWidth / width) * height;
+    
+    UIGraphicsBeginImageContext(CGSizeMake(targetWidth, targetHeight));
+    [sourceImage drawInRect:CGRectMake(0, 0, targetWidth, targetHeight)];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+
+#pragma mark - SDWebImageManagerDelegate
+- (BOOL)imageManager:(SDWebImageManager *)imageManager shouldDownloadImageForURL:(NSURL *)imageURL {
+    return YES;
+}
+
+- (UIImage *)imageManager:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL {
+    JXLog(@"***transformDownloadedImage***");
+//    // 1. 创建上下文，尺寸和图片大小相同
+//    CGSize size = CGSizeMake(image.size.width, image.size.width);
+//    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+//    
+//    // 2. 取得当前(刚创建的)上下文
+//    CGContextRef ctx = UIGraphicsGetCurrentContext();
+//    
+//    // 3. 画圆
+//    CGContextAddEllipseInRect(ctx, (CGRect){0, 0, size});
+//    
+//    // 4. 按当前路径形状裁剪
+//    CGContextClip(ctx);
+//    
+//    //5. 画图
+//    [image drawInRect:(CGRect){0, 0, image.size}];
+//    
+//    // 6. 获得上下文的图片
+//    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+//    
+//    // 7. 关闭上下文
+//    UIGraphicsEndImageContext();
+    
+    UIImage *newImage = [self circleImageWithImage:image];
+    JXLog(@"newimage.size = %@", NSStringFromCGSize(newImage.size));
+    return newImage;
 }
 
 @end

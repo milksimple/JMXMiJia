@@ -149,6 +149,7 @@
 //#warning 测试数据
 //        paras[@"password"] = self.pwdField.text;
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
+//        paras[@"pushToken"] = @"232211bf0cdae1a1c5ad737b002d4638ef581ef0eaba1e5f344fff6b536534ce";
         
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/Login" params:paras success:^(id json) {
             [MBProgressHUD hideHUD];

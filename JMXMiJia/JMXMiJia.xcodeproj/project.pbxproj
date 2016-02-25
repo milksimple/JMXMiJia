@@ -13,6 +13,16 @@
 		040FEE7D1C7AF85800E0CE5A /* JXStudentScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040FEE7B1C7AF85800E0CE5A /* JXStudentScoreCell.xib */; };
 		040FEE801C7B01FD00E0CE5A /* JXStudentProgressHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEE7F1C7B01FD00E0CE5A /* JXStudentProgressHeader.m */; };
 		040FEE821C7B020B00E0CE5A /* JXStudentProgressHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040FEE811C7B020B00E0CE5A /* JXStudentProgressHeader.xib */; };
+		040FEE851C7C123200E0CE5A /* JXStudentProgressFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEE841C7C123200E0CE5A /* JXStudentProgressFooter.m */; };
+		040FEE871C7C124100E0CE5A /* JXStudentProgressFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040FEE861C7C124100E0CE5A /* JXStudentProgressFooter.xib */; };
+		040FEE8A1C7D59CC00E0CE5A /* JXInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEE891C7D59CC00E0CE5A /* JXInfoHeaderView.m */; };
+		040FEE8F1C7D817300E0CE5A /* JXMessageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEE8E1C7D817300E0CE5A /* JXMessageHeaderView.m */; };
+		040FEE931C7D8A1C00E0CE5A /* JXInfoMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEE911C7D8A1C00E0CE5A /* JXInfoMessageCell.m */; };
+		040FEE941C7D8A1C00E0CE5A /* JXInfoMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040FEE921C7D8A1C00E0CE5A /* JXInfoMessageCell.xib */; };
+		040FEE981C7D978800E0CE5A /* JXInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEE961C7D978800E0CE5A /* JXInfoTableViewCell.m */; };
+		040FEE991C7D978800E0CE5A /* JXInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040FEE971C7D978800E0CE5A /* JXInfoTableViewCell.xib */; };
+		040FEE9D1C7D98F100E0CE5A /* JXMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FEE9B1C7D98F100E0CE5A /* JXMessageTableViewCell.m */; };
+		040FEE9E1C7D98F100E0CE5A /* JXMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040FEE9C1C7D98F100E0CE5A /* JXMessageTableViewCell.xib */; };
 		04129CE11C5748FE0098C7AB /* JXTeachersTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04129CE01C5748FE0098C7AB /* JXTeachersTool.m */; };
 		04129CE41C58BE1F0098C7AB /* JXSearchParas.m in Sources */ = {isa = PBXBuildFile; fileRef = 04129CE31C58BE1F0098C7AB /* JXSearchParas.m */; };
 		04129CE71C59B0F80098C7AB /* JXFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04129CE61C59B0F80098C7AB /* JXFilterView.m */; };
@@ -143,6 +153,22 @@
 		040FEE7E1C7B01FD00E0CE5A /* JXStudentProgressHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXStudentProgressHeader.h; sourceTree = "<group>"; };
 		040FEE7F1C7B01FD00E0CE5A /* JXStudentProgressHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXStudentProgressHeader.m; sourceTree = "<group>"; };
 		040FEE811C7B020B00E0CE5A /* JXStudentProgressHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXStudentProgressHeader.xib; sourceTree = "<group>"; };
+		040FEE831C7C123200E0CE5A /* JXStudentProgressFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXStudentProgressFooter.h; sourceTree = "<group>"; };
+		040FEE841C7C123200E0CE5A /* JXStudentProgressFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXStudentProgressFooter.m; sourceTree = "<group>"; };
+		040FEE861C7C124100E0CE5A /* JXStudentProgressFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXStudentProgressFooter.xib; sourceTree = "<group>"; };
+		040FEE881C7D59CC00E0CE5A /* JXInfoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXInfoHeaderView.h; sourceTree = "<group>"; };
+		040FEE891C7D59CC00E0CE5A /* JXInfoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXInfoHeaderView.m; sourceTree = "<group>"; };
+		040FEE8D1C7D817300E0CE5A /* JXMessageHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMessageHeaderView.h; sourceTree = "<group>"; };
+		040FEE8E1C7D817300E0CE5A /* JXMessageHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXMessageHeaderView.m; sourceTree = "<group>"; };
+		040FEE901C7D8A1C00E0CE5A /* JXInfoMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXInfoMessageCell.h; sourceTree = "<group>"; };
+		040FEE911C7D8A1C00E0CE5A /* JXInfoMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXInfoMessageCell.m; sourceTree = "<group>"; };
+		040FEE921C7D8A1C00E0CE5A /* JXInfoMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXInfoMessageCell.xib; sourceTree = "<group>"; };
+		040FEE951C7D978800E0CE5A /* JXInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXInfoTableViewCell.h; sourceTree = "<group>"; };
+		040FEE961C7D978800E0CE5A /* JXInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXInfoTableViewCell.m; sourceTree = "<group>"; };
+		040FEE971C7D978800E0CE5A /* JXInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXInfoTableViewCell.xib; sourceTree = "<group>"; };
+		040FEE9A1C7D98F100E0CE5A /* JXMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMessageTableViewCell.h; sourceTree = "<group>"; };
+		040FEE9B1C7D98F100E0CE5A /* JXMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXMessageTableViewCell.m; sourceTree = "<group>"; };
+		040FEE9C1C7D98F100E0CE5A /* JXMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXMessageTableViewCell.xib; sourceTree = "<group>"; };
 		04129CDF1C5748FE0098C7AB /* JXTeachersTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTeachersTool.h; sourceTree = "<group>"; };
 		04129CE01C5748FE0098C7AB /* JXTeachersTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTeachersTool.m; sourceTree = "<group>"; };
 		04129CE21C58BE1F0098C7AB /* JXSearchParas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JXSearchParas.h; path = ../../Teacher/Model/JXSearchParas.h; sourceTree = "<group>"; };
@@ -586,6 +612,19 @@
 		04F0AB8E1C2A34EE000EB562 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				040FEE881C7D59CC00E0CE5A /* JXInfoHeaderView.h */,
+				040FEE891C7D59CC00E0CE5A /* JXInfoHeaderView.m */,
+				040FEE8D1C7D817300E0CE5A /* JXMessageHeaderView.h */,
+				040FEE8E1C7D817300E0CE5A /* JXMessageHeaderView.m */,
+				040FEE901C7D8A1C00E0CE5A /* JXInfoMessageCell.h */,
+				040FEE911C7D8A1C00E0CE5A /* JXInfoMessageCell.m */,
+				040FEE921C7D8A1C00E0CE5A /* JXInfoMessageCell.xib */,
+				040FEE951C7D978800E0CE5A /* JXInfoTableViewCell.h */,
+				040FEE961C7D978800E0CE5A /* JXInfoTableViewCell.m */,
+				040FEE971C7D978800E0CE5A /* JXInfoTableViewCell.xib */,
+				040FEE9A1C7D98F100E0CE5A /* JXMessageTableViewCell.h */,
+				040FEE9B1C7D98F100E0CE5A /* JXMessageTableViewCell.m */,
+				040FEE9C1C7D98F100E0CE5A /* JXMessageTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -731,6 +770,9 @@
 				040FEE7E1C7B01FD00E0CE5A /* JXStudentProgressHeader.h */,
 				040FEE7F1C7B01FD00E0CE5A /* JXStudentProgressHeader.m */,
 				040FEE811C7B020B00E0CE5A /* JXStudentProgressHeader.xib */,
+				040FEE831C7C123200E0CE5A /* JXStudentProgressFooter.h */,
+				040FEE841C7C123200E0CE5A /* JXStudentProgressFooter.m */,
+				040FEE861C7C124100E0CE5A /* JXStudentProgressFooter.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1123,6 +1165,7 @@
 				041D31301C4F396B007C8E43 /* JXDetailFooterView.xib in Resources */,
 				04A2BEFB1C71A960008CE488 /* JXAutoOrderHeaderView.xib in Resources */,
 				041D31571C5602F3007C8E43 /* JXChangeRealnameController.xib in Resources */,
+				040FEE991C7D978800E0CE5A /* JXInfoTableViewCell.xib in Resources */,
 				04F0AB641C2A2FCE000EB562 /* Assets.xcassets in Resources */,
 				041D31031C4CE68A007C8E43 /* JXTeacherDetailCell.xib in Resources */,
 				04A2BEE51C706A8D008CE488 /* feeGroup.plist in Resources */,
@@ -1133,12 +1176,15 @@
 				04A2BEF01C70824D008CE488 /* JXHangBranchCell.xib in Resources */,
 				04F0ABE41C2CDACC000EB562 /* JXTeacherToolBar.xib in Resources */,
 				040FEE821C7B020B00E0CE5A /* JXStudentProgressHeader.xib in Resources */,
+				040FEE871C7C124100E0CE5A /* JXStudentProgressFooter.xib in Resources */,
 				04A2BECC1C701288008CE488 /* JXBaseFeeCell.xib in Resources */,
 				04A2BEE01C7060D4008CE488 /* JXStudyPlaceCell.xib in Resources */,
 				041D315C1C560AF7007C8E43 /* JXChangePwdController.xib in Resources */,
 				04EFFA911C6201F20020EB98 /* JXOptionalFeeCell.xib in Resources */,
 				04A2BF001C71B103008CE488 /* JXAutoOrderFooterView.xib in Resources */,
+				040FEE9E1C7D98F100E0CE5A /* JXMessageTableViewCell.xib in Resources */,
 				04A2BF4D1C746AF4008CE488 /* JXStudentProgressCell.xib in Resources */,
+				040FEE941C7D8A1C00E0CE5A /* JXInfoMessageCell.xib in Resources */,
 				04F0ABD21C2A8A18000EB562 /* JXTeacherViewCell.xib in Resources */,
 				04A2BEDB1C705A9C008CE488 /* JXTeacherFeeCell.xib in Resources */,
 			);
@@ -1214,14 +1260,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				04A2BEE31C706A36008CE488 /* JXFee.m in Sources */,
+				040FEE851C7C123200E0CE5A /* JXStudentProgressFooter.m in Sources */,
 				041D31431C50B7CF007C8E43 /* JXOrderForm.m in Sources */,
+				040FEE981C7D978800E0CE5A /* JXInfoTableViewCell.m in Sources */,
 				041D315B1C560AF7007C8E43 /* JXChangePwdController.m in Sources */,
 				04129CF31C5F06050098C7AB /* JXFilterViewController.m in Sources */,
+				040FEE931C7D8A1C00E0CE5A /* JXInfoMessageCell.m in Sources */,
 				04A2BF4C1C746AF4008CE488 /* JXStudentProgressCell.m in Sources */,
 				041D30EB1C4883B1007C8E43 /* NSArray+Log.m in Sources */,
+				040FEE8A1C7D59CC00E0CE5A /* JXInfoHeaderView.m in Sources */,
 				04F0ABDF1C2BF36F000EB562 /* UIView+Extension.m in Sources */,
 				04F0ABC91C2A3EF4000EB562 /* JXTeacherProfileController.m in Sources */,
 				041D30D11C45E557007C8E43 /* JXIconTextField.m in Sources */,
+				040FEE8F1C7D817300E0CE5A /* JXMessageHeaderView.m in Sources */,
 				041D312E1C4F395C007C8E43 /* JXDetailFooterView.m in Sources */,
 				041D30F41C4C9502007C8E43 /* JXProfileHeaderView.m in Sources */,
 				04F0ABDA1C2BEB5B000EB562 /* JXSearchBar.m in Sources */,
@@ -1275,6 +1326,7 @@
 				041D30D51C462752007C8E43 /* UIViewController+Extension.m in Sources */,
 				04F0ABD11C2A8A18000EB562 /* JXTeacherViewCell.m in Sources */,
 				041D31261C4F203A007C8E43 /* UIView+JXExtension.m in Sources */,
+				040FEE9D1C7D98F100E0CE5A /* JXMessageTableViewCell.m in Sources */,
 				04F0ABC61C2A3EDD000EB562 /* JXTeacherClassController.m in Sources */,
 				04A2BEDF1C7060D4008CE488 /* JXStudyPlaceCell.m in Sources */,
 				04129D021C6042D90098C7AB /* JXConst.m in Sources */,

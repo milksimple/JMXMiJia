@@ -16,18 +16,12 @@
 #import <MJRefresh.h>
 
 @interface JXChooseSchoolController ()
-/** 学校数组 */
-@property (nonatomic, strong) NSMutableArray *schools;
+
 @end
 
 @implementation JXChooseSchoolController
-
-- (NSMutableArray *)schools {
-    if (_schools == nil) {
-        _schools = [NSMutableArray array];
-    }
-    return _schools;
-}
+/** 学校数组，采用这种方式避免在一次app进程中多次下载学校数据，浪费流量 */
+static NSMutableArray *_schools;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,10 +54,11 @@
  *  加载学校数据
  */
 - (void)loadSchools {
-//    if (self.schools.count) { // 有值
-//        [self.tableView reloadData];
-//        return;
-//    }
+    if (_schools.count) { // 有值
+        [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
+        return;
+    }
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
     JXAccount *account = [JXAccountTool account];
     paras[@"mobile"] = account.mobile;
@@ -75,12 +70,12 @@
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/SchoolList" params:paras success:^(id json) {
         BOOL success = [json[@"success"] boolValue];
         if (success) { // 请求成功
-            self.schools = [JXSchool mj_objectArrayWithKeyValuesArray:json[@"rows"]];
+            _schools = [JXSchool mj_objectArrayWithKeyValuesArray:json[@"rows"]];
             
             // 假数据
             JXSchool *school = [[JXSchool alloc] init];
             school.name = @"不限";
-            [self.schools insertObject:school atIndex:0];
+            [_schools insertObject:school atIndex:0];
             
 //            for (int i = 0; i < self.schools.count; i ++) {
 //                JXSchool *school = self.schools[i];
@@ -103,7 +98,8 @@
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.schools.count;
+    return _schools.count;
+    
 }
 
 
@@ -116,7 +112,7 @@
         cell.textLabel.font = [UIFont systemFontOfSize:13];
         cell.detailTextLabel.font = cell.textLabel.font;
     }
-    JXSchool *school = self.schools[indexPath.row];
+    JXSchool *school = _schools[indexPath.row];
     cell.textLabel.text = school.name;
     
     // 默认选中
@@ -139,7 +135,7 @@
     
     // 通知代理选择的项目
     if ([self.delegate respondsToSelector:@selector(chooseSchoolDidFinished:)]) {
-        JXSchool *school = self.schools[indexPath.row];
+        JXSchool *school = _schools[indexPath.row];
         [self.delegate chooseSchoolDidFinished:school];
     }
 }
