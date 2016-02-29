@@ -10,6 +10,7 @@
 #import "JXStudentProgress.h"
 
 @interface JXStudentClassHeaderView()
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 /** 阶段名 */
 @property (weak, nonatomic) IBOutlet UILabel *phraseNameLabel;
 /** 未开始/完成 此阶段 */
@@ -27,16 +28,6 @@
 
 + (CGFloat)headerHeight {
     return 50;
-}
-
-/**
- *  遮盖按钮被点击了
- */
-- (IBAction)corverButtonClicked:(id)sender {
-    // 调用外面定义好的block
-    if (self.headerViewClickedAction) {
-        self.headerViewClickedAction();
-    }
 }
 
 - (void)setProgress:(JXStudentProgress *)progress {
@@ -84,5 +75,19 @@
     }
 }
 
+// 覆盖按钮被点击
+- (IBAction)corverButtonClicked:(id)sender {
+    if (self.headerViewClickedAction) {
+        self.headerViewClickedAction();
+    }
+    
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.contentView.jx_y = 10;
+    self.contentView.jx_height = self.jx_height - 2 * (self.contentView.jx_y);
+}
 
 @end

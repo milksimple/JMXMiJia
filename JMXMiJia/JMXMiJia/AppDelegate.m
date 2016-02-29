@@ -42,7 +42,7 @@
     
     // 判断之前是否登录过
     JXAccount *account = [JXAccountTool account];
-    if (account.hasLogin) { // 之前登录过
+    if (!account.hasLogin) { // 之前登录过
         JXTabBarController *tabBarController = [[JXTabBarController alloc] init];
         self.window.rootViewController = tabBarController;
     }
