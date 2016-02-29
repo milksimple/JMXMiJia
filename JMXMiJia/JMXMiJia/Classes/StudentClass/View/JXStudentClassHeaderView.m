@@ -42,8 +42,47 @@
 - (void)setProgress:(JXStudentProgress *)progress {
     _progress = progress;
     
-    self.phraseNameLabel.text = JXPhraseName[progress.phrase];
-    self.completeLabel.text = progress.complete ? @"合格":@"在学";
+    switch (progress.phrase) {
+        case 0:
+            self.phraseNameLabel.text = @"科目一";
+            break;
+            
+        case 1:
+            self.phraseNameLabel.text = @"科目二";
+            break;
+            
+        case 2:
+            self.phraseNameLabel.text = @"科目三";
+            break;
+            
+        case 3:
+            self.phraseNameLabel.text = @"科目四";
+            break;
+            
+        default:
+            break;
+    }
+    
+    switch (progress.phraseStatus) {
+        case JXStudentProgressPhraseStatusNotStart:
+            self.completeLabel.text = @"未开始";
+            self.finishDateLabel.text = nil;
+            break;
+            
+        case JXStudentProgressPhraseStatusStuding:
+            self.completeLabel.text = @"在学";
+            self.finishDateLabel.text = nil;
+            break;
+            
+        case JXStudentProgressPhraseStatusComplete:
+            self.completeLabel.text = @"合格";
+            self.finishDateLabel.text = progress.finishTime;
+            break;
+            
+        default:
+            break;
+    }
 }
+
 
 @end

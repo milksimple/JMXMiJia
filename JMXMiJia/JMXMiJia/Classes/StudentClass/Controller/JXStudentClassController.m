@@ -36,8 +36,8 @@
         for (int i = 0; i < 4; i ++) {
             JXStudentProgress *progress = [[JXStudentProgress alloc] init];
             progress.phrase = i;
-            progress.complete = NO;
-            [progresses addObject:progresses];
+            progress.phraseStatus = JXStudentProgressPhraseStatusNotStart;
+            [progresses addObject:progress];
         }
         
         _progresses = progresses;
@@ -98,10 +98,24 @@
         if (success) {
             NSInteger step = [json[@"step"] integerValue];
             NSArray *finishDates = json[@"date"];
+            // step为在学
+            JXStudentProgress *progress = self.progresses[step];
+            
+            progress.phraseStatus = JXStudentProgressPhraseStatusStuding;
+            
+            // step之前为学完
             for (NSInteger i = step - 1; i >= 0; i --) {
                 JXStudentProgress *progress = self.progresses[i];
                 progress.finishTime = finishDates[i];
-                progress.complete = YES;
+                progress.phraseStatus = JXStudentProgressPhraseStatusComplete;
+                
+            }
+            
+            // step之后为未开始
+            for (NSInteger i = step + 1; i < 4; i ++) {
+                JXStudentProgress *progress = self.progresses[i];
+                progress.phraseStatus = JXStudentProgressPhraseStatusNotStart;
+
             }
             [self.tableView reloadData];
         }
@@ -110,6 +124,7 @@
         }
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
+        [SVProgressHUD showErrorWithStatus:@"网络连接失败" maskType:SVProgressHUDMaskTypeBlack];
         JXLog(@"请求失败 - %@", error);
     }];
 }
@@ -166,6 +181,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section < 4) {
         JXStudentClassHeaderView *header = [JXStudentClassHeaderView header];
+        header.progress = self.progresses[section];
         header.headerViewClickedAction = ^{
             BOOL expland = [self.explands[section] boolValue];
             self.explands[section] = @(!expland);

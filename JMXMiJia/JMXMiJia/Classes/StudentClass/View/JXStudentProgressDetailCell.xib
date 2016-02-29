@@ -101,7 +101,7 @@
             <connections>
                 <outlet property="bgButton" destination="HiR-dw-Yo0" id="qqD-P9-x4m"/>
             </connections>
-            <point key="canvasLocation" x="-144" y="364.5"/>
+            <point key="canvasLocation" x="-61" y="304.5"/>
         </tableViewCell>
     </objects>
 </document>

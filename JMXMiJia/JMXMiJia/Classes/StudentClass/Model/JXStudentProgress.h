@@ -7,16 +7,18 @@
 //  学生的课堂进度
 
 typedef enum {
-    JXStudentProgressPhraseNotStart,
-    JXStudentProgressPhraseStuding,
-    JXStudentProgressPhraseComplete
-} JXStudentProgressPhrase;
+    JXStudentProgressPhraseStatusNotStart, // 未开始
+    JXStudentProgressPhraseStatusStuding, // 在学
+    JXStudentProgressPhraseStatusComplete // 完成
+} JXStudentProgressPhraseStatus;
 
 #import <Foundation/Foundation.h>
 
 @interface JXStudentProgress : NSObject
-/** 进度阶段 */
+/** 阶段 */
 @property (nonatomic, assign) NSInteger phrase;
+/** 进度阶段状态 */
+@property (nonatomic, assign) JXStudentProgressPhraseStatus phraseStatus;
 /** 完成状态 */
 @property (nonatomic, assign) BOOL complete;
 /** 完成时间 */

@@ -135,7 +135,7 @@
                 <outlet property="finishDateLabel" destination="zyg-go-iln" id="kDo-Yo-L9l"/>
                 <outlet property="phraseNameLabel" destination="H5c-fQ-QU1" id="HQf-TL-vYD"/>
             </connections>
-            <point key="canvasLocation" x="8" y="216"/>
+            <point key="canvasLocation" x="65" y="154"/>
         </view>
     </objects>
 </document>

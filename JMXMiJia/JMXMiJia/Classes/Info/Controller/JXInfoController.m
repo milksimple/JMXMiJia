@@ -62,6 +62,7 @@
 //    [manager downloadImageWithURL:[NSURL URLWithString:@"http://10.255.1.25/dschoolAndroid/CoachPhoto?isSource=0&uid=14447074676731&size=14384"] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
 //        JXLog(@"size = %@", NSStringFromCGSize(image.size));
 //    }];
+
 }
 
 //#pragma mark - SDWebImageManagerDelegateÅ

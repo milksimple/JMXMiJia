@@ -53,10 +53,6 @@
     return @"studentProgressDetailCell";
 }
 
-- (void)setProgress:(JXStudentProgress *)progress {
-    _progress = progress;
-    
-}
 
 + (CGFloat)rowHeight {
     return 44;;
