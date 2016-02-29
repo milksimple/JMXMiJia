@@ -13,8 +13,9 @@
 #import <UIImageView+WebCache.h>
 #import "JXAccount.h"
 #import "JXAccountTool.h"
+#import "JXLoginViewController.h"
 
-@interface JXStudentProfileController () <UITableViewDataSource, UITableViewDelegate, JXProfileHeaderViewDelegate>
+@interface JXStudentProfileController () <UITableViewDataSource, UITableViewDelegate, JXProfileHeaderViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, weak) UITableView *tableView;
 
@@ -26,7 +27,7 @@ static NSString * const ID = @"profileCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     tableView.dataSource = self;
     tableView.delegate = self;
@@ -68,6 +69,7 @@ static NSString * const ID = @"profileCell";
     return 0;
 }
 
+#pragma mark - tableview delegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {
         JXProfileMoneyCell *moneyCell = [JXProfileMoneyCell moneyCell];
@@ -103,9 +105,9 @@ static NSString * const ID = @"profileCell";
         switch (indexPath.row) {
             case 0:
                 cell.imageView.image = [UIImage imageNamed:@"profile_setting"];
-                cell.textLabel.text = @"设置";
+                cell.textLabel.text = @"注销";
                 break;
-            
+                
             case 1:
                 cell.imageView.image = [UIImage imageNamed:@"profile_help"];
                 cell.textLabel.text = @"帮助";
@@ -116,6 +118,31 @@ static NSString * const ID = @"profileCell";
         }
     }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 2 && indexPath.row == 0) { // 注销
+        // 提示是否注销
+        if (iOS8) {
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"确定注销?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [alertVC addAction:cancleAction];
+            
+            UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                // 清空account中的信息
+                [JXAccountTool saveAccount:nil];
+                UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                window.rootViewController = [[JXLoginViewController alloc] init];
+            }];
+            [alertVC addAction:confirmAction];
+            
+            [self presentViewController:alertVC animated:YES completion:nil];
+        }
+        else {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"确定注销?" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"确定", nil];
+            [actionSheet showFromTabBar:self.tabBarController.tabBar];
+        }
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -144,6 +171,17 @@ static NSString * const ID = @"profileCell";
         return 100;
     }
     else return 64;
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) { // 确定
+        // 清空account中的信息
+        [JXAccountTool saveAccount:nil];
+        
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        window.rootViewController = [[JXLoginViewController alloc] init];
+    }
 }
 
 #pragma mark - JXProfileHeaderViewDelegate

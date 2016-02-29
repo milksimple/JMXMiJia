@@ -55,7 +55,7 @@ typedef enum {
 /** 头像地址 */
 @property (nonatomic, copy) NSString *photo;
 /** 当前距离 */
-@property (nonatomic, assign) CGFloat distance;
+@property (nonatomic, copy) NSString *distance;
 
 
 /** 当前位置 */

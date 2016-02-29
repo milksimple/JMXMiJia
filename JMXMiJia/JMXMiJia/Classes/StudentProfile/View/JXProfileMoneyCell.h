@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class JXAccount;
 
 @interface JXProfileMoneyCell : UITableViewCell
+
+@property (nonatomic, strong) JXAccount *account;
 
 + (instancetype)moneyCell;
 

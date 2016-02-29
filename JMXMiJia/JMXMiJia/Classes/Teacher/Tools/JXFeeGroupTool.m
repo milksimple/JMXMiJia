@@ -18,7 +18,7 @@
     NSInteger totalPay = 0;
     for (JXFeeGroup *feeGroup in feeGroups) {
         for (JXFee *fee in feeGroup.fees) {
-            totalPay += fee.fee * fee.copies;
+            totalPay += fee.prices * fee.copies;
         }
     }
     return totalPay;

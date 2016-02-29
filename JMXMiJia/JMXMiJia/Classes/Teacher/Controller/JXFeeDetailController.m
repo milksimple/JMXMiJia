@@ -19,6 +19,7 @@
 #import "JXChooseSchoolController.h"
 #import "JXAutoOrderHeaderView.h"
 #import "JXAutoOrderFooterView.h"
+#import "JXHttpTool.h"
 
 @interface JXFeeDetailController () <JXAccommodationFeeCellDelegate, JXAutoOrderFooterViewDelegate>
 
@@ -58,6 +59,9 @@ static NSString * const JXOptionalFeeID = @"optionalFeeCell";
     self.navigationItem.title = @"学费明细";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     
+    // 下载订单数据
+    [self loadOrderData];
+    
     // 注册
     // 基础费用cell
     [self.tableView registerNib:[UINib nibWithNibName:@"JXBaseFeeCell" bundle:nil] forCellReuseIdentifier:[JXBaseFeeCell reuseIdentifier]];
@@ -66,6 +70,59 @@ static NSString * const JXOptionalFeeID = @"optionalFeeCell";
     // 教练
     [self.tableView registerNib:[UINib nibWithNibName:@"JXTeacherFeeCell" bundle:nil] forCellReuseIdentifier:[JXTeacherFeeCell reuseIdentifier]];
 }
+
+/**
+ *  下载订单数据
+ */
+- (void)loadOrderData {
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/TuitionConstitute", JXServerName] params:nil success:^(id json) {
+        BOOL success = json[@"success"];
+        if (success) { // 请求成功
+            // 基础费用组
+            NSArray *remoteBaseFees = [JXFee mj_objectArrayWithKeyValuesArray:json[@"base"]];
+            NSArray *localBaseFees = [self.feeGroups[0] fees];
+            // 将本地数据用远程数代替
+            for (int i = 0; i < localBaseFees.count; i ++) {
+                JXFee *remoteFee = remoteBaseFees[i];
+                JXFee *localFee = localBaseFees[i];
+                localFee.prices = remoteFee.prices;
+                localFee.itemNum = remoteFee.itemNum;
+                localFee.des = remoteFee.des;
+            }
+            
+            // 可选费用组
+            NSArray *remoteAidFees = [JXFee mj_objectArrayWithKeyValuesArray:json[@"aid"]];
+            NSArray *localAidFees = [self.feeGroups[1] fees];
+            // 将本地数据用远程数代替
+            for (int i = 0; i < localAidFees.count; i ++) {
+                JXFee *remoteFee = remoteAidFees[i];
+                JXFee *localFee = localAidFees[i];
+                localFee.prices = remoteFee.prices;
+                localFee.itemNum = remoteFee.itemNum;
+                localFee.des = remoteFee.des;
+            }
+            
+            // 教练星级费用组
+            NSArray *remoteStarFees = [JXFee mj_objectArrayWithKeyValuesArray:json[@"stars"]];
+            NSArray *localStarFees = [self.feeGroups[2] fees];
+            // 将本地数据用远程数代替
+            for (int i = 0; i < localStarFees.count; i ++) {
+                JXFee *remoteFee = remoteStarFees[5 - i]; // 因之前自己设计的plist模型和服务器模型有差异，故以本地plist为准
+                JXFee *localFee = localStarFees[i];
+                localFee.prices = remoteFee.prices;
+                localFee.itemNum = remoteFee.itemNum;
+                localFee.des = remoteFee.des;
+            }
+            
+            // 刷新表格
+            [self.tableView reloadData];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 
 /**
  *  取消
@@ -177,7 +234,7 @@ static NSString * const JXOptionalFeeID = @"optionalFeeCell";
     NSInteger totalPay = 0;
     for (JXFeeGroup *feeGroup in self.feeGroups) {
         for (JXFee *fee in feeGroup.fees) {
-            totalPay += fee.fee * fee.copies;
+            totalPay += fee.prices * fee.copies;
         }
     }
     return totalPay;

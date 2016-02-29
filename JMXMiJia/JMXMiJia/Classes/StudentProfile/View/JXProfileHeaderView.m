@@ -46,7 +46,6 @@ static CGFloat const margin = 10;
     
     UILabel *jiamiNOLabel = [[UILabel alloc] init];
     jiamiNOLabel.font = [UIFont systemFontOfSize:12];
-    jiamiNOLabel.text = [NSString stringWithFormat:@"驾米号：ZASD123123"];
     [self addSubview:jiamiNOLabel];
     self.jiamiNOLabel = jiamiNOLabel;
     
@@ -92,9 +91,9 @@ static CGFloat const margin = 10;
 - (void)setAccount:(JXAccount *)account {
     _account = account;
     
-    [self.iconView sd_setImageWithURL:[NSURL URLWithString:account.iconUrl] placeholderImage:[UIImage imageNamed:@"login_name_high"]];
-    self.nameLabel.text = account.realName;
-
+    [self.iconView sd_setImageWithURL:[NSURL URLWithString:account.photo] placeholderImage:[UIImage imageNamed:@"login_name_high"]];
+    self.nameLabel.text = account.name;
+    self.jiamiNOLabel.text = [NSString stringWithFormat:@"驾米号:%@", account.mobile];
 }
 
 - (void)layoutSubviews {

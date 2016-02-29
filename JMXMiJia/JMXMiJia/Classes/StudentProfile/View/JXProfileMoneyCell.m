@@ -9,6 +9,14 @@
 #import "JXProfileMoneyCell.h"
 #import <Masonry.h>
 
+@interface JXProfileMoneyCell()
+/** 推荐的人数 */
+@property (weak, nonatomic) IBOutlet UILabel *recommendCountLabel;
+/** 红包钱数 */
+@property (weak, nonatomic) IBOutlet UILabel *redBagLabel;
+
+@end
+
 @implementation JXProfileMoneyCell
 
 + (instancetype)moneyCell {

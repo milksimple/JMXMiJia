@@ -4,7 +4,7 @@
 //
 //  Created by mac on 15/12/23.
 //  Copyright © 2015年 mac. All rights reserved.
-//
+//  13116296826
 
 #import "AppDelegate.h"
 #import "JXTabBarController.h"
@@ -42,13 +42,7 @@
     
     // 判断之前是否登录过
     JXAccount *account = [JXAccountTool account];
-#warning 测试
-//    account.pushToken = @"232211bf0cdae1a1c5ad737b002d4638ef581ef0eaba1e5f344fff6b536534ce";
-//    account.mobile = @"18213827534";
-//    account.password = @"123456";
-//    [JXAccountTool saveAccount:account];
     if (account.hasLogin) { // 之前登录过
-        
         JXTabBarController *tabBarController = [[JXTabBarController alloc] init];
         self.window.rootViewController = tabBarController;
     }

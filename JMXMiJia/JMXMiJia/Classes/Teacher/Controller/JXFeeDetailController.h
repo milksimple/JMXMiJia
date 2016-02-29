@@ -17,7 +17,7 @@
 @end
 
 @interface JXFeeDetailController : UITableViewController
-/** 筛选参数模型 */
+/** 费用模型 */
 @property (nonatomic, strong) NSArray *feeGroups;
 
 @property (nonatomic, weak) id<JXFeeDetailControllerDelegate> delegate;

@@ -12,7 +12,6 @@
 #import "MBProgressHUD+MJ.h"
 #import "JXAccount.h"
 #import "JXAccountTool.h"
-#import "NSString+MD5.h"
 #import "JXHttpTool.h"
 
 @interface JXRegisterViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
@@ -132,8 +131,7 @@
         
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.usernameField.text;
-        // md5加密
-        paras[@"password"] = [NSString md5:self.pwdConfirmField.text];
+        paras[@"password"] = self.pwdConfirmField.text;
         paras[@"realName"] = self.realNameField.text;
         paras[@"rMobile"] = self.rMobileField.text;
         if ([self.sexField.text isEqualToString:@"男"]) {
@@ -158,14 +156,6 @@
                     [self dismissViewControllerAnimated:YES completion:nil];
                 });
                 
-                // 将个人信息存入沙盒
-                JXAccount *account = [JXAccountTool account];
-                account.mobile = paras[@"mobile"];
-                account.password = paras[@"password"];
-                account.realName = paras[@"realName"];
-                account.sex = [paras[@"sex"] intValue];
-                account.rMobile = paras[@"rMobile"];
-                [JXAccountTool saveAccount:account];
             }
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUD];

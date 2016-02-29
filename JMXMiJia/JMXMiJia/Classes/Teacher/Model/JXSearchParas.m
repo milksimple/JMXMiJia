@@ -64,7 +64,7 @@
     NSInteger totalPay = 0;
     for (JXFeeGroup *feeGroup in self.feeGroups) {
         for (JXFee *fee in feeGroup.fees) {
-            totalPay += fee.fee * fee.copies;
+            totalPay += fee.prices * fee.copies;
         }
     }
     self.totalPay = totalPay;
@@ -73,7 +73,7 @@
     NSInteger optionalTotalPay = 0;
     JXFeeGroup *optionalFeeGroup = feeGroups[1];
     for (JXFee *optionalFee in optionalFeeGroup.fees) {
-        optionalTotalPay += optionalFee.fee * optionalFee.copies;
+        optionalTotalPay += optionalFee.prices * optionalFee.copies;
     }
     self.optionalTotalPay = optionalTotalPay;
     

@@ -38,8 +38,8 @@
 - (void)setFee:(JXFee *)fee {
     _fee = fee;
     
-    self.feeNameLabel.text = fee.feeName;
-    self.feeLabel.text = [NSString stringWithFormat:@"¥%zd", fee.fee];
+    self.feeNameLabel.text = fee.des;
+    self.feeLabel.text = [NSString stringWithFormat:@"¥%zd", fee.prices];
     self.optionalButton.selected = fee.copies;
     
     if (fee.caption.length == 0) {

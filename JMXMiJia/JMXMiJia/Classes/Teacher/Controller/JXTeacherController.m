@@ -28,8 +28,9 @@
 #import <MJRefresh.h>
 #import "JXAutoOrderController.h"
 #import "JXFeeGroupTool.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface JXTeacherController () <UITableViewDataSource, UITableViewDelegate, JXSearchBarDelegate, JXAutoOrderControllerDelegate>
+@interface JXTeacherController () <UITableViewDataSource, UITableViewDelegate, JXSearchBarDelegate, JXAutoOrderControllerDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, weak) UITableView *tableView;
 
@@ -48,6 +49,10 @@
 @property (nonatomic, weak) JXFilterView *filterView;
 /** 自主订单的总金额 */
 @property (nonatomic, assign) NSInteger totalPay;
+/** 位置管理者 */
+@property (nonatomic, strong) CLLocationManager *locMgr;
+/** 当前位置 */
+@property (nonatomic, strong) CLLocation *location;
 @end
 
 @implementation JXTeacherController
@@ -56,19 +61,6 @@
 - (NSMutableArray *)teachers {
     if (_teachers == nil) {
         _teachers = [NSMutableArray array];
-//        for (int i = 0; i < 20; i ++) {
-//            JXTeacher *teacher = [[JXTeacher alloc] init];
-//            teacher.name = [NSString stringWithFormat:@"黄志刚%d", i];
-//            teacher.school = @"达睿驾校";
-//            teacher.rank = i % 3 + 1;
-//            teacher.workYear = 5;
-//            teacher.teachType = @"C1";
-//            teacher.fee = (i % 3 + 1) * 2000;
-//            teacher.introduction = @"打发点附近阿迪设计费借力打力手机翻尽量少打飞机阿斯顿浪费大家萨芬吉林省到家了附近阿斯顿浪费拉动是解放军阿迪设计费 垃圾点附近拉三等奖 圣诞节弗拉圣诞节 的时间里房间爱上了就了解拉德斯基发链接啊 离开的减肥垃圾啊冻死了快放假了卡机拉动是浪费了教练的撒发的是解放军打死了房间爱大书法家了淑女坊拉伸的 烦死了放假了进来撒法拉利发";
-//            teacher.signupCount = 133;
-//            teacher.phone = @"422-1234-567";
-//            [_teachers addObject:teacher];
-//        }
     }
     return _teachers;
 }
@@ -83,12 +75,16 @@
     return _searchParas;
 }
 
-//- (JXFilterViewController *)filterVC {
-//    if (_filterVC == nil) {
-//        _filterVC = [[JXFilterViewController alloc] init];
-//    }
-//    return _filterVC;
-//}
+- (CLLocationManager *)locMgr {
+    if (_locMgr == nil) {
+        _locMgr = [[CLLocationManager alloc] init];
+        _locMgr.delegate = self;
+        _locMgr.distanceFilter = 100;
+        _locMgr.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        
+    }
+    return _locMgr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -101,6 +97,14 @@
     
     // 监听通知
     [self addNotificationObserver];
+    
+    if ([self.locMgr respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locMgr requestWhenInUseAuthorization];
+        
+        if ([CLLocationManager locationServicesEnabled]) {
+            [self.locMgr startUpdatingLocation];
+        }
+    }
     
     [self setupRefresh];
 }
@@ -168,6 +172,10 @@
     paras[@"sex"] = @(self.searchParas.sex);
     paras[@"star"] = @(self.searchParas.star);
     paras[@"school"] = self.searchParas.school.uid;
+    if (self.location) {
+        paras[@"lat"] = [NSString stringWithFormat:@"%f", self.location.coordinate.latitude];
+        paras[@"lon"] = [NSString stringWithFormat:@"%f", self.location.coordinate.longitude];
+    }
 
     // 取出最前面的老师
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/CoachFace" params:paras success:^(id json) {
@@ -200,6 +208,10 @@
     paras[@"sex"] = @(self.searchParas.sex);
     paras[@"star"] = @(self.searchParas.star);
     paras[@"school"] = self.searchParas.school.uid;
+    if (self.location) {
+        paras[@"lat"] = [NSString stringWithFormat:@"%f", self.location.coordinate.latitude];
+        paras[@"lon"] = [NSString stringWithFormat:@"%f", self.location.coordinate.longitude];
+    }
     
     // 取出后面的老师
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/CoachFace" params:paras success:^(id json) {
@@ -356,6 +368,12 @@
 - (void)autoOrderDidFinishedWithSearchParas:(JXSearchParas *)searchParas {
     self.searchParas = searchParas;
     [self.tableView.mj_header beginRefreshing];
+}
+
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    self.location = [locations firstObject];
+    [manager stopUpdatingLocation];
 }
 
 @end

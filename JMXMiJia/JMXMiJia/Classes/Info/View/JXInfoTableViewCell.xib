@@ -52,7 +52,7 @@
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="329" y="350"/>
+            <point key="canvasLocation" x="-8" y="274"/>
         </tableViewCell>
     </objects>
     <resources>

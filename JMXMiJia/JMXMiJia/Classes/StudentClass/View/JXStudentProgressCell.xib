@@ -96,7 +96,7 @@
                 </variation>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="318" y="321.5"/>
+            <point key="canvasLocation" x="341" y="237.5"/>
         </tableViewCell>
     </objects>
     <resources>

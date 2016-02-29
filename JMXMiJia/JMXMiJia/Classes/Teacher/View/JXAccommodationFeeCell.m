@@ -34,8 +34,8 @@
 - (void)setFee:(JXFee *)fee {
     _fee = fee;
     
-    self.feeNameLabel.text = fee.feeName;
-    self.feeLabel.text = [NSString stringWithFormat:@"¥%zd/天", fee.fee];
+    self.feeNameLabel.text = fee.des;
+    self.feeLabel.text = [NSString stringWithFormat:@"¥%zd/天", fee.prices];
     self.copiesLabel.text = [NSString stringWithFormat:@"%zd", fee.copies];
 }
 

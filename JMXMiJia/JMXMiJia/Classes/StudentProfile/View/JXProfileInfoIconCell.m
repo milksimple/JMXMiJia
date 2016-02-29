@@ -27,13 +27,6 @@ static CGFloat const margin = 10;
 }
 
 - (void)setup {
-    // 箭头
-//    UIImageView *accessory = [[UIImageView alloc] init];
-//    accessory.contentMode = UIViewContentModeCenter;
-//    accessory.image = [UIImage imageNamed:@"accessory_right"];
-//    [self addSubview:accessory];
-//    self.accessory = accessory;
-    
     // 右边图片
     UIImageView *rightImageView = [[UIImageView alloc] init];
     rightImageView.clipsToBounds = YES;
@@ -43,12 +36,6 @@ static CGFloat const margin = 10;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
-//    CGFloat accessoryH = self.frame.size.height;
-//    CGFloat accessoryW = accessoryH;
-//    CGFloat accessoryX = self.frame.size.width - accessoryW - margin;
-//    CGFloat accessoryY = 0;
-//    self.accessory.frame = CGRectMake(accessoryX, accessoryY, accessoryW, accessoryH);
     
     CGFloat rightImageH = self.frame.size.height - margin;
     CGFloat rightImageW = rightImageH;

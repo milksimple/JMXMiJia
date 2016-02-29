@@ -15,7 +15,6 @@
 #import "JXHttpTool.h"
 #import "JXAccountTool.h"
 #import "JXAccount.h"
-#import "NSString+MD5.h"
 #import "JXTabBarController.h"
 #import "JXForgotPwdController.h"
 
@@ -54,6 +53,7 @@
     self.nameField = nameField;
     
     JXIconTextField *pwdField = [[JXIconTextField alloc] init];
+    pwdField.secureTextEntry = YES;
     pwdField.placeholder = @"请输入密码";
     [pwdField setEditingImage:[UIImage imageNamed:@"login_pwd_high"] endEditImage:[UIImage imageNamed:@"login_pwd"]];
     [self.view addSubview:pwdField];
@@ -145,23 +145,25 @@
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.nameField.text;
         // md5加密
-        paras[@"password"] = [NSString md5:self.pwdField.text];
-//#warning 测试数据
-//        paras[@"password"] = self.pwdField.text;
+        paras[@"password"] = self.pwdField.text;
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
-//        paras[@"pushToken"] = @"232211bf0cdae1a1c5ad737b002d4638ef581ef0eaba1e5f344fff6b536534ce";
         
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/Login" params:paras success:^(id json) {
             [MBProgressHUD hideHUD];
             BOOL success = [json[@"success"] boolValue];
+            JXLog(@"json = %@", json);
             if (success == 0) { // 登录失败
                 [MBProgressHUD showError:json[@"msg"]];
             }
             else { // 登录成功
-                // 存储登录状态
+                // 存入账号密码
                 JXAccount *account = [JXAccountTool account];
-                account.hasLogin = YES;
+                account.mobile = json[@"mobile"];
+                account.password = paras[@"password"];
                 [JXAccountTool saveAccount:account];
+                
+                // 请求用户信息
+                [self getAccountInfomationWithMobile:paras[@"mobile"] password:paras[@"password"]];
                 
                 // 进入app主页
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -173,6 +175,33 @@
             [MBProgressHUD showError:@"请求网络失败"];
         }];
     }
+}
+
+/**
+ *  请求用户信息
+ */
+- (void)getAccountInfomationWithMobile:(NSString *)mobile password:(NSString *)password {
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    paras[@"mobile"] = mobile;
+    paras[@"password"] = password;
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/TraineeInfo", JXServerName] params:paras success:^(id json) {
+        JXLog(@"json = %@", json);
+        BOOL success = json[@"success"];
+        if (success) {
+            // 将个人信息存入沙盒
+            JXAccount *account = [JXAccountTool account];
+            account.name = json[@"name"];
+            account.mobile = json[@"mobile"];
+            account.count = [json[@"count"] integerValue];
+            account.photo = [NSString stringWithFormat:@"%@/%@", JXServerName, json[@"photo"]];
+            account.balance = [json[@"balance"] floatValue];
+            // 存储登录状态
+            account.hasLogin = YES;
+            [JXAccountTool saveAccount:account];
+        }
+    } failure:^(NSError *error) {
+        JXLog(@"请求失败-%@", error);
+    }];
 }
 
 - (void)forgotPwdBtnClicked {

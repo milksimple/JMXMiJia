@@ -41,11 +41,6 @@ static NSString *intro = @"暂无介绍";
 - (void)setTeacher:(JXTeacher *)teacher {
     _teacher = teacher;
     
-//    self.titleLab1.text = @"资质资格";
-//    self.titleLab2.text = @"报名人数";
-//    self.titleLab3.text = @"报名学费";
-//    self.titleLab4.text = @"联系电话";
-//    self.titleLab5.text = @"个人介绍";
     self.qualifiLabel.text = teacher.models;
     self.signupCountLabel.text = [NSString stringWithFormat:@"%zd人", teacher.signupCount];
     self.phoneLabel.text = teacher.phone;

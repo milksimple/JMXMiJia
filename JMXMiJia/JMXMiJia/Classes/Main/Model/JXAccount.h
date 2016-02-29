@@ -19,7 +19,7 @@ typedef enum {
 /** 密码 */
 @property (nonatomic, copy) NSString *password;
 /** 真实姓名 */
-@property (nonatomic, copy) NSString *realName;
+@property (nonatomic, copy) NSString *name;
 /** 推荐码 */
 @property (nonatomic, copy) NSString *rMobile;
 /** 性别 */
@@ -29,6 +29,9 @@ typedef enum {
 /** 之前登录过 */
 @property (nonatomic, assign) BOOL hasLogin;
 /** 头像地址 */
-@property (nonatomic, copy) NSString *iconUrl;
-
+@property (nonatomic, copy) NSString *photo;
+/** 推荐人数 */
+@property (nonatomic, assign) NSInteger count;
+/** 余额 */
+@property (nonatomic, assign) float balance;
 @end

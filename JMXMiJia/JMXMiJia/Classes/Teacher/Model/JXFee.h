@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface JXFee : NSObject
+/** 费用代码 */
+@property (nonatomic, copy) NSString *itemNum;
 /** 费用名称 */
-@property (nonatomic, copy) NSString *feeName;
+@property (nonatomic, copy) NSString *des;
 /** 费用 */
-@property (nonatomic, assign) NSInteger fee;
+@property (nonatomic, assign) NSInteger prices;
+
 /** 份数 */
 @property (nonatomic, assign) NSInteger copies;
 /** 说明(备注) */

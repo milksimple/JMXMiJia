@@ -11,6 +11,8 @@
 @interface JXStudentScoreCell : UITableViewCell
 
 + (instancetype)cell;
+#warning 暂时放在这
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 
-+ (CGFloat)rowHeight;
+- (CGFloat)rowHeight;
 @end

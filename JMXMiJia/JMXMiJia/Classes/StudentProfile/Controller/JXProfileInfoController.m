@@ -15,8 +15,9 @@
 #import <SVProgressHUD.h>
 #import "JXChangeRealnameController.h"
 #import "JXChangePwdController.h"
+#import "VPImageCropperViewController.h"
 
-@interface JXProfileInfoController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, JXChangeRealnameControllerDelegate>
+@interface JXProfileInfoController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, JXChangeRealnameControllerDelegate, VPImageCropperDelegate>
 
 @end
 
@@ -38,7 +39,7 @@
         JXProfileInfoIconCell *iconInfoCell = [[JXProfileInfoIconCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         iconInfoCell.selectionStyle = UITableViewCellSelectionStyleNone;
         iconInfoCell.textLabel.text = @"修改头像";
-        [iconInfoCell.rightImageView sd_setImageWithURL:[NSURL URLWithString:[JXAccountTool account].iconUrl]];
+        [iconInfoCell.rightImageView sd_setImageWithURL:[NSURL URLWithString:[JXAccountTool account].photo]];
         return iconInfoCell;
     }
     else if (indexPath.row == 1) {
@@ -46,7 +47,7 @@
         nameCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         nameCell.selectionStyle = UITableViewCellSelectionStyleNone;
         nameCell.textLabel.text = @"修改姓名";
-        nameCell.detailTextLabel.text = [JXAccountTool account].realName;
+        nameCell.detailTextLabel.text = [JXAccountTool account].name;
         return nameCell;
     }
     else {
@@ -93,7 +94,7 @@
     else if (indexPath.row == 1) { // 修改姓名
         JXChangeRealnameController *changeRealnameVC = [[JXChangeRealnameController alloc] init];
         changeRealnameVC.delegate = self;
-        changeRealnameVC.defaultName = [JXAccountTool account].realName;
+        changeRealnameVC.defaultName = [JXAccountTool account].name;
         [self.navigationController pushViewController:changeRealnameVC animated:YES];
     }
     
@@ -145,8 +146,29 @@
 
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
     [picker dismissViewControllerAnimated:YES completion:^{
+        // 1.获得相册中的图片
+        UIImage *image = info[UIImagePickerControllerOriginalImage];
+        
+        // 2.调出裁剪控制器
+        VPImageCropperViewController *imgEditorVC = [[VPImageCropperViewController alloc] initWithImage:image cropFrame:CGRectMake(0, 100.0f, self.view.frame.size.width, self.view.frame.size.width) limitScaleRatio:3.0];
+        imgEditorVC.delegate = self;
+        [self presentViewController:imgEditorVC animated:YES completion:^{
+            // TO DO
+        }];
+        
+    }];
+}
+
+#pragma mark - JXChangeRealnameControllerDelegate
+- (void)changeRealnameControllerDidFinished {
+    [self.tableView reloadData];
+}
+
+#pragma mark - VPImageCropperDelegate
+- (void)imageCropper:(VPImageCropperViewController *)cropperViewController didFinished:(UIImage *)editedImage {
+    [cropperViewController dismissViewControllerAnimated:YES completion:^{
         [SVProgressHUD showWithStatus:@"正在上传" maskType:SVProgressHUDMaskTypeBlack];
         // 发送请求上传头像
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -155,12 +177,12 @@
         params[@"password"] = account.password;
         
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/ChangePhoto" params:params constructingWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:UIImagePNGRepresentation(image) name:@"img" fileName:@"myicon" mimeType:@"image/png"];
+            [formData appendPartWithFileData:UIImagePNGRepresentation(editedImage) name:@"img" fileName:@"myicon" mimeType:@"image/png"];
         } success:^(id json) {
             BOOL success = [json[@"success"] boolValue];
             if (success) { // 上传成功
                 [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
-                account.iconUrl = [NSString stringWithFormat:@"http://10.255.1.25/dschoolAndroid/%@", json[@"photo"]];
+                account.photo = [NSString stringWithFormat:@"http://10.255.1.25/dschoolAndroid/%@", json[@"photo"]];
                 [JXAccountTool saveAccount:account];
                 [self.tableView reloadData];
             }
@@ -173,9 +195,9 @@
     }];
 }
 
-#pragma mark - JXChangeRealnameControllerDelegate
-- (void)changeRealnameControllerDidFinished {
-    [self.tableView reloadData];
+- (void)imageCropperDidCancel:(VPImageCropperViewController *)cropperViewController {
+    [cropperViewController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 @end

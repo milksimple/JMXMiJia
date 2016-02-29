@@ -13,12 +13,19 @@
 #import "JXStudentScoreCell.h"
 #import "JXStudentProgressHeader.h"
 #import "JXStudentProgressFooter.h"
+#import "JXStudentClassHeaderView.h"
+#import <MJRefresh.h>
+#import "JXHttpTool.h"
+#import "JXAccountTool.h"
+#import <SVProgressHUD.h>
 
 @interface JXStudentClassController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) UITableView *tableView;
 /** 课堂进度 */
 @property (nonatomic, strong) NSArray *progresses;
+/** 各行是否展开,展开为1，闭合为0 */
+@property (nonatomic, strong) NSMutableArray<NSNumber *> *explands;
 @end
 
 @implementation JXStudentClassController
@@ -28,16 +35,9 @@
         NSMutableArray *progresses = [NSMutableArray array];
         for (int i = 0; i < 4; i ++) {
             JXStudentProgress *progress = [[JXStudentProgress alloc] init];
-            progress.phrase = i + 1;
-            if (i < 2) {
-                progress.complete = YES;
-                progress.startTime = @"2015年1月1日";
-                progress.finishTime = @"2015年2月1日";
-            }
-            else {
-                progress.complete = NO;
-                progress.startTime = @"2015年3月1日";
-            }
+            progress.phrase = i;
+            progress.complete = NO;
+            [progresses addObject:progresses];
         }
         
         _progresses = progresses;
@@ -45,14 +45,21 @@
     return _progresses;
 }
 
+- (NSMutableArray<NSNumber *> *)explands {
+    if (_explands == nil) {
+        _explands = @[@0, @0, @0, @0].mutableCopy;
+    }
+    return _explands;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"我的进度";
-
+    
     [self setupTableView];
     
-    // 注册
+    [self setupRefresh];
     
 }
 
@@ -65,66 +72,126 @@
     self.tableView = tableView;
 }
 
+/**
+ *  添加刷新控件
+ */
+- (void)setupRefresh {
+    // 添加下拉刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadProgressData)];
+    
+    // 开始下拉刷新
+    [self.tableView.mj_header beginRefreshing];
+}
+
+/**
+ *  获取下载进度数据
+ */
+- (void)loadProgressData {
+    JXAccount *account = [JXAccountTool account];
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    paras[@"mobile"] = account.mobile;
+    paras[@"password"] = account.password;
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/TraineeStep", JXServerName] params:paras success:^(id json) {
+        [self.tableView.mj_header endRefreshing];
+        JXLog(@"%@", json);
+        BOOL success = [json[@"success"] boolValue];
+        if (success) {
+            NSInteger step = [json[@"step"] integerValue];
+            NSArray *finishDates = json[@"date"];
+            for (NSInteger i = step - 1; i >= 0; i --) {
+                JXStudentProgress *progress = self.progresses[i];
+                progress.finishTime = finishDates[i];
+                progress.complete = YES;
+            }
+            [self.tableView reloadData];
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:json[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
+        }
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        JXLog(@"请求失败 - %@", error);
+    }];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 1) {
-        return 4;
+    if (section < 4) {
+        BOOL expland = [self.explands[section] boolValue];
+        if (expland) {
+#warning 测试数据
+            return 4;
+        }
+        else return 0;
     }
-    return 1;
+    else { // 点评
+        return 1;
+    }
+    
 }
 
 #pragma mark - UITableViewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        JXStudentProgressCell *cell = [JXStudentProgressCell cell];
-        return cell;
-    }
-    else if (indexPath.section == 1) {
+    if (indexPath.section < 4) {
         JXStudentProgressDetailCell *detailCell = [JXStudentProgressDetailCell cell];
+//        
+//        detailCell.corverButtonClickedAction = ^{
+//            
+//        };
         return detailCell;
     }
+    
     else {
         JXStudentScoreCell *scoreCell = [JXStudentScoreCell cell];
+        scoreCell.commentLabel.text = @"热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。";
         return scoreCell;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return [JXStudentProgressCell rowHeight];
-    }
-    else if (indexPath.section == 1) {
+    if (indexPath.section < 4) {
         return [JXStudentProgressDetailCell rowHeight];
     }
     else {
-        return [JXStudentScoreCell rowHeight];
+        JXStudentScoreCell *scoreCell = [JXStudentScoreCell cell];
+        scoreCell.commentLabel.text = @"热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。";
+        return [scoreCell rowHeight];
     }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    JXStudentProgressHeader *header = [JXStudentProgressHeader header];
-    if (section == 0) {
-        return nil;
+    if (section < 4) {
+        JXStudentClassHeaderView *header = [JXStudentClassHeaderView header];
+        header.headerViewClickedAction = ^{
+            BOOL expland = [self.explands[section] boolValue];
+            self.explands[section] = @(!expland);
+            [self.tableView reloadData];
+        };
+        return header;
     }
-    else if (section == 1) {
-        header.hideLabel = YES;
+    else { // 点评
+        JXStudentProgressHeader *commentHeader = [JXStudentProgressHeader header];
+        return commentHeader;
     }
-    else {
-        header.hideLabel = NO;
-    }
-    return header;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        selectedCell.selected = NO;
+    });
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [JXStudentProgressHeader headerHeight];
+    return [JXStudentClassHeaderView headerHeight];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if (section == 2) {
+    if (section == 4) {
         JXStudentProgressFooter *footer = [JXStudentProgressFooter footer];
         return footer;
     }
@@ -132,11 +199,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 2) {
+    if (section == 4) {
         return [JXStudentProgressFooter footerHeight];
     }
     else {
-        return 1;
+        return 0.1;
     }
 }
 @end

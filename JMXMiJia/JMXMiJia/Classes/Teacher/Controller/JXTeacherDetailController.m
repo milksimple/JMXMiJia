@@ -60,7 +60,61 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    [self loadOrderData];
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"JXTeacherDetailCell" bundle:nil] forCellReuseIdentifier:@"teacherDetail"];
+}
+
+/**
+ *  下载订单数据
+ */
+- (void)loadOrderData {
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/TuitionConstitute", JXServerName] params:nil success:^(id json) {
+        BOOL success = json[@"success"];
+        if (success) { // 请求成功
+            // 基础费用组
+            NSArray *remoteBaseFees = [JXFee mj_objectArrayWithKeyValuesArray:json[@"base"]];
+            NSArray *localBaseFees = [self.feeGroups[0] fees];
+            // 将本地数据用远程数代替
+            for (int i = 0; i < localBaseFees.count; i ++) {
+                JXFee *remoteFee = remoteBaseFees[i];
+                JXFee *localFee = localBaseFees[i];
+                localFee.prices = remoteFee.prices;
+                localFee.itemNum = remoteFee.itemNum;
+                localFee.des = remoteFee.des;
+            }
+            
+            // 可选费用组
+            NSArray *remoteAidFees = [JXFee mj_objectArrayWithKeyValuesArray:json[@"aid"]];
+            NSArray *localAidFees = [self.feeGroups[1] fees];
+            // 将本地数据用远程数代替
+            for (int i = 0; i < localAidFees.count; i ++) {
+                JXFee *remoteFee = remoteAidFees[i];
+                JXFee *localFee = localAidFees[i];
+                localFee.prices = remoteFee.prices;
+                localFee.itemNum = remoteFee.itemNum;
+                localFee.des = remoteFee.des;
+            }
+            
+            // 教练星级费用组
+            NSArray *remoteStarFees = [JXFee mj_objectArrayWithKeyValuesArray:json[@"stars"]];
+            NSArray *localStarFees = [self.feeGroups[2] fees];
+            // 将本地数据用远程数代替
+            for (int i = 0; i < localStarFees.count; i ++) {
+                JXFee *remoteFee = remoteStarFees[5 - i]; // 因之前自己设计的plist模型和服务器模型有差异，故以本地plist为准
+                JXFee *localFee = localStarFees[i];
+                localFee.prices = remoteFee.prices;
+                localFee.itemNum = remoteFee.itemNum;
+                localFee.des = remoteFee.des;
+            }
+            
+            // 刷新表格
+            [self.tableView reloadData];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - Table view data source

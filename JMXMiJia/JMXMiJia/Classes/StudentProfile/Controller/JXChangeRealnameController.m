@@ -40,7 +40,7 @@
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/ChangeInfoT" params:paras success:^(id json) {
         BOOL result = [json[@"success"] boolValue];
         if (result) { // 修改成功
-            account.realName = self.realnameField.text;
+            account.name = self.realnameField.text;
             [JXAccountTool saveAccount:account];
             [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
             [self.navigationController popViewControllerAnimated:YES];

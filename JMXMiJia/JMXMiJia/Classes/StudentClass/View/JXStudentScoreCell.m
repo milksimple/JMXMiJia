@@ -7,11 +7,17 @@
 //
 
 #import "JXStudentScoreCell.h"
+#import "UIView+JXExtension.h"
+
+@interface JXStudentScoreCell()
+
+
+@end
 
 @implementation JXStudentScoreCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -24,8 +30,11 @@
     return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([JXStudentScoreCell class]) owner:nil options:nil].lastObject;
 }
 
-+ (CGFloat)rowHeight {
-    return 100;
+- (CGFloat)rowHeight {
+    [self layoutIfNeeded];
+    return self.commentLabel.jx_y + self.commentLabel.jx_height + 10;
 }
+
+
 
 @end
