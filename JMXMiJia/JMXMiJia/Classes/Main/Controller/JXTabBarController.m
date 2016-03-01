@@ -18,12 +18,26 @@
 #import "UIView+Extension.h"
 #import "JXNavLetterButton.h"
 #import <BBBadgeBarButtonItem.h>
+#import <CoreLocation/CoreLocation.h>
+#import "JXAccountTool.h"
 
-@interface JXTabBarController ()
-
+@interface JXTabBarController () <CLLocationManagerDelegate>
+/** 位置管理者 */
+@property (nonatomic, strong) CLLocationManager *locMgr;
 @end
 
 @implementation JXTabBarController
+
+- (CLLocationManager *)locMgr {
+    if (_locMgr == nil) {
+        _locMgr = [[CLLocationManager alloc] init];
+        _locMgr.delegate = self;
+        _locMgr.distanceFilter = 100;
+        _locMgr.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        
+    }
+    return _locMgr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,6 +55,14 @@
     [self addChildVC:studentProfileVC image:@"tabbar_profile_normal" selectedImage:@"tabbar_profile_selected" title:@"个人"];
     
     
+    if ([self.locMgr respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locMgr requestWhenInUseAuthorization];
+        
+        if ([CLLocationManager locationServicesEnabled]) {
+            [self.locMgr startUpdatingLocation];
+        }
+    }
+    
     
 }
 
@@ -53,6 +75,14 @@
     JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:childVC];
     
     [self addChildViewController:nav];
+}
+
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    JXAccount *account = [JXAccountTool account];
+    account.location = locations.firstObject;
+    [JXAccountTool saveAccount:account];
+    [manager stopUpdatingLocation];
 }
 
 @end

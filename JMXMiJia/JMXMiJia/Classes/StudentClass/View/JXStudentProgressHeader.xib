@@ -64,7 +64,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="currentDateLabel" destination="nOA-aN-1uZ" id="qCA-sg-4Ig"/>
-                <outlet property="scoreLabel" destination="2Q5-bm-d3O" id="2ec-80-iHI"/>
             </connections>
             <point key="canvasLocation" x="409" y="352"/>
         </view>

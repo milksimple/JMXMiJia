@@ -123,6 +123,7 @@
 		04F0ABDF1C2BF36F000EB562 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABDE1C2BF36F000EB562 /* UIView+Extension.m */; };
 		04F0ABE21C2CDA56000EB562 /* JXTeacherToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABE11C2CDA56000EB562 /* JXTeacherToolBar.m */; };
 		04F0ABE41C2CDACC000EB562 /* JXTeacherToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F0ABE31C2CDACC000EB562 /* JXTeacherToolBar.xib */; };
+		04FF3DCE1C856DE500A085E1 /* JXToStudentComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FF3DCD1C856DE500A085E1 /* JXToStudentComment.m */; };
 		524813A41C4935120008828A /* JXHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 524813A31C4935120008828A /* JXHttpTool.m */; };
 		52A30C861C2FC57000A176A7 /* JXNavLetterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A30C851C2FC57000A176A7 /* JXNavLetterButton.m */; };
 		DC3616EA9689F725065AC7AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5C3C437BBA4964B2BC3CA8 /* libPods.a */; };
@@ -351,6 +352,8 @@
 		04F0ABE01C2CDA56000EB562 /* JXTeacherToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTeacherToolBar.h; sourceTree = "<group>"; };
 		04F0ABE11C2CDA56000EB562 /* JXTeacherToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTeacherToolBar.m; sourceTree = "<group>"; };
 		04F0ABE31C2CDACC000EB562 /* JXTeacherToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXTeacherToolBar.xib; sourceTree = "<group>"; };
+		04FF3DCC1C856DE500A085E1 /* JXToStudentComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXToStudentComment.h; sourceTree = "<group>"; };
+		04FF3DCD1C856DE500A085E1 /* JXToStudentComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXToStudentComment.m; sourceTree = "<group>"; };
 		1B5C3C437BBA4964B2BC3CA8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		524813A21C4935120008828A /* JXHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXHttpTool.h; sourceTree = "<group>"; };
 		524813A31C4935120008828A /* JXHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXHttpTool.m; sourceTree = "<group>"; };
@@ -765,6 +768,8 @@
 			children = (
 				04A2BF4E1C746EFF008CE488 /* JXStudentProgress.h */,
 				04A2BF4F1C746EFF008CE488 /* JXStudentProgress.m */,
+				04FF3DCC1C856DE500A085E1 /* JXToStudentComment.h */,
+				04FF3DCD1C856DE500A085E1 /* JXToStudentComment.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1130,7 +1135,7 @@
 				TargetAttributes = {
 					04F0AB531C2A2FCD000EB562 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = Y99VW46B2U;
+						DevelopmentTeam = 7U2B388HH6;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1345,6 +1350,7 @@
 				04A2BEF91C71A94F008CE488 /* JXAutoOrderHeaderView.m in Sources */,
 				041D30D51C462752007C8E43 /* UIViewController+Extension.m in Sources */,
 				04F0ABD11C2A8A18000EB562 /* JXTeacherViewCell.m in Sources */,
+				04FF3DCE1C856DE500A085E1 /* JXToStudentComment.m in Sources */,
 				041D31261C4F203A007C8E43 /* UIView+JXExtension.m in Sources */,
 				040FEE9D1C7D98F100E0CE5A /* JXMessageTableViewCell.m in Sources */,
 				04F0ABC61C2A3EDD000EB562 /* JXTeacherClassController.m in Sources */,
@@ -1489,7 +1495,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.j;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1507,7 +1513,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.j;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

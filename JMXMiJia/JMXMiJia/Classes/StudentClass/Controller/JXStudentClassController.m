@@ -5,6 +5,10 @@
 //  Created by mac on 15/12/23.
 //  Copyright © 2015年 mac. All rights reserved.
 //
+// 存储最后一条评论的key
+#define JXStudentProgressLastCommentKey @"JXStudentProgressLastCommentKey"
+// 存储进度json数据的路径
+#define JXStudentProgressJsonPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"studentProgressJson.archive"]
 
 #import "JXStudentClassController.h"
 #import "JXStudentProgressCell.h"
@@ -18,31 +22,31 @@
 #import "JXHttpTool.h"
 #import "JXAccountTool.h"
 #import <SVProgressHUD.h>
+#import <MJExtension.h>
+#import "JXToStudentComment.h"
 
 @interface JXStudentClassController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) UITableView *tableView;
 /** 课堂进度 */
 @property (nonatomic, strong) NSArray *progresses;
+/** 最近的评论 */
+@property (nonatomic, copy) NSString *lastComment;
+/** 最近的评论日期 */
+@property (nonatomic, copy) NSString *lastCommentDate;
 /** 各行是否展开,展开为1，闭合为0 */
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *explands;
+/** 当前选中的行 */
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @end
 
 @implementation JXStudentClassController
 #pragma mark - 懒加载
-- (NSArray *)progresses {
-    if (_progresses == nil) {
-        NSMutableArray *progresses = [NSMutableArray array];
-        for (int i = 0; i < 4; i ++) {
-            JXStudentProgress *progress = [[JXStudentProgress alloc] init];
-            progress.phrase = i;
-            progress.phraseStatus = JXStudentProgressPhraseStatusNotStart;
-            [progresses addObject:progress];
-        }
-        
-        _progresses = progresses;
+- (NSString *)lastComment {
+    if (_lastComment == nil) {
+        _lastComment = @"暂无对您的点评信息!";
     }
-    return _progresses;
+    return _lastComment;
 }
 
 - (NSMutableArray<NSNumber *> *)explands {
@@ -58,6 +62,13 @@
     self.navigationItem.title = @"我的进度";
     
     [self setupTableView];
+    
+    // 先从本地解档
+    id json = [NSKeyedUnarchiver unarchiveObjectWithFile:JXStudentProgressJsonPath];
+    JXLog(@"local json = %@", json);
+    if (json) {
+        [self dealData:json];
+    }
     
     [self setupRefresh];
     
@@ -89,35 +100,21 @@
 - (void)loadProgressData {
     JXAccount *account = [JXAccountTool account];
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"mobile"] = account.mobile;
-    paras[@"password"] = account.password;
-    [JXHttpTool post:[NSString stringWithFormat:@"%@/TraineeStep", JXServerName] params:paras success:^(id json) {
+//    paras[@"mobile"] = account.mobile;
+//    paras[@"password"] = account.password;
+#warning 测试数据
+    paras[@"mobile"] = @"13708803633";
+    paras[@"password"] = @"111111";
+    
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/TraineeReviewsList", JXServerName] params:paras success:^(id json) {
         [self.tableView.mj_header endRefreshing];
-        JXLog(@"%@", json);
+        
         BOOL success = [json[@"success"] boolValue];
         if (success) {
-            NSInteger step = [json[@"step"] integerValue];
-            NSArray *finishDates = json[@"date"];
-            // step为在学
-            JXStudentProgress *progress = self.progresses[step];
-            
-            progress.phraseStatus = JXStudentProgressPhraseStatusStuding;
-            
-            // step之前为学完
-            for (NSInteger i = step - 1; i >= 0; i --) {
-                JXStudentProgress *progress = self.progresses[i];
-                progress.finishTime = finishDates[i];
-                progress.phraseStatus = JXStudentProgressPhraseStatusComplete;
-                
-            }
-            
-            // step之后为未开始
-            for (NSInteger i = step + 1; i < 4; i ++) {
-                JXStudentProgress *progress = self.progresses[i];
-                progress.phraseStatus = JXStudentProgressPhraseStatusNotStart;
-
-            }
-            [self.tableView reloadData];
+            // 将json归档
+            [NSKeyedArchiver archiveRootObject:json toFile:JXStudentProgressJsonPath];
+            // 处理数据
+            [self dealData:json];
         }
         else {
             [SVProgressHUD showErrorWithStatus:json[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
@@ -127,6 +124,33 @@
         [SVProgressHUD showErrorWithStatus:@"网络连接失败" maskType:SVProgressHUDMaskTypeBlack];
         JXLog(@"请求失败 - %@", error);
     }];
+    
+}
+
+/**
+ *  处理数据
+ *
+ *  @param json 从服务器或者从本地沙盒获取的进度数据
+ */
+- (void)dealData:(id)json {
+    JXLog(@"dealData remote json %@", json);
+    NSMutableArray *progresses = [NSMutableArray array];
+    // 4个科目进度
+    for (int i = 1; i < 5; i ++) {
+        NSString *stepName = [NSString stringWithFormat:@"step%zd", i];
+        JXStudentProgress *progress = [JXStudentProgress mj_objectWithKeyValues:json[stepName]];
+        progress.subjectNO = i;
+        [progresses addObject:progress];
+    }
+    self.progresses = progresses;
+    
+    // 最近一条评论
+    self.lastComment = json[@"lastDes"];
+    
+    // 最近一条评论的日期
+    self.lastCommentDate = json[@"lastDate"];
+    // 处理完数据刷新表格
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -138,8 +162,8 @@
     if (section < 4) {
         BOOL expland = [self.explands[section] boolValue];
         if (expland) {
-#warning 测试数据
-            return 4;
+            JXStudentProgress *progress = self.progresses[section];
+            return progress.rows.count;
         }
         else return 0;
     }
@@ -153,16 +177,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section < 4) {
         JXStudentProgressDetailCell *detailCell = [JXStudentProgressDetailCell cell];
-//        
-//        detailCell.corverButtonClickedAction = ^{
-//            
-//        };
+        JXStudentProgress *progress = self.progresses[indexPath.section];
+        JXToStudentComment *comment = progress.rows[indexPath.row];
+        detailCell.comment = comment;
         return detailCell;
     }
     
     else {
         JXStudentScoreCell *scoreCell = [JXStudentScoreCell cell];
-        scoreCell.commentLabel.text = @"热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。";
+        scoreCell.comment = self.lastComment;
         return scoreCell;
     }
 }
@@ -173,7 +196,7 @@
     }
     else {
         JXStudentScoreCell *scoreCell = [JXStudentScoreCell cell];
-        scoreCell.commentLabel.text = @"热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。热心肠，本着只有教不好的老师，没有教不会的学生。";
+        scoreCell.comment = self.lastComment;
         return [scoreCell rowHeight];
     }
 }
@@ -186,24 +209,32 @@
             BOOL expland = [self.explands[section] boolValue];
             self.explands[section] = @(!expland);
             [self.tableView reloadData];
+            [self.tableView selectRowAtIndexPath:self.selectedIndexPath animated:NO scrollPosition:0];
         };
         return header;
     }
     else { // 点评
         JXStudentProgressHeader *commentHeader = [JXStudentProgressHeader header];
+        
+        commentHeader.date = self.lastCommentDate;
         return commentHeader;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        selectedCell.selected = NO;
-    });
+    if (indexPath.section < 4) {
+        self.selectedIndexPath = indexPath;
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [JXStudentClassHeaderView headerHeight];
+    if (section < 4) {
+        return [JXStudentClassHeaderView headerHeight];
+    }
+    else {
+        return [JXStudentProgressCell rowHeight];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -219,7 +250,7 @@
         return [JXStudentProgressFooter footerHeight];
     }
     else {
-        return 0.1;
+        return 5;
     }
 }
 @end

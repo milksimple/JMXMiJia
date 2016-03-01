@@ -49,8 +49,6 @@
 @property (nonatomic, weak) JXFilterView *filterView;
 /** 自主订单的总金额 */
 @property (nonatomic, assign) NSInteger totalPay;
-/** 位置管理者 */
-@property (nonatomic, strong) CLLocationManager *locMgr;
 /** 当前位置 */
 @property (nonatomic, strong) CLLocation *location;
 @end
@@ -75,15 +73,12 @@
     return _searchParas;
 }
 
-- (CLLocationManager *)locMgr {
-    if (_locMgr == nil) {
-        _locMgr = [[CLLocationManager alloc] init];
-        _locMgr.delegate = self;
-        _locMgr.distanceFilter = 100;
-        _locMgr.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-        
+- (CLLocation *)location {
+    if (_location == nil) {
+        JXAccount *account = [JXAccountTool account];
+        _location = account.location;
     }
-    return _locMgr;
+    return _location;
 }
 
 - (void)viewDidLoad {
@@ -97,14 +92,6 @@
     
     // 监听通知
     [self addNotificationObserver];
-    
-    if ([self.locMgr respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [self.locMgr requestWhenInUseAuthorization];
-        
-        if ([CLLocationManager locationServicesEnabled]) {
-            [self.locMgr startUpdatingLocation];
-        }
-    }
     
     [self setupRefresh];
 }
@@ -172,6 +159,7 @@
     paras[@"sex"] = @(self.searchParas.sex);
     paras[@"star"] = @(self.searchParas.star);
     paras[@"school"] = self.searchParas.school.uid;
+    
     if (self.location) {
         paras[@"lat"] = [NSString stringWithFormat:@"%f", self.location.coordinate.latitude];
         paras[@"lon"] = [NSString stringWithFormat:@"%f", self.location.coordinate.longitude];
@@ -370,10 +358,5 @@
     [self.tableView.mj_header beginRefreshing];
 }
 
-#pragma mark - CLLocationManagerDelegate
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    self.location = [locations firstObject];
-    [manager stopUpdatingLocation];
-}
 
 @end

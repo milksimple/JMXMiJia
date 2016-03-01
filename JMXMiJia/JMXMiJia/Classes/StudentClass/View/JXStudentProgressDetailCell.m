@@ -10,32 +10,27 @@
 #import "JXStudentProgress.h"
 
 @interface JXStudentProgressDetailCell()
-/** 圆点 */
-@property (weak, nonatomic) IBOutlet UIView *pointView;
-/** 科目名称 */
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-/** 开始状态 */
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
-/** 时间 */
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeStatusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bgButton;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+/** 日期 */
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+/** 理论知识 */
+@property (weak, nonatomic) IBOutlet UILabel *theoryLabel;
+/** 实际操作 */
+@property (weak, nonatomic) IBOutlet UILabel *practiceLabel;
 
 @end
 
 @implementation JXStudentProgressDetailCell
 
 - (void)awakeFromNib {
-    // Initialization code
-#warning 测试数据
-    self.classDetailLabel.text = @"\n--2015年01月10日 理论知识:4 实际操作:3\n\n--2015年01月10日 理论知识:4 实际操作:3\n\n--2015年01月10日 理论知识:4 实际操作:3\n";
-    self.classDetailLabel.hidden = YES;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
-    
+    self.containerView.backgroundColor = selected ? [UIColor colorWithRed:170/255.0 green:170/255.0 blue:170/255.0 alpha:0.3] : [UIColor whiteColor];
 }
 
 //- (IBAction)corverButtonClicked:(UIButton *)sender {
@@ -44,6 +39,14 @@
 //        self.corverButtonClickedAction();
 //    }
 //}
+
+- (void)setComment:(JXToStudentComment *)comment {
+    _comment = comment;
+    
+    self.dateLabel.text = comment.date;
+    self.theoryLabel.text = [NSString stringWithFormat:@"理论知识:%zd", comment.starsA];
+    self.practiceLabel.text = [NSString stringWithFormat:@"实际操作:%zd", comment.starsB];
+}
 
 + (instancetype)cell {
     return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([JXStudentProgressDetailCell class]) owner:nil options:nil].lastObject;
@@ -55,7 +58,7 @@
 
 
 + (CGFloat)rowHeight {
-    return 44;;
+    return 45;;
 }
 
 

@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface JXStudentProgressHeader : UIView
-/** 隐藏所有label */
-@property (nonatomic, assign) BOOL hideLabel;
+
+@property (nonatomic, copy) NSString *date;
 
 + (instancetype)header;
 

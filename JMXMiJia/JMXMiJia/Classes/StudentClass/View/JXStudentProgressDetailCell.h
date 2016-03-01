@@ -6,17 +6,14 @@
 //  Copyright © 2016年 mac. All rights reserved.
 //
 
-typedef void (^JXStudentProgressDetailCellClickedCorverButtonAction)();
+//typedef void (^JXStudentProgressDetailCellClickedCorverButtonAction)();
 
 #import <UIKit/UIKit.h>
-@class JXStudentProgress;
+#import "JXToStudentComment.h"
 
 @interface JXStudentProgressDetailCell : UITableViewCell
-#warning 暂时放在这
-/** 课堂详细情况 */
-@property (weak, nonatomic) IBOutlet UILabel *classDetailLabel;
-
-@property (nonatomic, strong) JXStudentProgress *progress;
+/** 评论模型 */
+@property (nonatomic, strong) JXToStudentComment *comment;
 
 + (NSString *)reuseIdentifier;
 
@@ -24,5 +21,5 @@ typedef void (^JXStudentProgressDetailCellClickedCorverButtonAction)();
 
 + (CGFloat)rowHeight;
 
-@property (nonatomic, copy) JXStudentProgressDetailCellClickedCorverButtonAction corverButtonClickedAction;
+//@property (nonatomic, copy) JXStudentProgressDetailCellClickedCorverButtonAction corverButtonClickedAction;
 @end

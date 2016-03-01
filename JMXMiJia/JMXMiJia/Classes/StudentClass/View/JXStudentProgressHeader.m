@@ -10,7 +10,6 @@
 
 @interface JXStudentProgressHeader()
 @property (weak, nonatomic) IBOutlet UILabel *currentDateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 @end
 
@@ -24,17 +23,17 @@
     self.currentDateLabel.text = dateStr;
 }
 
-- (void)setHideLabel:(BOOL)hideLabel {
-    _hideLabel = hideLabel;
-    
-    self.currentDateLabel.hidden = self.scoreLabel.hidden = hideLabel;
-}
-
 + (instancetype)header {
     return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([JXStudentProgressHeader class]) owner:nil options:nil].lastObject;
 }
 
 + (CGFloat)headerHeight {
     return 60;
+}
+
+- (void)setDate:(NSString *)date {
+    _date = date;
+    
+    self.currentDateLabel.text = date;
 }
 @end

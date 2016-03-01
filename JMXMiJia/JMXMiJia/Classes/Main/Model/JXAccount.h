@@ -12,6 +12,7 @@ typedef enum {
 } JXAccountSex;
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface JXAccount : NSObject <NSCoding>
 /** 手机号 */
@@ -34,4 +35,6 @@ typedef enum {
 @property (nonatomic, assign) NSInteger count;
 /** 余额 */
 @property (nonatomic, assign) float balance;
+/** 用户位置 */
+@property (nonatomic, strong) CLLocation *location;
 @end

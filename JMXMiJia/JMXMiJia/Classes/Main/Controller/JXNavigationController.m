@@ -42,8 +42,14 @@
         
         // 修改导航栏左边的item
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        
+//        //在自定义leftBarButtonItem后添加下面代码就可以完美解决返回手势无效的情况
+//        if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//            self.interactivePopGestureRecognizer.delegate = nil;
+//        }
     }
     [viewController.navigationItem.backBarButtonItem setBackButtonBackgroundImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
     [super pushViewController:viewController animated:animated];
     
 }
@@ -51,4 +57,7 @@
 - (void)back {
     [self popViewControllerAnimated:YES];
 }
+
+
+
 @end
