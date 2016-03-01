@@ -125,6 +125,8 @@
 		04F0ABE41C2CDACC000EB562 /* JXTeacherToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F0ABE31C2CDACC000EB562 /* JXTeacherToolBar.xib */; };
 		04FF3DCE1C856DE500A085E1 /* JXToStudentComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FF3DCD1C856DE500A085E1 /* JXToStudentComment.m */; };
 		524813A41C4935120008828A /* JXHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 524813A31C4935120008828A /* JXHttpTool.m */; };
+		529627321C85CE0C00C773AB /* JXReplyToTeacherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 529627311C85CE0C00C773AB /* JXReplyToTeacherController.m */; };
+		5296273C1C85D94F00C773AB /* JXTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5296273B1C85D94F00C773AB /* JXTextView.m */; };
 		52A30C861C2FC57000A176A7 /* JXNavLetterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A30C851C2FC57000A176A7 /* JXNavLetterButton.m */; };
 		DC3616EA9689F725065AC7AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5C3C437BBA4964B2BC3CA8 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -357,6 +359,10 @@
 		1B5C3C437BBA4964B2BC3CA8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		524813A21C4935120008828A /* JXHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXHttpTool.h; sourceTree = "<group>"; };
 		524813A31C4935120008828A /* JXHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXHttpTool.m; sourceTree = "<group>"; };
+		529627301C85CE0C00C773AB /* JXReplyToTeacherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXReplyToTeacherController.h; sourceTree = "<group>"; };
+		529627311C85CE0C00C773AB /* JXReplyToTeacherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXReplyToTeacherController.m; sourceTree = "<group>"; };
+		5296273A1C85D94F00C773AB /* JXTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTextView.h; sourceTree = "<group>"; };
+		5296273B1C85D94F00C773AB /* JXTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTextView.m; sourceTree = "<group>"; };
 		52A30C841C2FC57000A176A7 /* JXNavLetterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXNavLetterButton.h; sourceTree = "<group>"; };
 		52A30C851C2FC57000A176A7 /* JXNavLetterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXNavLetterButton.m; sourceTree = "<group>"; };
 		52A30C881C2FC59D00A176A7 /* HMSingleton-ARC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HMSingleton-ARC.h"; sourceTree = "<group>"; };
@@ -759,6 +765,8 @@
 			children = (
 				04F0ABB81C2A3E82000EB562 /* JXStudentClassController.h */,
 				04F0ABB91C2A3E82000EB562 /* JXStudentClassController.m */,
+				529627301C85CE0C00C773AB /* JXReplyToTeacherController.h */,
+				529627311C85CE0C00C773AB /* JXReplyToTeacherController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1008,6 +1016,7 @@
 		04F0ABDB1C2BF362000EB562 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				529627331C85D67A00C773AB /* JXTextView */,
 				047F40E71C801BC100C77BEF /* VPImageCropper */,
 				041D31231C4F203A007C8E43 /* UIView + JXExtension */,
 				041D31161C4E356F007C8E43 /* FDTemplate */,
@@ -1043,6 +1052,15 @@
 				524813A31C4935120008828A /* JXHttpTool.m */,
 			);
 			path = Tool;
+			sourceTree = "<group>";
+		};
+		529627331C85D67A00C773AB /* JXTextView */ = {
+			isa = PBXGroup;
+			children = (
+				5296273A1C85D94F00C773AB /* JXTextView.h */,
+				5296273B1C85D94F00C773AB /* JXTextView.m */,
+			);
+			path = JXTextView;
 			sourceTree = "<group>";
 		};
 		52A30C871C2FC59D00A176A7 /* Singleton */ = {
@@ -1135,7 +1153,7 @@
 				TargetAttributes = {
 					04F0AB531C2A2FCD000EB562 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 7U2B388HH6;
+						DevelopmentTeam = Y99VW46B2U;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1291,6 +1309,8 @@
 				04129CF31C5F06050098C7AB /* JXFilterViewController.m in Sources */,
 				040FEE931C7D8A1C00E0CE5A /* JXInfoMessageCell.m in Sources */,
 				04A2BF4C1C746AF4008CE488 /* JXStudentProgressCell.m in Sources */,
+				5296273C1C85D94F00C773AB /* JXTextView.m in Sources */,
+				529627321C85CE0C00C773AB /* JXReplyToTeacherController.m in Sources */,
 				041D30EB1C4883B1007C8E43 /* NSArray+Log.m in Sources */,
 				047F40ED1C841C3F00C77BEF /* JXStudentClassHeaderView.m in Sources */,
 				040FEE8A1C7D59CC00E0CE5A /* JXInfoHeaderView.m in Sources */,
@@ -1495,7 +1515,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.j;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1513,7 +1533,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.j;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

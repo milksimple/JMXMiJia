@@ -24,8 +24,9 @@
 #import <SVProgressHUD.h>
 #import <MJExtension.h>
 #import "JXToStudentComment.h"
+#import "JXReplyToTeacherController.h"
 
-@interface JXStudentClassController () <UITableViewDataSource, UITableViewDelegate>
+@interface JXStudentClassController () <UITableViewDataSource, UITableViewDelegate, JXStudentProgressFooterDelegate>
 
 @property (nonatomic, weak) UITableView *tableView;
 /** 课堂进度 */
@@ -38,10 +39,25 @@
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *explands;
 /** 当前选中的行 */
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
+
 @end
 
 @implementation JXStudentClassController
 #pragma mark - 懒加载
+- (NSArray *)progresses {
+    if (_progresses == nil) {
+        NSMutableArray *progresses = [NSMutableArray array];
+        for (int i = 0; i < 4; i ++) {
+            JXStudentProgress *progress = [[JXStudentProgress alloc] init];
+            progress.subjectNO = i + 1;
+            progress.state = 2;
+            [progresses addObject:progress];
+        }
+        _progresses = progresses;
+    }
+    return _progresses;
+}
+
 - (NSString *)lastComment {
     if (_lastComment == nil) {
         _lastComment = @"暂无对您的点评信息!";
@@ -71,7 +87,6 @@
     }
     
     [self setupRefresh];
-    
 }
 
 - (void)setupTableView {
@@ -124,6 +139,12 @@
         [SVProgressHUD showErrorWithStatus:@"网络连接失败" maskType:SVProgressHUDMaskTypeBlack];
         JXLog(@"请求失败 - %@", error);
     }];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
     
 }
 
@@ -224,8 +245,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section < 4) {
         self.selectedIndexPath = indexPath;
+        JXStudentProgress *progress = self.progresses[indexPath.section];
+        JXToStudentComment *comment = progress.rows[indexPath.row];
+        self.lastComment = comment.des;
     }
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -240,6 +263,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     if (section == 4) {
         JXStudentProgressFooter *footer = [JXStudentProgressFooter footer];
+        footer.delegate = self;
         return footer;
     }
     return nil;
@@ -252,5 +276,11 @@
     else {
         return 5;
     }
+}
+
+#pragma mark - JXStudentProgressFooterDelegate
+- (void)studentProgressFooterDidClickReplyButton {
+    JXReplyToTeacherController *replyToTeacherVC = [[JXReplyToTeacherController alloc] init];
+    [self.navigationController pushViewController:replyToTeacherVC animated:YES];
 }
 @end
