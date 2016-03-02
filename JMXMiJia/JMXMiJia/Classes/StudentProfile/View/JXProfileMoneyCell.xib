@@ -58,14 +58,14 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="uqD-UW-joF"/>
-                                <exclude reference="mwk-bm-mfU"/>
-                                <exclude reference="FTM-Yu-649"/>
                                 <exclude reference="3ye-dm-jd3"/>
                                 <exclude reference="7Ee-Kk-aZu"/>
-                                <exclude reference="bVk-Sw-Rvw"/>
-                                <exclude reference="Qfr-Gq-km7"/>
-                                <exclude reference="gYT-n4-iMe"/>
+                                <exclude reference="FTM-Yu-649"/>
+                                <exclude reference="mwk-bm-mfU"/>
                                 <exclude reference="Npj-Pg-AKk"/>
+                                <exclude reference="Qfr-Gq-km7"/>
+                                <exclude reference="bVk-Sw-Rvw"/>
+                                <exclude reference="gYT-n4-iMe"/>
                             </mask>
                         </variation>
                     </view>
