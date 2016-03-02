@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface JXReplyToTeacherController : UIViewController
+/** 被评论的点评的日期 */
+@property (nonatomic, copy) NSString *commentedDate;
 
 @end

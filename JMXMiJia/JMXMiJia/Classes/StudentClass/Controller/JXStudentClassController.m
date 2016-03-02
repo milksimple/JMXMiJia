@@ -31,15 +31,12 @@
 @property (nonatomic, weak) UITableView *tableView;
 /** 课堂进度 */
 @property (nonatomic, strong) NSArray *progresses;
-/** 最近的评论 */
-@property (nonatomic, copy) NSString *lastComment;
-/** 最近的评论日期 */
-@property (nonatomic, copy) NSString *lastCommentDate;
 /** 各行是否展开,展开为1，闭合为0 */
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *explands;
 /** 当前选中的行 */
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
-
+/** 最后一条评论模型 */
+@property (nonatomic, strong) JXToStudentComment *lastToStudentComment;
 @end
 
 @implementation JXStudentClassController
@@ -56,13 +53,6 @@
         _progresses = progresses;
     }
     return _progresses;
-}
-
-- (NSString *)lastComment {
-    if (_lastComment == nil) {
-        _lastComment = @"暂无对您的点评信息!";
-    }
-    return _lastComment;
 }
 
 - (NSMutableArray<NSNumber *> *)explands {
@@ -115,11 +105,11 @@
 - (void)loadProgressData {
     JXAccount *account = [JXAccountTool account];
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-//    paras[@"mobile"] = account.mobile;
-//    paras[@"password"] = account.password;
+    paras[@"mobile"] = account.mobile;
+    paras[@"password"] = account.password;
 #warning 测试数据
-    paras[@"mobile"] = @"13708803633";
-    paras[@"password"] = @"111111";
+//    paras[@"mobile"] = @"13708803633";
+//    paras[@"password"] = @"111111";
     
     [JXHttpTool post:[NSString stringWithFormat:@"%@/TraineeReviewsList", JXServerName] params:paras success:^(id json) {
         [self.tableView.mj_header endRefreshing];
@@ -132,11 +122,11 @@
             [self dealData:json];
         }
         else {
-            [SVProgressHUD showErrorWithStatus:json[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
+            [SVProgressHUD showErrorWithStatus:json[@"msg"]];
         }
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
-        [SVProgressHUD showErrorWithStatus:@"网络连接失败" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showErrorWithStatus:@"网络连接失败"];
         JXLog(@"请求失败 - %@", error);
     }];
     
@@ -164,12 +154,17 @@
         [progresses addObject:progress];
     }
     self.progresses = progresses;
+
+    // 最近的评论所在的progress
+    JXStudentProgress *lastCommentProgress = [JXStudentProgress mj_objectWithKeyValues:json[@"last"]];
+    self.lastToStudentComment = lastCommentProgress.rows.lastObject;
     
-    // 最近一条评论
-    self.lastComment = json[@"lastDes"];
-    
-    // 最近一条评论的日期
-    self.lastCommentDate = json[@"lastDate"];
+    // 获得教练ID
+    JXAccount *account = [JXAccountTool account];
+    if (account.teacherCID == 0) {
+        account.teacherCID = [json[@"cid"] integerValue];
+        [JXAccountTool saveAccount:account];
+    }
     // 处理完数据刷新表格
     [self.tableView reloadData];
 }
@@ -206,7 +201,7 @@
     
     else {
         JXStudentScoreCell *scoreCell = [JXStudentScoreCell cell];
-        scoreCell.comment = self.lastComment;
+        scoreCell.comment = self.lastToStudentComment.des;
         return scoreCell;
     }
 }
@@ -217,7 +212,7 @@
     }
     else {
         JXStudentScoreCell *scoreCell = [JXStudentScoreCell cell];
-        scoreCell.comment = self.lastComment;
+        scoreCell.comment = self.lastToStudentComment.des;
         return [scoreCell rowHeight];
     }
 }
@@ -237,7 +232,7 @@
     else { // 点评
         JXStudentProgressHeader *commentHeader = [JXStudentProgressHeader header];
         
-        commentHeader.date = self.lastCommentDate;
+        commentHeader.date = self.lastToStudentComment.date;
         return commentHeader;
     }
 }
@@ -247,7 +242,7 @@
         self.selectedIndexPath = indexPath;
         JXStudentProgress *progress = self.progresses[indexPath.section];
         JXToStudentComment *comment = progress.rows[indexPath.row];
-        self.lastComment = comment.des;
+        self.lastToStudentComment = comment;
     }
 }
 
@@ -264,6 +259,7 @@
     if (section == 4) {
         JXStudentProgressFooter *footer = [JXStudentProgressFooter footer];
         footer.delegate = self;
+        footer.comment = self.lastToStudentComment;
         return footer;
     }
     return nil;
@@ -281,6 +277,7 @@
 #pragma mark - JXStudentProgressFooterDelegate
 - (void)studentProgressFooterDidClickReplyButton {
     JXReplyToTeacherController *replyToTeacherVC = [[JXReplyToTeacherController alloc] init];
+    replyToTeacherVC.commentedDate = self.lastToStudentComment.date;
     [self.navigationController pushViewController:replyToTeacherVC animated:YES];
 }
 @end

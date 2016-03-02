@@ -37,4 +37,6 @@ typedef enum {
 @property (nonatomic, assign) float balance;
 /** 用户位置 */
 @property (nonatomic, strong) CLLocation *location;
+/** 报名教练的uid */
+@property (nonatomic, assign) NSInteger teacherCID;
 @end

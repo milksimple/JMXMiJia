@@ -233,6 +233,7 @@ static CGFloat const JXSignLabelW = 30;
     
     NSString *iconUrl = [NSString stringWithFormat:@"%@/%@", JXServerName, teacher.photo];
     
+    self.iconView.image = [UIImage imageNamed:@"ico_placeholder"];
     __weak typeof(self) weakSelf = self;
     [self.manager downloadImageWithURL:[NSURL URLWithString:iconUrl] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         

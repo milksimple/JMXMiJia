@@ -26,4 +26,6 @@
 @property (nonatomic, assign) NSInteger state;
 /** 评论内容 */
 @property (nonatomic, copy) NSString *des;
+/** 是否已回评 */
+@property (nonatomic, assign) BOOL replied;
 @end

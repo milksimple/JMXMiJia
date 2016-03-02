@@ -91,7 +91,13 @@ static CGFloat const margin = 10;
 - (void)setAccount:(JXAccount *)account {
     _account = account;
     
-    [self.iconView sd_setImageWithURL:[NSURL URLWithString:account.photo] placeholderImage:[UIImage imageNamed:@"login_name_high"]];
+    if (account.photo.length == 0) {
+        self.iconView.image = [UIImage imageNamed:@"ico_notset"];
+    }
+    else {
+        [self.iconView sd_setImageWithURL:[NSURL URLWithString:account.photo] placeholderImage:[UIImage imageNamed:@"ico_placeholder"]];
+    }
+    
     self.nameLabel.text = account.name;
     self.jiamiNOLabel.text = [NSString stringWithFormat:@"驾米号:%@", account.mobile];
 }

@@ -73,6 +73,8 @@ static NSString * const ID = @"profileCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {
         JXProfileMoneyCell *moneyCell = [JXProfileMoneyCell moneyCell];
+        JXAccount *account = [JXAccountTool account];
+        moneyCell.account = account;
         return moneyCell;
     }
     

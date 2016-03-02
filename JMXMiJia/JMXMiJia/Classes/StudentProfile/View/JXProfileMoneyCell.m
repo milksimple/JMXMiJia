@@ -8,6 +8,7 @@
 
 #import "JXProfileMoneyCell.h"
 #import <Masonry.h>
+#import "JXAccount.h"
 
 @interface JXProfileMoneyCell()
 /** 推荐的人数 */
@@ -27,6 +28,13 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setAccount:(JXAccount *)account {
+    _account = account;
+    
+    self.recommendCountLabel.text =  [NSString stringWithFormat:@"%zd", account.count];
+    self.redBagLabel.text = [NSString stringWithFormat:@"%.2f元", account.balance];
 }
 
 @end

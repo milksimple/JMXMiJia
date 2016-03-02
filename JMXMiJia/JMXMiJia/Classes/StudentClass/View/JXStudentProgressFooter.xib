@@ -38,6 +38,9 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="commentButton" destination="oUf-jH-kQc" id="etK-6h-2x3"/>
+            </connections>
             <point key="canvasLocation" x="394" y="333"/>
         </view>
     </objects>

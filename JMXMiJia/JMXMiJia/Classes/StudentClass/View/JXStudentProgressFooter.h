@@ -7,6 +7,7 @@
 //  我的进度页面的footer
 
 #import <UIKit/UIKit.h>
+@class JXToStudentComment;
 
 @protocol JXStudentProgressFooterDelegate <NSObject>
 
@@ -22,4 +23,6 @@
 + (CGFloat)footerHeight;
 
 @property (nonatomic, weak) id<JXStudentProgressFooterDelegate> delegate;
+/** 老师给学生的评论模型 */
+@property (nonatomic, strong) JXToStudentComment *comment;
 @end

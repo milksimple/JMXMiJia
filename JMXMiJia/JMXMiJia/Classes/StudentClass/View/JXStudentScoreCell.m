@@ -37,9 +37,14 @@
 - (void)setComment:(NSString *)comment {
     _comment = comment;
     
-    NSMutableString *mutableStr = comment.mutableCopy;
-    // utf8转
-    self.commentLabel.text = [mutableStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if (comment.length == 0) {
+        self.commentLabel.text = @"暂无对您的点评信息";
+    }
+    else {
+        NSMutableString *mutableStr = comment.mutableCopy;
+        // utf8转
+        self.commentLabel.text = [mutableStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    }
 }
 
 @end
