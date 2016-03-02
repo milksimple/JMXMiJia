@@ -18,4 +18,11 @@
     return 70;
 }
 
+- (IBAction)replyButtonClicked:(UIButton *)sender {
+    // 通知代理
+    if ([self.delegate respondsToSelector:@selector(studentProgressFooterDidClickReplyButton)]) {
+        [self.delegate studentProgressFooterDidClickReplyButton];
+    }
+}
+
 @end

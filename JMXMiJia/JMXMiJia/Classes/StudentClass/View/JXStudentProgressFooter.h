@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol JXStudentProgressFooterDelegate <NSObject>
+
+@optional
+- (void)studentProgressFooterDidClickReplyButton;
+
+@end
+
 @interface JXStudentProgressFooter : UIView
 
 + (instancetype)footer;
 
 + (CGFloat)footerHeight;
+
+@property (nonatomic, weak) id<JXStudentProgressFooterDelegate> delegate;
 @end
