@@ -13,6 +13,7 @@
 #import "JXAccountTool.h"
 #import "JXLoginViewController.h"
 #import <IQKeyboardManager.h>
+#import <SDWebImageManager.h>
 
 @interface AppDelegate ()
 
@@ -39,7 +40,7 @@
     
     // 判断之前是否登录过
     JXAccount *account = [JXAccountTool account];
-    if (account.hasLogin) { // 之前登录过
+    if (!account.hasLogin) { // 之前登录过
         JXTabBarController *tabBarController = [[JXTabBarController alloc] init];
         self.window.rootViewController = tabBarController;
     }
@@ -86,7 +87,12 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    SDWebImageManager *mgr = [SDWebImageManager sharedManager];
+    // 1.取消下载
+    [mgr cancelAll];
     
+    // 2.清除内存中的所有图片
+    [mgr.imageCache clearMemory];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {

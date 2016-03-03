@@ -6,6 +6,9 @@
 //  Copyright © 2015年 mac. All rights reserved.
 //
 
+// 存储教师的json数据的路径
+#define JXTeacherJsonPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"teacherJson.archive"]
+
 #import "JXTeacherController.h"
 #import "JXTeacherViewCell.h"
 #import "JXTeacher.h"
@@ -93,6 +96,11 @@
     // 监听通知
     [self addNotificationObserver];
     
+    // 先从沙盒加载上次关闭app之前的教师数据
+    NSDictionary *json = [NSKeyedUnarchiver unarchiveObjectWithFile:JXTeacherJsonPath];
+    if (json) { // 之前有数据
+        [self dealData:json];
+    }
     [self setupRefresh];
 }
 
@@ -170,20 +178,31 @@
         // 停止刷新状态
         [self.tableView.mj_header endRefreshing];
         
-        // 字典数组转模型数组
-        NSMutableArray *newTeachers = [JXTeacher mj_objectArrayWithKeyValuesArray:json[@"rows"]];
-        if (self.searchParas.feeGroups) {
-            for (JXTeacher *newTeacher in newTeachers) {
-                newTeacher.price = [JXFeeGroupTool totalPayWithFeeGroups:self.searchParas.feeGroups];
-            }
-        }
-        self.teachers = newTeachers;
-        [self.tableView reloadData];
+        // 将json数据存入沙盒
+        [NSKeyedArchiver archiveRootObject:json toFile:JXTeacherJsonPath];
+        
+        // 处理json数据
+        [self dealData:json];
         
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         JXLog(@"请求失败 - %@", error);
     }];
+}
+
+/**
+ *  处理从服务或从沙盒获取的json数据
+ */
+- (void)dealData:(NSDictionary *)json {
+    // 字典数组转模型数组
+    NSMutableArray *newTeachers = [JXTeacher mj_objectArrayWithKeyValuesArray:json[@"rows"]];
+    if (self.searchParas.feeGroups) {
+        for (JXTeacher *newTeacher in newTeachers) {
+            newTeacher.price = [JXFeeGroupTool totalPayWithFeeGroups:self.searchParas.feeGroups];
+        }
+    }
+    self.teachers = newTeachers;
+    [self.tableView reloadData];
 }
 
 - (void)loadMoreTeachers {
