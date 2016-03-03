@@ -8,7 +8,7 @@
 // 存储最后一条评论的key
 #define JXStudentProgressLastCommentKey @"JXStudentProgressLastCommentKey"
 // 存储进度json数据的路径
-#define JXStudentProgressJsonPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"studentProgressJson.archive"]
+#define JXStudentProgressJsonPath(mobile) [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@studentProgressJson.archive", mobile]]
 
 #import "JXStudentClassController.h"
 #import "JXStudentProgressCell.h"
@@ -42,6 +42,7 @@
 @implementation JXStudentClassController
 #pragma mark - 懒加载
 - (NSArray *)progresses {
+    
     if (_progresses == nil) {
         NSMutableArray *progresses = [NSMutableArray array];
         for (int i = 0; i < 4; i ++) {
@@ -65,13 +66,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    JXLog(@"%f - %f", JXScreenW, JXScreenH);
     self.navigationItem.title = @"我的进度";
     
     [self setupTableView];
     
+    JXAccount *account = [JXAccountTool account];
     // 先从本地解档
-    id json = [NSKeyedUnarchiver unarchiveObjectWithFile:JXStudentProgressJsonPath];
-    JXLog(@"local json = %@", json);
+    id json = [NSKeyedUnarchiver unarchiveObjectWithFile:JXStudentProgressJsonPath(account.mobile)];
     if (json) {
         [self dealData:json];
     }
@@ -112,12 +114,12 @@
 //    paras[@"password"] = @"111111";
     
     [JXHttpTool post:[NSString stringWithFormat:@"%@/TraineeReviewsList", JXServerName] params:paras success:^(id json) {
+        JXLog(@"json = %@", json);
         [self.tableView.mj_header endRefreshing];
-        
         BOOL success = [json[@"success"] boolValue];
         if (success) {
             // 将json归档
-            [NSKeyedArchiver archiveRootObject:json toFile:JXStudentProgressJsonPath];
+            [NSKeyedArchiver archiveRootObject:json toFile:JXStudentProgressJsonPath(account.mobile)];
             // 处理数据
             [self dealData:json];
         }
@@ -135,7 +137,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    
 }
 
 /**
@@ -144,7 +145,6 @@
  *  @param json 从服务器或者从本地沙盒获取的进度数据
  */
 - (void)dealData:(id)json {
-    JXLog(@"dealData remote json %@", json);
     NSMutableArray *progresses = [NSMutableArray array];
     // 4个科目进度
     for (int i = 1; i < 5; i ++) {
@@ -243,6 +243,7 @@
         JXStudentProgress *progress = self.progresses[indexPath.section];
         JXToStudentComment *comment = progress.rows[indexPath.row];
         self.lastToStudentComment = comment;
+        [self.tableView reloadData];
     }
 }
 

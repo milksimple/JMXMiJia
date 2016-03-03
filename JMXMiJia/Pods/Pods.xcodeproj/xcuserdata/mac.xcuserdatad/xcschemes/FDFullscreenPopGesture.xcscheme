@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'CBB8A7102B148ABE0D51D76A'
-               BlueprintName = 'BBBadgeBarButtonItem'
+               BlueprintIdentifier = 'CB2FCD443A776EB7DF458EEA'
+               BlueprintName = 'FDFullscreenPopGesture'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libBBBadgeBarButtonItem.a'>
+               BuildableName = 'libFDFullscreenPopGesture.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -49,7 +49,7 @@ typedef enum {
 /** 学费 */
 @property (nonatomic, assign) float price;
 /** 工作年限 */
-@property (nonatomic, assign) NSInteger year;
+@property (nonatomic, copy) NSString *year;
 /** 学车类别,比如“C1” */
 @property (nonatomic, copy) NSString *models;
 /** 头像地址 */

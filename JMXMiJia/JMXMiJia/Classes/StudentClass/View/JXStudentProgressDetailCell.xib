@@ -36,15 +36,6 @@
                                     <constraint firstAttribute="height" constant="1" id="nGg-hJ-Gr4"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015年1月3日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHa-I5-c2M">
-                                <rect key="frame" x="20" y="13" width="90" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="90" id="9oa-2a-gNc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="理论知识:3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FbP-iY-qLf">
                                 <rect key="frame" x="115" y="13" width="70" height="16"/>
                                 <constraints>
@@ -68,6 +59,15 @@
                                         <exclude reference="2TM-wM-0RJ"/>
                                     </mask>
                                 </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015年1月3日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHa-I5-c2M">
+                                <rect key="frame" x="20" y="13" width="90" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="9oa-2a-gNc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

@@ -245,7 +245,7 @@ static CGFloat const JXSignLabelW = 30;
     self.starView.image = [UIImage imageNamed:[NSString stringWithFormat:@"star_%zd", teacher.star]];
     [self.distanceView setTitle:teacher.distance forState:UIControlStateNormal];
     self.rankLabel.text = [NSString stringWithFormat:@"%@", teacher.qual];
-    self.workYearLabel.text = [NSString stringWithFormat:@"%zd年", teacher.year];
+    self.workYearLabel.text = teacher.year;
     self.teachTypeLabel.text = teacher.models;
     self.feeLabel.text = [NSString stringWithFormat:@"￥%zd", (int)teacher.price];
 }

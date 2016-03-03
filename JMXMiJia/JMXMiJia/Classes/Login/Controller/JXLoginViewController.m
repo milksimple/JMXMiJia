@@ -11,7 +11,7 @@
 #import "JXIconTextField.h"
 #import "JXRegisterViewController.h"
 #import "JXNavigationController.h"
-#import "MBProgressHUD+MJ.h"
+#import <SVProgressHUD.h>
 #import "JXHttpTool.h"
 #import "JXAccountTool.h"
 #import "JXAccount.h"
@@ -137,10 +137,10 @@
  */
 - (void)loginBtnClicked {
     if (self.nameField.text.length == 0 || self.pwdField.text.length == 0) {
-        [MBProgressHUD showError:@"请填写账号和密码"];
+        [SVProgressHUD showErrorWithStatus:@"请填写账号和密码" maskType:SVProgressHUDMaskTypeBlack];
     }
     else {
-        [MBProgressHUD showMessage:@"正在登录"];
+        [SVProgressHUD showWithStatus:@"正在登录"];
         
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.nameField.text;
@@ -149,13 +149,13 @@
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
         
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/Login" params:paras success:^(id json) {
-            [MBProgressHUD hideHUD];
             BOOL success = [json[@"success"] boolValue];
             JXLog(@"json = %@", json);
             if (success == 0) { // 登录失败
-                [MBProgressHUD showError:json[@"msg"]];
+                [SVProgressHUD showErrorWithStatus:json[@"msg"]];
             }
             else { // 登录成功
+                [SVProgressHUD showSuccessWithStatus:@"登录成功"];
                 // 存入账号密码
                 JXAccount *account = [JXAccountTool account];
                 account.mobile = json[@"mobile"];
@@ -167,12 +167,12 @@
                 
                 // 进入app主页
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                JXLog(@"keywindow = %@", window);
                 window.rootViewController = [[JXTabBarController alloc] init];
             }
         } failure:^(NSError *error) {
             JXLog(@"请求失败 - %@", error);
-            [MBProgressHUD hideHUD];
-            [MBProgressHUD showError:@"请求网络失败"];
+            [SVProgressHUD showErrorWithStatus:@"请求网络失败"];
         }];
     }
 }

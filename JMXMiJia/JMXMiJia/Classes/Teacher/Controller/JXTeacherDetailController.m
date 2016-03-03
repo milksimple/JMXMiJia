@@ -161,6 +161,8 @@
         paras[@"password"] = account.password;
         paras[@"cid"] = self.teacher.uid;
         paras[@"aidItem"] = [JXFeeGroupTool aidItemWithFeeGroups:self.feeGroups];
+        [SVProgressHUD showWithStatus:@"正在报名" maskType:SVProgressHUDMaskTypeBlack];
+        
         [JXHttpTool post:[NSString stringWithFormat:@"%@/Reservation", JXServerName] params:paras success:^(id json) {
             BOOL success = [json[@"success"] boolValue];
             if (success) {
