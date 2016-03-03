@@ -28,6 +28,12 @@ static NSString * const ID = @"profileCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = @"个人";
+    
+    [self setupTableView];
+}
+
+- (void)setupTableView {
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     tableView.dataSource = self;
     tableView.delegate = self;
