@@ -14,6 +14,7 @@
 #import "JXAccount.h"
 #import "JXAccountTool.h"
 #import "JXLoginViewController.h"
+#import "AppDelegate.h"
 
 @interface JXStudentProfileController () <UITableViewDataSource, UITableViewDelegate, JXProfileHeaderViewDelegate, UIActionSheetDelegate>
 
@@ -137,8 +138,10 @@ static NSString * const ID = @"profileCell";
             [alertVC addAction:cancleAction];
             
             UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                // 清空account中的信息
-                [JXAccountTool saveAccount:nil];
+                // 清空account登录状态
+                JXAccount *account = [JXAccountTool account];
+                account.hasLogin = NO;
+                [JXAccountTool saveAccount:account];
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 window.rootViewController = [[JXLoginViewController alloc] init];
             }];
@@ -184,8 +187,10 @@ static NSString * const ID = @"profileCell";
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) { // 确定
-        // 清空account中的信息
-        [JXAccountTool saveAccount:nil];
+        // 清空account登录状态
+        JXAccount *account = [JXAccountTool account];
+        account.hasLogin = NO;
+        [JXAccountTool saveAccount:account];
         
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         window.rootViewController = [[JXLoginViewController alloc] init];

@@ -9,7 +9,7 @@
 #import "JXRegisterViewController.h"
 #import <Masonry.h>
 #import "JXIconTextField.h"
-#import "MBProgressHUD+MJ.h"
+#import <SVProgressHUD.h>
 #import "JXAccount.h"
 #import "JXAccountTool.h"
 #import "JXHttpTool.h"
@@ -119,15 +119,17 @@
  *  注册按钮被点击了
  */
 - (void)registerButtonClicked {
+    JXAccount *account = [JXAccountTool account];
+    JXLog(@"registerButtonClicked - %@", account.pushToken);
     if (!self.usernameField.text.length || !self.pwdField.text.length || !self.pwdConfirmField || !self.realNameField || !self.sexField || !self.rMobileField) {
-        [MBProgressHUD showError:@"请将信息填写完整"];
+        [SVProgressHUD showErrorWithStatus:@"请将信息填写完整"];
     }
     
     else if (![self.pwdField.text isEqualToString:self.pwdConfirmField.text]) {
-        [MBProgressHUD showError:@"两次输入的密码不匹配"];
+        [SVProgressHUD showErrorWithStatus:@"两次输入的密码不匹配"];
     }
     else {
-        [MBProgressHUD showMessage:@"正在注册..."];
+        [SVProgressHUD showWithStatus:@"正在注册..." maskType:SVProgressHUDMaskTypeBlack];
         
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.usernameField.text;
@@ -143,22 +145,21 @@
         
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/TraineeReg" params:paras success:^(id json) {
-            [MBProgressHUD hideHUD];
             
             BOOL success = [json[@"success"] boolValue];
             if (success == 0) { // 注册失败
                 
-                [MBProgressHUD showError:json[@"msg"]];
+                [SVProgressHUD showErrorWithStatus:json[@"msg"]];
             }
             else { // 注册成功
-                [MBProgressHUD showSuccess:json[@"msg"]];
+                [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self dismissViewControllerAnimated:YES completion:nil];
                 });
                 
             }
         } failure:^(NSError *error) {
-            [MBProgressHUD hideHUD];
+            [SVProgressHUD showErrorWithStatus:@"网络连接失败,请重试!"];
             JXLog(@"请求失败 - %@", error);
         }];
     }

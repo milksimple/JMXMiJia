@@ -176,6 +176,7 @@
     
     // 请求老师数据
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/CoachFace" params:paras success:^(id json) {
+        JXLog(@"教师数据 - %@", json);
         // 停止刷新状态
         [self.tableView.mj_header endRefreshing];
         

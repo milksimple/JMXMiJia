@@ -37,18 +37,26 @@
 
 @implementation JXTeacherDetailCell
 
-static NSString *intro = @"暂无介绍";
 - (void)setTeacher:(JXTeacher *)teacher {
     _teacher = teacher;
     
-    self.qualifiLabel.text = teacher.models;
-    self.signupCountLabel.text = [NSString stringWithFormat:@"%zd人", teacher.signupCount];
-    self.phoneLabel.text = teacher.phone;
-    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:intro];
-    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-    [paraStyle setLineSpacing:5];
-    [attributedStr addAttribute:NSParagraphStyleAttributeName value:paraStyle range:NSMakeRange(0, attributedStr.length)];
-    self.introduceLabel.attributedText = attributedStr;
+    self.qualifiLabel.text = teacher.year;
+    self.signupCountLabel.text = [NSString stringWithFormat:@"%zd人", teacher.count];
+    self.phoneLabel.text = teacher.mobile;
+    
+    NSMutableString *mutableDes = teacher.des.mutableCopy;
+    NSString *des = [mutableDes stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if (des.length != 0) {
+        NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:des];
+        NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+        [paraStyle setLineSpacing:5];
+        [attributedStr addAttribute:NSParagraphStyleAttributeName value:paraStyle range:NSMakeRange(0, attributedStr.length)];
+        self.introduceLabel.attributedText = attributedStr;
+    }
+    else {
+        self.introduceLabel.attributedText = [[NSAttributedString alloc] initWithString:@"暂无介绍"];
+    }
+    
 }
 
 - (void)setFeeGroups:(NSArray *)feeGroups {

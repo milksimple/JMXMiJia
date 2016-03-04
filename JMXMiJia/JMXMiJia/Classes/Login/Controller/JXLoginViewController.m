@@ -24,6 +24,7 @@
 @property (nonatomic, weak) UITextField *pwdField;
 @property (nonatomic, weak) UIButton *loginBtn;
 @property (nonatomic, weak) UIScrollView *contentView;
+
 @end
 
 @implementation JXLoginViewController
@@ -136,6 +137,8 @@
  *  登录按钮被点击
  */
 - (void)loginBtnClicked {
+    JXAccount *account = [JXAccountTool account];
+    JXLog(@"loginBtnClicked - %@", account.pushToken);
     if (self.nameField.text.length == 0 || self.pwdField.text.length == 0) {
         [SVProgressHUD showErrorWithStatus:@"请填写账号和密码" maskType:SVProgressHUDMaskTypeBlack];
     }
@@ -144,20 +147,17 @@
         
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.nameField.text;
-        // md5加密
         paras[@"password"] = self.pwdField.text;
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
         
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/Login" params:paras success:^(id json) {
             BOOL success = [json[@"success"] boolValue];
-            JXLog(@"json = %@", json);
             if (success == 0) { // 登录失败
                 [SVProgressHUD showErrorWithStatus:json[@"msg"]];
             }
             else { // 登录成功
                 [SVProgressHUD showSuccessWithStatus:@"登录成功"];
                 // 存入账号密码
-                JXAccount *account = [JXAccountTool account];
                 account.mobile = json[@"mobile"];
                 account.password = paras[@"password"];
                 [JXAccountTool saveAccount:account];
@@ -167,7 +167,6 @@
                 
                 // 进入app主页
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                JXLog(@"keywindow = %@", window);
                 window.rootViewController = [[JXTabBarController alloc] init];
             }
         } failure:^(NSError *error) {

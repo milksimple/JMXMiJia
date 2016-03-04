@@ -23,7 +23,7 @@
                             <constraint firstAttribute="width" constant="1" id="3ib-ZL-RkV"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="资质资格" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6i-6V-H30">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="执教年限" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6i-6V-H30">
                         <rect key="frame" x="18" y="18" width="60" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="aG1-du-P6N"/>
@@ -358,7 +358,7 @@
                 <outlet property="qualifiLabel" destination="hS7-ru-RzI" id="kci-uA-uNv"/>
                 <outlet property="signupCountLabel" destination="zFv-3x-Nu2" id="zQn-ns-hHr"/>
             </connections>
-            <point key="canvasLocation" x="450" y="305"/>
+            <point key="canvasLocation" x="344" y="229"/>
         </tableViewCell>
     </objects>
     <resources>

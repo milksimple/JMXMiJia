@@ -22,9 +22,17 @@
 #import "JXAccountTool.h"
 #import "JXFeeGroupTool.h"
 #import <SVProgressHUD.h>
+#import "MBProgressHUD+MJ.h"
+#import "MBProgressHUD.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import "JXTeacherMovieCell.h"
+#import "AppDelegate.h"
+#import <MediaPlayer/MediaPlayer.h>
 
-@interface JXTeacherDetailController () <JXTeacherDetailCellDelegate, JXFeeDetailControllerDelegate>
+@interface JXTeacherDetailController () <JXTeacherDetailCellDelegate, JXFeeDetailControllerDelegate, JXDetailFooterViewDelegate>
+@property (nonatomic, strong) MPMoviePlayerController *playerController;
 
+@property (nonatomic, weak) JXTeacherMovieCell *movieCell;
 @end
 
 @implementation JXTeacherDetailController
@@ -62,7 +70,30 @@
     
     [self loadOrderData];
     
+    [self loadTeacherData];
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"JXTeacherDetailCell" bundle:nil] forCellReuseIdentifier:@"teacherDetail"];
+    
+    [self.playerController prepareToPlay];
+    
+    // 监听屏幕旋转
+    [JXNotificationCenter addObserver:self selector:@selector(deviceOrientation:) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+- (void)deviceOrientation:(id)info {
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UIDeviceOrientation orientation = [delegate realDeviceOrientation];
+    
+    MPMoviePlayerController *playerController = self.movieCell.playerController;
+    if (playerController.playbackState == MPMoviePlaybackStatePlaying) {
+        if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
+            [playerController setFullscreen:YES animated:YES];
+        }
+        else {
+            [playerController setFullscreen:NO animated:YES];
+        }
+    }
+    
 }
 
 /**
@@ -117,26 +148,66 @@
     }];
 }
 
+/**
+ *  获取教师数据
+ */
+- (void)loadTeacherData {
+    JXAccount *account = [JXAccountTool account];
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    paras[@"mobile"] = account.mobile;
+    paras[@"password"] = account.password;
+    paras[@"uid"] = self.teacher.uid;
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/CoachInfo", JXServerName] params:paras success:^(id json) {
+        BOOL success = json[@"success"];
+        if (success) {
+            JXTeacher *teacher = [JXTeacher mj_objectWithKeyValues:json];
+            // 坑爹的代码
+            self.teacher.count = teacher.count;
+            self.teacher.des = teacher.des;
+            self.teacher.mobile = teacher.mobile;
+            self.teacher.schoolID = teacher.schoolID;
+            self.teacher.credentials = teacher.credentials;
+            [self.tableView reloadData];
+        }
+
+    } failure:^(NSError *error) {
+        JXLog(@"请求失败 - %@", error);
+    }];
+}
+
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return 2;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    JXTeacherDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"teacherDetail" forIndexPath:indexPath];
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.teacher = self.teacher;
-    cell.feeGroups = self.feeGroups;
-    cell.delegate = self;
-    return cell;
+    if (indexPath.row == 0) {
+        JXTeacherDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"teacherDetail" forIndexPath:indexPath];
+        cell.teacher = self.teacher;
+        cell.feeGroups = self.feeGroups;
+        cell.delegate = self;
+        return cell;
+    }
+    else {
+        JXTeacherMovieCell *movieCell = [[JXTeacherMovieCell alloc] init];
+        movieCell.teacher = self.teacher;
+        self.movieCell = movieCell;
+        return movieCell;
+    }
+    
 }
 
 #pragma mark - TableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView fd_heightForCellWithIdentifier:@"teacherDetail" cacheByIndexPath:indexPath configuration:^(JXTeacherDetailCell *cell) {
-        cell.teacher = self.teacher;
-    }];
+    if (indexPath.row == 0) {
+        return [tableView fd_heightForCellWithIdentifier:@"teacherDetail" cacheByIndexPath:indexPath configuration:^(JXTeacherDetailCell *cell) {
+            cell.teacher = self.teacher;
+        }];
+    }
+    else {
+        return [JXTeacherMovieCell rowHeight];
+    }
     
 }
 
@@ -152,40 +223,24 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     JXDetailFooterView *footer = [JXDetailFooterView footerView];
+    footer.delegate = self;
 #warning 还没设置数据
-    footer.signupButtonClickedAction = ^{
-        // 报名按钮被点击，发送数据给服务器
-        NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-        JXAccount *account = [JXAccountTool account];
-        paras[@"mobile"] = account.mobile;
-        paras[@"password"] = account.password;
-        paras[@"cid"] = self.teacher.uid;
-        paras[@"aidItem"] = [JXFeeGroupTool aidItemWithFeeGroups:self.feeGroups];
-        [SVProgressHUD showWithStatus:@"正在报名" maskType:SVProgressHUDMaskTypeBlack];
-        
-        [JXHttpTool post:[NSString stringWithFormat:@"%@/Reservation", JXServerName] params:paras success:^(id json) {
-            BOOL success = [json[@"success"] boolValue];
-            if (success) {
-                [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
-            }
-            else {
-                [SVProgressHUD showErrorWithStatus:json[@"msg"]];
-            }
-        } failure:^(NSError *error) {
-            JXLog(@"请求失败 - %@", error);
-        }];
-    };
-    
-    footer.callButtonClickedAction = ^ {
-        // 拨打电话按钮被点击
-        NSString *str= @"tel:4221234567";
-        UIWebView *callWebview = [[UIWebView alloc] init];
-        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-        [self.view addSubview:callWebview];
-    };
+//    footer.signupButtonClickedAction = ^{
+//        
+//    };
+//    
+//    footer.callButtonClickedAction = ^ {
+//        
+//    };
     
     return footer;
 }
+/*
+ 
+ else {
+ 
+ }
+ */
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return [JXDetailFooterView footerHeight];
@@ -206,6 +261,65 @@
     self.feeGroups = feeGroups;
     
     [self.tableView reloadData];
+}
+
+#pragma mark - JXDetailFooterViewDelegate
+/**
+ *  点击了报名按钮
+ */
+- (void)detailFooterViewDidClickedSignupButton {
+    // 报名按钮被点击，发送数据给服务器
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    JXAccount *account = [JXAccountTool account];
+    paras[@"mobile"] = account.mobile;
+    paras[@"password"] = account.password;
+    paras[@"cid"] = self.teacher.uid;
+    paras[@"aidItem"] = [JXFeeGroupTool aidItemWithFeeGroups:self.feeGroups];
+
+    [MBProgressHUD showMessage:@"正在报名..." toView:self.view];
+    
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/Reservation", JXServerName] params:paras success:^(id json) {
+        BOOL success = [json[@"success"] boolValue];
+        if (success) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [MBProgressHUD hideHUDForView:self.view];
+                    [MBProgressHUD showSuccess:json[@"msg"] toView:self.view];
+                });
+                
+            });
+            
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [MBProgressHUD hideHUDForView:self.view];
+                    [MBProgressHUD showError:json[@"msg"] toView:self.view];
+                });
+                
+            });
+        }
+    } failure:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view];
+                [MBProgressHUD showError:@"网络请求超时,请稍后再试!" toView:self.view];
+            });
+            
+        });
+        JXLog(@"请求失败 - %@", error);
+    }];
+}
+
+/**
+ *  点击了拨打电话按钮
+ */
+- (void)detailFooterViewDidClickedCallButton {
+    // 拨打电话按钮被点击
+    NSString *str= @"tel:4221234567";
+    UIWebView *callWebview = [[UIWebView alloc] init];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+    [self.view addSubview:callWebview];
 }
 
 - (void)dealloc {

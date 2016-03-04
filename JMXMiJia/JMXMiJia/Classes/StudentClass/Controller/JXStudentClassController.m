@@ -244,6 +244,7 @@
         JXToStudentComment *comment = progress.rows[indexPath.row];
         self.lastToStudentComment = comment;
         [self.tableView reloadData];
+        [self.tableView selectRowAtIndexPath:self.selectedIndexPath animated:NO scrollPosition:0];
     }
 }
 
