@@ -60,36 +60,10 @@
     // 初始化智能键盘
     [self setupIQKeyboardManager];
     
-    [JXNotificationCenter addObserver:self selector:@selector(willEnterFullScreen:) name:MPMoviePlayerWillEnterFullscreenNotification object:nil];
-    
-    [JXNotificationCenter addObserver:self selector:@selector(willExitFullScreen:) name:MPMoviePlayerWillExitFullscreenNotification object:nil];
+    // 监听视频进入全屏状态
+    [self setupNotification];
     
     return YES;
-}
-     
- - (void)willEnterFullScreen:(NSNotification *)notification
- {
-     _isFullScreen = YES;
- }
- 
- - (void)willExitFullScreen:(NSNotification *)notification
- {
-     _isFullScreen = NO;
- }
-
-- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-//    if ([NSStringFromClass([[[window subviews]lastObject] class]) isEqualToString:@"UITransitionView"]) {
-//        return UIInterfaceOrientationMaskAll;
-//        //优酷 土豆  乐视  已经测试可以
-//    }
-//    return UIInterfaceOrientationMaskPortrait;
-    
-    if (_isFullScreen) {
-        return UIInterfaceOrientationMaskPortrait |  UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
-    }
-    else {
-        return UIInterfaceOrientationMaskPortrait;
-    }
 }
 
 /**
@@ -138,6 +112,41 @@
 //    application.applicationIconBadgeNumber = 0;
 }
 
+#pragma mark - 以下是检测屏幕方向和监听视频进入全屏，是实现用户横屏 视频自动进入横屏全屏 的实现的重要方法
+/**
+ *  监听视频进入全屏状态
+ */
+- (void)setupNotification {
+    [JXNotificationCenter addObserver:self selector:@selector(willEnterFullScreen:) name:MPMoviePlayerWillEnterFullscreenNotification object:nil];
+    
+    [JXNotificationCenter addObserver:self selector:@selector(willExitFullScreen:) name:MPMoviePlayerWillExitFullscreenNotification object:nil];
+}
+
+- (void)willEnterFullScreen:(NSNotification *)notification
+{
+    _isFullScreen = YES;
+}
+
+- (void)willExitFullScreen:(NSNotification *)notification
+{
+    _isFullScreen = NO;
+}
+
+/**
+ *  此方法时屏幕进入全屏是进入横屏全屏，而不是竖屏全屏
+ */
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if (_isFullScreen) {
+        return UIInterfaceOrientationMaskPortrait |  UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
+    }
+    else {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+}
+
+/**
+ *  陀螺仪管理者
+ */
 - (CMMotionManager *)motionManager {
     if (_motionManager == nil) {
         _motionManager = [[CMMotionManager alloc] init];
@@ -145,14 +154,23 @@
     return _motionManager;
 }
 
+/**
+ *  陀螺仪开始监测
+ */
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     [self.motionManager startDeviceMotionUpdates];
 }
 
+/**
+ *  陀螺仪停止监测
+ */
 - (void)applicationWillResignActive:(UIApplication *)application{
     [self.motionManager stopDeviceMotionUpdates];
 }
 
+/**
+ *  获取屏幕的方向
+ */
 - (UIDeviceOrientation)realDeviceOrientation{
     CMDeviceMotion *deviceMotion = self.motionManager.deviceMotion;
     double x = deviceMotion.gravity.x;

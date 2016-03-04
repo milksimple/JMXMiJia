@@ -77,13 +77,18 @@
     [self.playerController prepareToPlay];
     
     // 监听屏幕旋转
-    [JXNotificationCenter addObserver:self selector:@selector(deviceOrientation:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [JXNotificationCenter addObserver:self selector:@selector(deviceOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
-- (void)deviceOrientation:(id)info {
+/**
+ *  监听屏幕旋转
+ */
+- (void)deviceOrientation {
+    // 获得屏幕的真实方向
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     UIDeviceOrientation orientation = [delegate realDeviceOrientation];
     
+    // 控制播放器 进入全屏 或 退出全屏
     MPMoviePlayerController *playerController = self.movieCell.playerController;
     if (playerController.playbackState == MPMoviePlaybackStatePlaying) {
         if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
