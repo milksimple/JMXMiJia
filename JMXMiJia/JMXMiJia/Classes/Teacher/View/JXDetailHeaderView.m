@@ -44,8 +44,7 @@
 - (void)setTeacher:(JXTeacher *)teacher {
     _teacher = teacher;
     
-    // sdwebImage设置头像
-    self.gradeView.hidden = !teacher.grade;
+
 
      NSString *iconUrl = [NSString stringWithFormat:@"%@/%@", JXServerName, teacher.photo];
     __weak typeof(self) weakSelf = self;
@@ -55,10 +54,9 @@
     }];
     
     self.nameLabel.text = teacher.name;
-    self.sexView.image = [UIImage imageNamed:[NSString stringWithFormat:@"sex_%zd", teacher.sex]];
     self.schoolLabel.text = teacher.school;
     self.starView.image = [UIImage imageNamed:[NSString stringWithFormat:@"star_%zd", teacher.star]];
-    [self.signCountButton setTitle:[NSString stringWithFormat:@"%zd 人", teacher.signupCount] forState:UIControlStateNormal];
+    [self.signCountButton setTitle:[NSString stringWithFormat:@"%zd 人", teacher.count] forState:UIControlStateNormal];
     [self.distanceButton  setTitle:teacher.distance forState:UIControlStateNormal];
 }
 

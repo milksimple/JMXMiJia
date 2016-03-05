@@ -127,11 +127,15 @@ static CGFloat margin = 20;
 - (void)sendCommentWithParas:(NSDictionary *)paras {
     [JXHttpTool post:[NSString stringWithFormat:@"%@/Tucao", JXServerName] params:paras success:^(id json) {
         JXLog(@"评论成功 - %@", json);
-        [SVProgressHUD showWithStatus:json[@"msg"]];
+        [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
     } failure:^(NSError *error) {
         JXLog(@"评论失败 - %@", error);
         [SVProgressHUD showErrorWithStatus:@"网络请求失败，请稍后重试!"];
     }];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 @end

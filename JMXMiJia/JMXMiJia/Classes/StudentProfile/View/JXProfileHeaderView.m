@@ -92,7 +92,7 @@ static CGFloat const margin = 10;
     _account = account;
     
     if (account.photo.length == 0) {
-        self.iconView.image = [UIImage imageNamed:@"ico_notset"];
+        self.iconView.image = [UIImage imageNamed:@"ico_placeholder"];
     }
     else {
         [self.iconView sd_setImageWithURL:[NSURL URLWithString:account.photo] placeholderImage:[UIImage imageNamed:@"ico_placeholder"]];

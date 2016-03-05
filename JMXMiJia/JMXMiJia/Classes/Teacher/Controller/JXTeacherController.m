@@ -52,8 +52,8 @@
 @property (nonatomic, weak) JXFilterView *filterView;
 /** 自主订单的总金额 */
 @property (nonatomic, assign) NSInteger totalPay;
-/** 当前位置 */
-@property (nonatomic, strong) CLLocation *location;
+///** 当前位置 */
+//@property (nonatomic, strong) CLLocation *location;
 @end
 
 @implementation JXTeacherController
@@ -76,13 +76,13 @@
     return _searchParas;
 }
 
-- (CLLocation *)location {
-    if (_location == nil) {
-        JXAccount *account = [JXAccountTool account];
-        _location = account.location;
-    }
-    return _location;
-}
+//- (CLLocation *)location {
+//    if (_location == nil) {
+//        JXAccount *account = [JXAccountTool account];
+//        _location = account.location;
+//    }
+//    return _location;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -168,13 +168,15 @@
     paras[@"star"] = @(self.searchParas.star);
     paras[@"school"] = self.searchParas.school.uid;
     
-    if (self.location) {
-        paras[@"lat"] = [NSString stringWithFormat:@"%f", self.location.coordinate.latitude];
-        paras[@"lon"] = [NSString stringWithFormat:@"%f", self.location.coordinate.longitude];
+    JXAccount *account = [JXAccountTool account];
+    if (account.location) {
+        paras[@"lat"] = [NSString stringWithFormat:@"%f", account.location.coordinate.latitude];
+        paras[@"lon"] = [NSString stringWithFormat:@"%f", account.location.coordinate.longitude];
     }
-
-    // 取出最前面的老师
+    
+    // 请求老师数据
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/CoachFace" params:paras success:^(id json) {
+        JXLog(@"教师数据 - %@", json);
         // 停止刷新状态
         [self.tableView.mj_header endRefreshing];
         
@@ -186,6 +188,7 @@
         
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
+        
         JXLog(@"请求失败 - %@", error);
     }];
 }
@@ -215,13 +218,16 @@
     paras[@"sex"] = @(self.searchParas.sex);
     paras[@"star"] = @(self.searchParas.star);
     paras[@"school"] = self.searchParas.school.uid;
-    if (self.location) {
-        paras[@"lat"] = [NSString stringWithFormat:@"%f", self.location.coordinate.latitude];
-        paras[@"lon"] = [NSString stringWithFormat:@"%f", self.location.coordinate.longitude];
+    
+    JXAccount *account = [JXAccountTool account];
+    if (account.location) {
+        paras[@"lat"] = [NSString stringWithFormat:@"%f", account.location.coordinate.latitude];
+        paras[@"lon"] = [NSString stringWithFormat:@"%f", account.location.coordinate.longitude];
     }
     
     // 取出后面的老师
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/CoachFace" params:paras success:^(id json) {
+        JXLog(@"loadMoreTeachers - json = %@", json);
         // 停止刷新状态
         [self.tableView.mj_footer endRefreshing];
         
@@ -279,45 +285,6 @@
     
     return cell;
 }
-
-#pragma mark - UITableViewDelegate
-/*
- * 上滚动工具栏隐藏，下滚动工具栏出现
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    self.draging = YES;
-    self.lastScroolY = scrollView.contentOffset.y;
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    self.draging = NO;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.searchBar quitKeyboard];
-    
-    if (self.draging == NO) return;
-    
-    if (scrollView.contentOffset.y > self.lastScroolY) {
-        if (self.toolView.hidden == NO) {
-            [UIView animateWithDuration:0.25 animations:^{
-                self.toolView.y = - [JXSearchBar height];
-            } completion:^(BOOL finished) {
-                self.toolView.hidden = YES;
-            }];
-        }
-        
-    }
-    else {
-        if (self.toolView.hidden == YES) {
-            self.toolView.hidden = NO;
-            [UIView animateWithDuration:0.25 animations:^{
-                self.toolView.y = 64;
-            }];
-        }
-        
-    }
-}
-*/
 
 #pragma mark - table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -378,4 +345,43 @@
 }
 
 
+
+#pragma mark - UITableViewDelegate
+/*
+ * 上滚动工具栏隐藏，下滚动工具栏出现
+ - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+ self.draging = YES;
+ self.lastScroolY = scrollView.contentOffset.y;
+ }
+ 
+ - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+ self.draging = NO;
+ }
+ 
+ - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+ [self.searchBar quitKeyboard];
+ 
+ if (self.draging == NO) return;
+ 
+ if (scrollView.contentOffset.y > self.lastScroolY) {
+ if (self.toolView.hidden == NO) {
+ [UIView animateWithDuration:0.25 animations:^{
+ self.toolView.y = - [JXSearchBar height];
+ } completion:^(BOOL finished) {
+ self.toolView.hidden = YES;
+ }];
+ }
+ 
+ }
+ else {
+ if (self.toolView.hidden == YES) {
+ self.toolView.hidden = NO;
+ [UIView animateWithDuration:0.25 animations:^{
+ self.toolView.y = 64;
+ }];
+ }
+ 
+ }
+ }
+ */
 @end

@@ -81,6 +81,8 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     JXAccount *account = [JXAccountTool account];
     account.location = locations.firstObject;
+    
+    JXLog(@"位置：%f, %f", account.location.coordinate.latitude, account.location.coordinate.longitude);
     [JXAccountTool saveAccount:account];
     [manager stopUpdatingLocation];
 }

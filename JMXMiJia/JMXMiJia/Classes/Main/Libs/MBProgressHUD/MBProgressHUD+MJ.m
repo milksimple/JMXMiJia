@@ -6,6 +6,7 @@
 //
 
 #import "MBProgressHUD+MJ.h"
+#import <SVProgressHUD.h>
 
 @implementation MBProgressHUD (MJ)
 #pragma mark 显示信息
@@ -14,9 +15,16 @@
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.color = [UIColor whiteColor];
+    hud.labelColor = JXColor(80, 80, 80);
+    hud.labelFont = [UIFont systemFontOfSize:15];
     hud.labelText = text;
     // 设置图片
-    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/%@", icon]]];
+    NSBundle *bundle = [NSBundle bundleForClass:[SVProgressHUD class]];
+    NSURL *url = [bundle URLForResource:@"SVProgressHUD" withExtension:@"bundle"];
+    NSBundle *imageBundle = [NSBundle bundleWithURL:url];
+
+    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[imageBundle pathForResource:icon ofType:nil]]];
     // 再设置模式
     hud.mode = MBProgressHUDModeCustomView;
     
@@ -42,6 +50,9 @@
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.color = [UIColor whiteColor];
+    hud.labelColor = JXColor(80, 80, 80);
+    hud.labelFont = [UIFont systemFontOfSize:15];
     hud.labelText = message;
     // 隐藏时候从父控件中移除
     hud.removeFromSuperViewOnHide = YES;

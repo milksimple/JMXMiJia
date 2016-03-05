@@ -37,7 +37,7 @@
  *  信件按钮被点击了
  */
 - (void)letterButtonDidClicked {
-    JXLog(@"letterButtonDidClicked");
+    self.tabBarController.selectedIndex = 0;
 }
 
 - (void)viewDidLoad {

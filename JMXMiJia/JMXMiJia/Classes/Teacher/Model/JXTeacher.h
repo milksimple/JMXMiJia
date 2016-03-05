@@ -49,7 +49,7 @@ typedef enum {
 /** 学费 */
 @property (nonatomic, assign) float price;
 /** 工作年限 */
-@property (nonatomic, assign) NSInteger year;
+@property (nonatomic, copy) NSString *year;
 /** 学车类别,比如“C1” */
 @property (nonatomic, copy) NSString *models;
 /** 头像地址 */
@@ -57,17 +57,14 @@ typedef enum {
 /** 当前距离 */
 @property (nonatomic, copy) NSString *distance;
 
-
-/** 当前位置 */
-@property (nonatomic, strong)  CLLocation *location;
-/** 评分等级 */
-@property (nonatomic, assign) BOOL grade;
 /** 个人介绍 */
-@property (nonatomic, copy) NSString *introduction;
-/** 报名人数 */
-@property (nonatomic, assign) NSUInteger signupCount;
+@property (nonatomic, copy) NSString *des;
 /** 电话号码 */
-@property (nonatomic, copy) NSString *phone;
-/** 性别 */
-@property (nonatomic, assign) JXSex sex;
+@property (nonatomic, copy) NSString *mobile;
+/** 报名人数 */
+@property (nonatomic, assign) NSUInteger count;
+/** 学校id */
+@property (nonatomic, copy) NSString *schoolID;
+/** 证件照片地址 */
+@property (nonatomic, copy) NSString *credentials;
 @end

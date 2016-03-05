@@ -101,6 +101,8 @@
 		04DFABCA1C867B1C007BE5F9 /* JXStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFABC91C867B1C007BE5F9 /* JXStarView.m */; };
 		04DFABCC1C867B2B007BE5F9 /* JXStarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DFABCB1C867B2B007BE5F9 /* JXStarView.xib */; };
 		04DFABCF1C868BF8007BE5F9 /* JXNoHighlightButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFABCE1C868BF8007BE5F9 /* JXNoHighlightButton.m */; };
+		04DFABD21C87DF8E007BE5F9 /* UITableView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFABD11C87DF8E007BE5F9 /* UITableView+Extension.m */; };
+		04DFAC171C896F64007BE5F9 /* JXTeacherMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFAC151C896F61007BE5F9 /* JXTeacherMovieCell.m */; };
 		04EFFA8C1C61FFFE0020EB98 /* JXBaseFeeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFFA8B1C61FFFE0020EB98 /* JXBaseFeeCell.m */; };
 		04EFFA901C6201F20020EB98 /* JXOptionalFeeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFFA8E1C6201F20020EB98 /* JXOptionalFeeCell.m */; };
 		04EFFA911C6201F20020EB98 /* JXOptionalFeeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EFFA8F1C6201F20020EB98 /* JXOptionalFeeCell.xib */; };
@@ -312,6 +314,10 @@
 		04DFABCB1C867B2B007BE5F9 /* JXStarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXStarView.xib; sourceTree = "<group>"; };
 		04DFABCD1C868BF8007BE5F9 /* JXNoHighlightButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXNoHighlightButton.h; sourceTree = "<group>"; };
 		04DFABCE1C868BF8007BE5F9 /* JXNoHighlightButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXNoHighlightButton.m; sourceTree = "<group>"; };
+		04DFABD01C87DF8E007BE5F9 /* UITableView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Extension.h"; sourceTree = "<group>"; };
+		04DFABD11C87DF8E007BE5F9 /* UITableView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Extension.m"; sourceTree = "<group>"; };
+		04DFAC141C896F61007BE5F9 /* JXTeacherMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTeacherMovieCell.h; sourceTree = "<group>"; };
+		04DFAC151C896F61007BE5F9 /* JXTeacherMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTeacherMovieCell.m; sourceTree = "<group>"; };
 		04EFFA8A1C61FFFE0020EB98 /* JXBaseFeeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXBaseFeeCell.h; sourceTree = "<group>"; };
 		04EFFA8B1C61FFFE0020EB98 /* JXBaseFeeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXBaseFeeCell.m; sourceTree = "<group>"; };
 		04EFFA8D1C6201F20020EB98 /* JXOptionalFeeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXOptionalFeeCell.h; sourceTree = "<group>"; };
@@ -476,6 +482,8 @@
 				041D30ED1C48DCED007C8E43 /* NSString+MD5.m */,
 				041D31071C4DDAA2007C8E43 /* NSString+Extension.h */,
 				041D31081C4DDAA2007C8E43 /* NSString+Extension.m */,
+				04DFABD01C87DF8E007BE5F9 /* UITableView+Extension.h */,
+				04DFABD11C87DF8E007BE5F9 /* UITableView+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -953,6 +961,8 @@
 				04A2BEFC1C71B0F2008CE488 /* JXAutoOrderFooterView.h */,
 				04A2BEFD1C71B0F2008CE488 /* JXAutoOrderFooterView.m */,
 				04A2BEFF1C71B103008CE488 /* JXAutoOrderFooterView.xib */,
+				04DFAC141C896F61007BE5F9 /* JXTeacherMovieCell.h */,
+				04DFAC151C896F61007BE5F9 /* JXTeacherMovieCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1163,7 +1173,7 @@
 				TargetAttributes = {
 					04F0AB531C2A2FCD000EB562 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = Y99VW46B2U;
+						DevelopmentTeam = 7U2B388HH6;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1332,6 +1342,7 @@
 				041D30F41C4C9502007C8E43 /* JXProfileHeaderView.m in Sources */,
 				04F0ABDA1C2BEB5B000EB562 /* JXSearchBar.m in Sources */,
 				04DFABCF1C868BF8007BE5F9 /* JXNoHighlightButton.m in Sources */,
+				04DFABD21C87DF8E007BE5F9 /* UITableView+Extension.m in Sources */,
 				040FEE7C1C7AF85800E0CE5A /* JXStudentScoreCell.m in Sources */,
 				041D31511C51E150007C8E43 /* JXProfileInfoIconCell.m in Sources */,
 				041D30C21C44F606007C8E43 /* JXAccountTool.m in Sources */,
@@ -1342,6 +1353,7 @@
 				041D30DB1C47494B007C8E43 /* JXMainBaseViewController.m in Sources */,
 				040FEE801C7B01FD00E0CE5A /* JXStudentProgressHeader.m in Sources */,
 				041D30E51C4797D7007C8E43 /* MBProgressHUD+MJ.m in Sources */,
+				04DFAC171C896F64007BE5F9 /* JXTeacherMovieCell.m in Sources */,
 				041D30F81C4CBB41007C8E43 /* JXProfileMoneyCell.m in Sources */,
 				041D31021C4CE68A007C8E43 /* JXTeacherDetailCell.m in Sources */,
 				041D314C1C51D9AF007C8E43 /* JXProfileInfoController.m in Sources */,
@@ -1527,7 +1539,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.j;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1545,7 +1557,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.j;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

@@ -18,14 +18,21 @@
     return 110;
 }
 - (IBAction)signup:(UIButton *)sender {
-    if (self.signupButtonClickedAction) {
-        self.signupButtonClickedAction();
+//    if (self.signupButtonClickedAction) {
+//        self.signupButtonClickedAction();
+//    }
+    if ([self.delegate respondsToSelector:@selector(detailFooterViewDidClickedSignupButton)]) {
+        [self.delegate detailFooterViewDidClickedSignupButton];
     }
 }
 
 - (IBAction)call:(UIButton *)sender {
-    if (self.callButtonClickedAction) {
-        self.callButtonClickedAction();
+//    if (self.callButtonClickedAction) {
+//        self.callButtonClickedAction();
+//    }
+    
+    if ([self.delegate respondsToSelector:@selector(detailFooterViewDidClickedCallButton)]) {
+        [self.delegate detailFooterViewDidClickedCallButton];
     }
 }
 
