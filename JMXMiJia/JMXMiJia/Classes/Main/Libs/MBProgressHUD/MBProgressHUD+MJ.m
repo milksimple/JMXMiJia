@@ -54,6 +54,7 @@
     hud.labelColor = JXColor(80, 80, 80);
     hud.labelFont = [UIFont systemFontOfSize:15];
     hud.labelText = message;
+    
     // 隐藏时候从父控件中移除
     hud.removeFromSuperViewOnHide = YES;
     // YES代表需要蒙版效果

@@ -21,7 +21,6 @@
 #import <MJRefresh.h>
 #import "JXHttpTool.h"
 #import "JXAccountTool.h"
-#import <SVProgressHUD.h>
 #import <MJExtension.h>
 #import "JXToStudentComment.h"
 #import "JXReplyToTeacherController.h"
@@ -78,7 +77,11 @@
         [self dealData:json];
     }
     
+    // 初始化上下拉刷新
     [self setupRefresh];
+    
+    // 加载最新数据
+    [self loadProgressData];
 }
 
 - (void)setupTableView {
@@ -96,9 +99,6 @@
 - (void)setupRefresh {
     // 添加下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadProgressData)];
-    
-    // 开始下拉刷新
-    [self.tableView.mj_header beginRefreshing];
 }
 
 /**
@@ -109,12 +109,8 @@
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
     paras[@"mobile"] = account.mobile;
     paras[@"password"] = account.password;
-#warning 测试数据
-//    paras[@"mobile"] = @"13708803633";
-//    paras[@"password"] = @"111111";
     
     [JXHttpTool post:[NSString stringWithFormat:@"%@/TraineeReviewsList", JXServerName] params:paras success:^(id json) {
-        JXLog(@"json = %@", json);
         [self.tableView.mj_header endRefreshing];
         BOOL success = [json[@"success"] boolValue];
         if (success) {
@@ -123,12 +119,8 @@
             // 处理数据
             [self dealData:json];
         }
-        else {
-            [SVProgressHUD showErrorWithStatus:json[@"msg"]];
-        }
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
-        [SVProgressHUD showErrorWithStatus:@"网络连接失败"];
         JXLog(@"请求失败 - %@", error);
     }];
     

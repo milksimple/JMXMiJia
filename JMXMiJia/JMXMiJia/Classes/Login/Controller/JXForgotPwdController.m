@@ -26,9 +26,13 @@
 @property (nonatomic, weak) UIButton *sendMsgButton;
 /** 重设并登录按钮 */
 @property (nonatomic, weak) UIButton *resetButton;
+
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation JXForgotPwdController
+/** 倒计时 */
+static NSInteger timeout = 60;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,7 +52,7 @@
     
     UIButton *sendMsgButton = [[UIButton alloc] init];
     sendMsgButton.layer.cornerRadius = fieldH * 0.5;
-    [sendMsgButton setTitle:@"发送验证码" forState:UIControlStateNormal];
+    [sendMsgButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     sendMsgButton.backgroundColor = JXColor(170, 170, 0);
     // 监听按钮点击
     [sendMsgButton addTarget:self action:@selector(sendMsgButtonClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -112,21 +116,43 @@
         [MBProgressHUD showError:@"请填写手机号"];
     }
     else {
+        // button不可用
+        self.sendMsgButton.enabled = NO;
+        self.sendMsgButton.backgroundColor = [UIColor lightGrayColor];
+        // button显示倒计时
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+        
         // 发送请求
-        [MBProgressHUD showSuccess:@"正在发送信息..."];
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.usernameField.text;
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/SendCheckCode" params:paras success:^(id json) {
             BOOL success = [json[@"success"] boolValue];
             if (success) {
-                [MBProgressHUD showSuccess:json[@"msg"]];
+                JXLog(@"发送成功");
             }
             else {
-                [MBProgressHUD showError:json[@"msg"]];
+                JXLog(@"发送失败");
             }
         } failure:^(NSError *error) {
-            [MBProgressHUD showError:@"网络请求超时, 请重试!"];
+            JXLog(@"请求失败 - %@", error);
         }];
+    }
+}
+
+/**
+ *  倒计时
+ */
+- (void)countDown {
+    timeout --;
+    [self.sendMsgButton setTitle:[NSString stringWithFormat:@"重新获取验证码(%zds)", timeout] forState:UIControlStateNormal];
+    if (timeout <= 0) { // 停止倒计时
+        timeout = 60;
+        [self.timer invalidate];
+        self.timer = nil;
+        self.sendMsgButton.enabled = YES;
+        self.sendMsgButton.backgroundColor = JXColor(170, 170, 0);
+        [self.sendMsgButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        
     }
 }
 

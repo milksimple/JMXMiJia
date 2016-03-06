@@ -101,7 +101,11 @@
     if (json) { // 之前有数据
         [self dealData:json];
     }
+    // 初始化上下拉刷新
     [self setupRefresh];
+    
+    // 加载最新数据
+    [self loadNewTeachers];
 }
 
 - (void)setupTableView {
@@ -150,9 +154,6 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTeachers)];
     // 上拉刷新
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreTeachers)];
-    
-    // 开始下拉刷新
-    [self.tableView.mj_header beginRefreshing];
 }
 
 /**
