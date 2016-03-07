@@ -47,7 +47,7 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"最新资讯";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editItemClicked)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editItemClicked)];
     self.view.backgroundColor = JXGlobalBgColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -145,6 +145,8 @@
     JXLog(@"didSelectRowAtIndexPath = %@", indexPath);
 }
 
+#pragma mark - 实现滑动删除
+/*
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";
 }
@@ -155,4 +157,5 @@
         [self.tableView reloadData];
     }
 }
+ */
 @end
