@@ -51,6 +51,7 @@
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.color = [UIColor whiteColor];
+    hud.activityIndicatorColor = [UIColor blackColor];
     hud.labelColor = JXColor(80, 80, 80);
     hud.labelFont = [UIFont systemFontOfSize:15];
     hud.labelText = message;

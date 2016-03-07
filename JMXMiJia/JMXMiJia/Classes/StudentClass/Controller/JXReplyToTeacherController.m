@@ -13,6 +13,7 @@
 #import <SVProgressHUD.h>
 #import "JXHttpTool.h"
 #import "JXAccountTool.h"
+#import "JXChooseNumberView.h"
 
 @interface JXReplyToTeacherController ()
 
@@ -21,6 +22,8 @@
 @property (nonatomic, weak) JXStarView *feeStarView;
 
 @property (nonatomic, weak) JXStarView *introductView;
+
+@property (nonatomic, weak) JXChooseNumberView *redBagView;
 @end
 
 @implementation JXReplyToTeacherController
@@ -35,6 +38,7 @@ static CGFloat margin = 20;
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setupTextView];
     [self setupStarView];
+    [self setupRedBagView];
     [self setupConfirmButton];
 }
 
@@ -76,6 +80,17 @@ static CGFloat margin = 20;
     self.introductView = introductView;
 }
 
+- (void)setupRedBagView {
+    JXChooseNumberView *redBagView = [JXChooseNumberView numberView];
+    CGFloat redBagViewX = self.introductView.jx_x;
+    CGFloat redBagViewY = CGRectGetMaxY(self.introductView.frame) + margin * 0.5;
+    CGFloat redBagViewW = self.introductView.jx_width;
+    CGFloat redBagViewH = self.introductView.jx_height;
+    redBagView.frame = CGRectMake(redBagViewX, redBagViewY, redBagViewW, redBagViewH);
+    [self.view addSubview:redBagView];
+    self.redBagView = redBagView;
+}
+
 - (void)setupConfirmButton {
     UIButton *confirmButton = [[UIButton alloc] init];
     confirmButton.backgroundColor = JXColor(246, 130, 43);
@@ -84,7 +99,7 @@ static CGFloat margin = 20;
     CGFloat confirmW = JXScreenW * 0.8;
     CGFloat confirmH = confirmW * 0.14;
     CGFloat confirmX = (JXScreenW - confirmW) * 0.5;
-    CGFloat confirmY = CGRectGetMaxY(self.introductView.frame) + margin;
+    CGFloat confirmY = CGRectGetMaxY(self.redBagView.frame) + margin;
     confirmButton.frame = CGRectMake(confirmX, confirmY, confirmW, confirmH);
     confirmButton.layer.cornerRadius = confirmH * 0.2;
     [confirmButton addTarget:self action:@selector(confirmButtonClicked) forControlEvents:UIControlEventTouchUpInside];

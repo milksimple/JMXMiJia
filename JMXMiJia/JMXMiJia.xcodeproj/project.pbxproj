@@ -40,8 +40,6 @@
 		041D30DB1C47494B007C8E43 /* JXMainBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30DA1C47494B007C8E43 /* JXMainBaseViewController.m */; };
 		041D30DE1C47538A007C8E43 /* JXRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30DD1C47538A007C8E43 /* JXRegisterViewController.m */; };
 		041D30E51C4797D7007C8E43 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30E11C4797D7007C8E43 /* MBProgressHUD+MJ.m */; };
-		041D30E61C4797D7007C8E43 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 041D30E21C4797D7007C8E43 /* MBProgressHUD.bundle */; };
-		041D30E71C4797D7007C8E43 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30E41C4797D7007C8E43 /* MBProgressHUD.m */; };
 		041D30EB1C4883B1007C8E43 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30EA1C4883B1007C8E43 /* NSArray+Log.m */; };
 		041D30EE1C48DCED007C8E43 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30ED1C48DCED007C8E43 /* NSString+MD5.m */; };
 		041D30F11C48F09D007C8E43 /* JXForgotPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041D30F01C48F09D007C8E43 /* JXForgotPwdController.m */; };
@@ -77,6 +75,8 @@
 		047F40EA1C801BC100C77BEF /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F40E91C801BC100C77BEF /* VPImageCropperViewController.m */; };
 		047F40ED1C841C3F00C77BEF /* JXStudentClassHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F40EC1C841C3F00C77BEF /* JXStudentClassHeaderView.m */; };
 		047F40EF1C841C4F00C77BEF /* JXStudentClassHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047F40EE1C841C4F00C77BEF /* JXStudentClassHeaderView.xib */; };
+		0491DCB21C8D70A10019C71C /* JXChooseNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491DCB11C8D70A10019C71C /* JXChooseNumberView.m */; };
+		0491DCB41C8D70AF0019C71C /* JXChooseNumberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0491DCB31C8D70AF0019C71C /* JXChooseNumberView.xib */; };
 		04A2BECC1C701288008CE488 /* JXBaseFeeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A2BECB1C701288008CE488 /* JXBaseFeeCell.xib */; };
 		04A2BED01C702BDB008CE488 /* JXAccommodationFeeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2BECE1C702BDB008CE488 /* JXAccommodationFeeCell.m */; };
 		04A2BED11C702BDB008CE488 /* JXAccommodationFeeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A2BECF1C702BDB008CE488 /* JXAccommodationFeeCell.xib */; };
@@ -212,9 +212,6 @@
 		041D30DD1C47538A007C8E43 /* JXRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRegisterViewController.m; sourceTree = "<group>"; };
 		041D30E01C4797D7007C8E43 /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		041D30E11C4797D7007C8E43 /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
-		041D30E21C4797D7007C8E43 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
-		041D30E31C4797D7007C8E43 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		041D30E41C4797D7007C8E43 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		041D30E91C4883B1007C8E43 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
 		041D30EA1C4883B1007C8E43 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 		041D30EC1C48DCED007C8E43 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
@@ -276,6 +273,9 @@
 		047F40EB1C841C3F00C77BEF /* JXStudentClassHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXStudentClassHeaderView.h; sourceTree = "<group>"; };
 		047F40EC1C841C3F00C77BEF /* JXStudentClassHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXStudentClassHeaderView.m; sourceTree = "<group>"; };
 		047F40EE1C841C4F00C77BEF /* JXStudentClassHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXStudentClassHeaderView.xib; sourceTree = "<group>"; };
+		0491DCB01C8D70A10019C71C /* JXChooseNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXChooseNumberView.h; sourceTree = "<group>"; };
+		0491DCB11C8D70A10019C71C /* JXChooseNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXChooseNumberView.m; sourceTree = "<group>"; };
+		0491DCB31C8D70AF0019C71C /* JXChooseNumberView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXChooseNumberView.xib; sourceTree = "<group>"; };
 		04A2BECB1C701288008CE488 /* JXBaseFeeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXBaseFeeCell.xib; sourceTree = "<group>"; };
 		04A2BECD1C702BDB008CE488 /* JXAccommodationFeeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXAccommodationFeeCell.h; sourceTree = "<group>"; };
 		04A2BECE1C702BDB008CE488 /* JXAccommodationFeeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXAccommodationFeeCell.m; sourceTree = "<group>"; };
@@ -493,9 +493,6 @@
 			children = (
 				041D30E01C4797D7007C8E43 /* MBProgressHUD+MJ.h */,
 				041D30E11C4797D7007C8E43 /* MBProgressHUD+MJ.m */,
-				041D30E21C4797D7007C8E43 /* MBProgressHUD.bundle */,
-				041D30E31C4797D7007C8E43 /* MBProgressHUD.h */,
-				041D30E41C4797D7007C8E43 /* MBProgressHUD.m */,
 			);
 			path = MBProgressHUD;
 			sourceTree = "<group>";
@@ -822,6 +819,9 @@
 				04DFABC81C867B1C007BE5F9 /* JXStarView.h */,
 				04DFABC91C867B1C007BE5F9 /* JXStarView.m */,
 				04DFABCB1C867B2B007BE5F9 /* JXStarView.xib */,
+				0491DCB01C8D70A10019C71C /* JXChooseNumberView.h */,
+				0491DCB11C8D70A10019C71C /* JXChooseNumberView.m */,
+				0491DCB31C8D70AF0019C71C /* JXChooseNumberView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1230,8 +1230,8 @@
 				041D31031C4CE68A007C8E43 /* JXTeacherDetailCell.xib in Resources */,
 				04A2BEE51C706A8D008CE488 /* feeGroup.plist in Resources */,
 				041D31481C51BF52007C8E43 /* JXAutoOrderCell.xib in Resources */,
+				0491DCB41C8D70AF0019C71C /* JXChooseNumberView.xib in Resources */,
 				041D30FB1C4CBF00007C8E43 /* JXProfileMoneyCell.xib in Resources */,
-				041D30E61C4797D7007C8E43 /* MBProgressHUD.bundle in Resources */,
 				047F40EF1C841C4F00C77BEF /* JXStudentClassHeaderView.xib in Resources */,
 				040FEE7D1C7AF85800E0CE5A /* JXStudentScoreCell.xib in Resources */,
 				04A2BEF01C70824D008CE488 /* JXHangBranchCell.xib in Resources */,
@@ -1367,7 +1367,6 @@
 				041D31471C51BF52007C8E43 /* JXAutoOrderCell.m in Sources */,
 				04F0ABB11C2A3CDA000EB562 /* JXTabBarController.m in Sources */,
 				041D31221C4E357B007C8E43 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
-				041D30E71C4797D7007C8E43 /* MBProgressHUD.m in Sources */,
 				04F0ABC31C2A3ECA000EB562 /* JXTeacherController.m in Sources */,
 				04129CFF1C5F59DE0098C7AB /* JXChooseSexController.m in Sources */,
 				041D311F1C4E357B007C8E43 /* UITableView+FDIndexPathHeightCache.m in Sources */,
@@ -1383,6 +1382,7 @@
 				041D31561C5602F3007C8E43 /* JXChangeRealnameController.m in Sources */,
 				04F0AB5C1C2A2FCE000EB562 /* AppDelegate.m in Sources */,
 				04129CE41C58BE1F0098C7AB /* JXSearchParas.m in Sources */,
+				0491DCB21C8D70A10019C71C /* JXChooseNumberView.m in Sources */,
 				04EFFA901C6201F20020EB98 /* JXOptionalFeeCell.m in Sources */,
 				04129CF91C5F1F060098C7AB /* JXChooseSchoolController.m in Sources */,
 				041D30C51C44F62F007C8E43 /* JXAccount.m in Sources */,
@@ -1533,15 +1533,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JMXMiJia/JMXMiJia-Prefix.pch";
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "417519a5-785d-4642-88b0-d8aa6eac5963";
 			};
 			name = Debug;
 		};
@@ -1551,15 +1551,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JMXMiJia/JMXMiJia-Prefix.pch";
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "417519a5-785d-4642-88b0-d8aa6eac5963";
 			};
 			name = Release;
 		};

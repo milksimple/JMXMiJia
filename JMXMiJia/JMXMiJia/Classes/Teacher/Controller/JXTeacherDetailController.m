@@ -163,6 +163,7 @@
     paras[@"password"] = account.password;
     paras[@"uid"] = self.teacher.uid;
     [JXHttpTool post:[NSString stringWithFormat:@"%@/CoachInfo", JXServerName] params:paras success:^(id json) {
+        JXLog(@"json - %@", json);
         BOOL success = json[@"success"];
         if (success) {
             JXTeacher *teacher = [JXTeacher mj_objectWithKeyValues:json];

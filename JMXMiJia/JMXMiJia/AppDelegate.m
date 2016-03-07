@@ -85,6 +85,7 @@
 
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    JXLog(@"token = %@", deviceToken);
     JXAccount *account = [JXAccountTool account];
     NSString *pushToken = [[[[deviceToken description]
                              
@@ -137,7 +138,7 @@
  */
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     if (_isFullScreen) {
-        return UIInterfaceOrientationMaskPortrait |  UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
+        return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
     }
     else {
         return UIInterfaceOrientationMaskPortrait;

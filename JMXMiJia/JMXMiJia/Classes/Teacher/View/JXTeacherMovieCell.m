@@ -11,19 +11,34 @@
 
 @interface JXTeacherMovieCell()
 
+@property (nonatomic, weak) UILabel *titleLabel;
 
 @end
 
 @implementation JXTeacherMovieCell
+// 空隙
+static CGFloat const margin = 20;
+static CGFloat const titleHeight = 20;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        [self setup];
+        [self setupTitleLabel];
+        
+        [self setupMovieView];
     }
     return self;
 }
 
-- (void)setup {
+- (void)setupTitleLabel {
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.textColor = JXColor(250, 115, 64);
+    titleLabel.text = @"教练风采";
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:titleLabel];
+    self.titleLabel = titleLabel;
+}
+
+- (void)setupMovieView {
     // 1.获取视频的URL
     NSURL *url = [NSURL URLWithString:@"http://v1.mukewang.com/19954d8f-e2c2-4c0a-b8c1-a4c826b5ca8b/L.mp4"];
     
@@ -58,17 +73,22 @@
 }
 
 + (CGFloat)rowHeight {
-    return JXScreenW * 9.0 / 16.0;
+    return margin + titleHeight + (JXScreenW - 2 * margin)*9.0/16 + margin;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    CGFloat titleW = 100;
+    CGFloat titleH = titleHeight;
+    CGFloat titleX = (self.jx_width - titleW) * 0.5;
+    CGFloat titleY = margin;
+    self.titleLabel.frame = CGRectMake(titleX, titleY, titleW, titleH);
+    
     CGFloat playerX = 20;
     CGFloat playerW = self.jx_width - 2 * playerX;
     CGFloat playerH = playerW * 9.0 / 16.0;
-    CGFloat playerY = (self.jx_height - playerH) * 0.5;
-    
+    CGFloat playerY = CGRectGetMaxY(self.titleLabel.frame) + margin*0.5;
     self.playerController.view.frame = CGRectMake(playerX, playerY, playerW, playerH);
 }
 
