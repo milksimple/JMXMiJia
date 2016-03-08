@@ -8,6 +8,7 @@
 
 #import "JXMessageTableViewCell.h"
 #import "UIView+JXExtension.h"
+#import "JXPushInfo.h"
 
 @interface JXMessageTableViewCell()
 @property (weak, nonatomic) IBOutlet UIButton *msgButton;
@@ -28,6 +29,10 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setPushInfo:(JXPushInfo *)pushInfo {
+    _pushInfo = pushInfo;
 }
 
 - (IBAction)corverButtonClicked:(UIButton *)corverButton {

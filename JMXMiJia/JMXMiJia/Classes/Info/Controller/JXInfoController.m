@@ -123,6 +123,10 @@
     // 字典数组转模型数组
     NSMutableArray *newInfos = [JXPushInfo mj_objectArrayWithKeyValuesArray:json[@"rows"]];
     self.pushInfos = newInfos;
+    self.isExplands = [NSMutableArray array];
+    for (int i = 0; i < self.pushInfos.count; i ++) {
+        [self.isExplands addObject:@0];
+    }
     [self.tableView reloadData];
 }
 
@@ -141,6 +145,12 @@
         if (success) {
             NSMutableArray *infos = [JXPushInfo mj_objectArrayWithKeyValuesArray:json[@"rows"]];
             [self.pushInfos addObjectsFromArray:infos];
+            
+            self.isExplands = [NSMutableArray array];
+            for (int i = 0; i < self.pushInfos.count; i ++) {
+                [self.isExplands addObject:@0];
+            }
+            
             [self.tableView reloadData];
         }
         else {
