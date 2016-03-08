@@ -6,12 +6,20 @@
 //  Copyright © 2015年 mac. All rights reserved.
 //
 
+#define JXPushInfoJsonPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"pushInfoJson.archive"]
+
 #import "JXInfoController.h"
 //#import "JXInfoHeaderView.h"
 //#import "JXMessageHeaderView.h"
-#import "JXInfoTableViewCell.h"
+//#import "JXInfoTableViewCell.h"
 #import "JXMessageTableViewCell.h"
 #import <SDWebImageManager.h>
+#import "JXHttpTool.h"
+#import "JXAccountTool.h"
+#import <MJRefresh.h>
+#import <MJExtension.h>
+#import "JXPushInfo.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface JXInfoController () <SDWebImageManagerDelegate>
 
@@ -21,6 +29,8 @@
  */
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *isExplands;
 @property (nonatomic, strong) SDWebImageManager *manager;
+/** 推送消息数组 */
+@property (nonatomic, strong) NSMutableArray *pushInfos;
 @end
 
 @implementation JXInfoController
@@ -34,6 +44,13 @@
         }
     }
     return _isExplands;
+}
+
+- (NSMutableArray *)pushInfos {
+    if (_pushInfos == nil) {
+        _pushInfos = [NSMutableArray array];
+    }
+    return _pushInfos;
 }
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
@@ -50,26 +67,89 @@
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editItemClicked)];
     self.view.backgroundColor = JXGlobalBgColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    // 注册cell
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([JXInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"infoCell"];
+
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([JXMessageTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"messageCell"];
-#warning 测试
-//    SDWebImageManager *manager = [SDWebImageManager sharedManager];
-//    self.manager = manager;
-//    manager.delegate = self;
-//    [manager downloadImageWithURL:[NSURL URLWithString:@"http://10.255.1.25/dschoolAndroid/CoachPhoto?isSource=0&uid=14447074676731&size=14384"] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-//        JXLog(@"size = %@", NSStringFromCGSize(image.size));
-//    }];
+    
+    [self setupRefresh];
 
+    // 加载本地数据
+    NSDictionary *json = [NSKeyedUnarchiver unarchiveObjectWithFile:JXPushInfoJsonPath];
+    if (json) {
+        [self dealData:json];
+    }
+    
+    // 获取最新数据
+    [self loadInfos];
 }
 
-//#pragma mark - SDWebImageManagerDelegateÅ
-//- (UIImage *)imageManager:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL {
-//    JXLog(@"transformDownloadedImage------");
-//    return image;
-//}
+- (void)setupRefresh {
+    // 添加下拉刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadInfos)];
+    // 上拉刷新
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreInfos)];
+}
+
+/**
+ *  获取最新资讯信息
+ */
+- (void)loadInfos {
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    JXAccount *account = [JXAccountTool account];
+    paras[@"mobile"] = account.mobile;
+    paras[@"password"] = account.password;
+    paras[@"start"] = @0;
+    paras[@"count"] = @8;
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/InformationList", JXServerName] params:paras success:^(id json) {
+        JXLog(@"info json = %@", json);
+        
+        BOOL success = [json[@"success"] boolValue];
+        if (success) {
+            // 将最新资讯存入沙盒
+            [NSKeyedArchiver archiveRootObject:json toFile:JXPushInfoJsonPath];
+            
+            [self dealData:json];
+        }
+        else {
+            [MBProgressHUD showError:json[@"msg"]];
+        }
+        [self dealData:json];
+    } failure:^(NSError *error) {
+        JXLog(@"请求失败 - %@", error);
+    }];
+}
+
+- (void)dealData:(NSDictionary *)json {
+    // 字典数组转模型数组
+    NSMutableArray *newInfos = [JXPushInfo mj_objectArrayWithKeyValuesArray:json[@"rows"]];
+    self.pushInfos = newInfos;
+    [self.tableView reloadData];
+}
+
+/**
+ *  获取更多资讯
+ */
+- (void)loadMoreInfos {
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    JXAccount *account = [JXAccountTool account];
+    paras[@"mobile"] = account.mobile;
+    paras[@"password"] = account.password;
+    paras[@"start"] = @(self.pushInfos.count);
+    paras[@"count"] = @8;
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/InformationList", JXServerName] params:paras success:^(id json) {
+        BOOL success = [json[@"success"] boolValue];
+        if (success) {
+            NSMutableArray *infos = [JXPushInfo mj_objectArrayWithKeyValuesArray:json[@"rows"]];
+            [self.pushInfos addObjectsFromArray:infos];
+            [self.tableView reloadData];
+        }
+        else {
+            [MBProgressHUD showError:json[@"msg"] toView:self.view];
+        }
+    } failure:^(NSError *error) {
+        JXLog(@"请求失败 - %@", error);
+    }];
+}
 
 /**
  *  编辑按钮被点击
@@ -81,38 +161,20 @@
 }
 
 #pragma mark - tableview data source
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return 10;
-//}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    if ([self.isExplands[section] integerValue] == 1) {
-//        return 1;
-//    }
-    return self.isExplands.count;
+    
+    return self.pushInfos.count;
 }
 
 #pragma mark - table view delegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-//    }
-//    cell.textLabel.text = @"test";
-//    return cell;
-    if (indexPath.row % 2 == 0) {
-        JXInfoTableViewCell *infoCell = [tableView dequeueReusableCellWithIdentifier:@"infoCell" forIndexPath:indexPath];
-        return infoCell;
-    }
-    else {
-        JXMessageTableViewCell *msgCell = [tableView dequeueReusableCellWithIdentifier:@"messageCell" forIndexPath:indexPath];
-        msgCell.corverButtonClickedAction = ^{
-            self.isExplands[indexPath.row] = @(![self.isExplands[indexPath.row] integerValue]);
-            [self.tableView reloadData];
-        };
-        msgCell.expland = [self.isExplands[indexPath.row] boolValue];
-        return msgCell;
-    }
+    JXMessageTableViewCell *msgCell = [tableView dequeueReusableCellWithIdentifier:@"messageCell" forIndexPath:indexPath];
+    msgCell.corverButtonClickedAction = ^{
+        self.isExplands[indexPath.row] = @(![self.isExplands[indexPath.row] integerValue]);
+        [self.tableView reloadData];
+    };
+    msgCell.expland = [self.isExplands[indexPath.row] boolValue];
+    return msgCell;
 }
 
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -157,5 +219,5 @@
         [self.tableView reloadData];
     }
 }
- */
+*/
 @end

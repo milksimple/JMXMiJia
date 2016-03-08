@@ -12,4 +12,6 @@
 
 + (instancetype)numberView;
 
+- (NSInteger)money;
+
 @end

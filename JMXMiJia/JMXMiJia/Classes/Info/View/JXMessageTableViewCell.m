@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *accessoryButton;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
-@property (weak, nonatomic) IBOutlet UIButton *responseButton;
 @property (weak, nonatomic) IBOutlet UIButton *corverButton;
 
 @end
@@ -42,23 +41,23 @@
     _expland = expland;
     
     self.accessoryButton.selected = expland;;
-    self.contentLabel.hidden = self.responseButton.hidden = !expland;
+    self.contentLabel.hidden = !expland;
 }
 
 - (CGFloat)rowHeight {
     [self layoutIfNeeded];
     
-    NSInteger rowHeight = 10 + self.titleLabel.jx_height + 10 + self.contentLabel.jx_height + 10 + self.responseButton.jx_height + 10;
+    NSInteger rowHeight = 10 + self.titleLabel.jx_height + 10 + self.contentLabel.jx_height + 10;
     return rowHeight;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-//    self.contentView.jx_y = 10;
-//    self.contentView.jx_height = self.jx_height - self.contentView.jx_y;
-//    self.contentView.jx_x = 10;
-//    self.contentView.jx_width = self.jx_width - (2 * self.contentView.jx_x);
+    self.contentView.jx_y = 10;
+    self.contentView.jx_height = self.jx_height - self.contentView.jx_y;
+    self.contentView.jx_x = 10;
+    self.contentView.jx_width = self.jx_width - (2 * self.contentView.jx_x);
 }
 
 @end

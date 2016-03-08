@@ -11,7 +11,7 @@
 #import "JXIconTextField.h"
 #import "JXRegisterViewController.h"
 #import "JXNavigationController.h"
-#import <SVProgressHUD.h>
+#import "MBProgressHUD+MJ.h"
 #import "JXHttpTool.h"
 #import "JXAccountTool.h"
 #import "JXAccount.h"
@@ -140,10 +140,10 @@
     JXAccount *account = [JXAccountTool account];
     JXLog(@"loginBtnClicked - %@", account.pushToken);
     if (self.nameField.text.length == 0 || self.pwdField.text.length == 0) {
-        [SVProgressHUD showErrorWithStatus:@"请填写账号和密码" maskType:SVProgressHUDMaskTypeBlack];
+        [MBProgressHUD showError:@"请填写账号和密码" toView:self.view];
     }
     else {
-        [SVProgressHUD showWithStatus:@"正在登录"];
+        [MBProgressHUD showMessage:@"正在登录" toView:self.view];
         
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.nameField.text;
@@ -151,12 +151,22 @@
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
         
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/Login" params:paras success:^(id json) {
+            JXLog(@"login - %@", json);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view];
+            });
+            
             BOOL success = [json[@"success"] boolValue];
-            if (success == 0) { // 登录失败
-                [SVProgressHUD showErrorWithStatus:json[@"msg"]];
+            if (!success) { // 登录失败
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showError:json[@"msg"] toView:self.view];
+                });
             }
             else { // 登录成功
-                [SVProgressHUD showSuccessWithStatus:@"登录成功"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showSuccess:@"登录成功" toView:self.view];
+                });
+                
                 // 存入账号密码
                 account.mobile = json[@"mobile"];
                 account.password = paras[@"password"];
@@ -167,11 +177,16 @@
                 
                 // 进入app主页
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                JXLog(@"keywindow = %@", window);
                 window.rootViewController = [[JXTabBarController alloc] init];
             }
         } failure:^(NSError *error) {
             JXLog(@"请求失败 - %@", error);
-            [SVProgressHUD showErrorWithStatus:@"请求网络失败"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view];
+            });
+            
+            [MBProgressHUD showError:@"请求网络失败" toView:self.view];
         }];
     }
 }

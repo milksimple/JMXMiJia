@@ -6,6 +6,9 @@
 //  Copyright © 2016年 mac. All rights reserved.
 //
 
+// 存储教师详情的json数据 沙盒路径
+#define JXTeacherDetailJsonPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"teacherDetailJson.archive"]
+
 #import "JXTeacherDetailController.h"
 #import "JXTeacherDetailCell.h"
 #import "JXTeacher.h"
@@ -67,17 +70,39 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    // 注册
+    [self.tableView registerNib:[UINib nibWithNibName:@"JXTeacherDetailCell" bundle:nil] forCellReuseIdentifier:@"teacherDetail"];
+    // 获取订单数据
     [self loadOrderData];
     
-    [self loadTeacherData];
+    // 从沙盒取出之前的教师详情json数据
+    NSDictionary *json = [NSKeyedUnarchiver unarchiveObjectWithFile:JXTeacherDetailJsonPath];
+    if (json) { // 之前有数据
+        [self dealData:json];
+    }
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"JXTeacherDetailCell" bundle:nil] forCellReuseIdentifier:@"teacherDetail"];
+    [self loadTeacherData];
     
     [self.playerController prepareToPlay];
     
     // 监听屏幕旋转
     [JXNotificationCenter addObserver:self selector:@selector(deviceOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+- (void)dealData:(NSDictionary *)json {
+    BOOL success = json[@"success"];
+    if (success) {
+        JXTeacher *teacher = [JXTeacher mj_objectWithKeyValues:json];
+        // 坑爹的代码
+        self.teacher.count = teacher.count;
+        self.teacher.des = teacher.des;
+        self.teacher.mobile = teacher.mobile;
+        self.teacher.schoolID = teacher.schoolID;
+        self.teacher.credentials = teacher.credentials;
+        
+        
+        [self.tableView reloadData];
+    }
 }
 
 /**
@@ -163,19 +188,10 @@
     paras[@"password"] = account.password;
     paras[@"uid"] = self.teacher.uid;
     [JXHttpTool post:[NSString stringWithFormat:@"%@/CoachInfo", JXServerName] params:paras success:^(id json) {
-        JXLog(@"json - %@", json);
-        BOOL success = json[@"success"];
-        if (success) {
-            JXTeacher *teacher = [JXTeacher mj_objectWithKeyValues:json];
-            // 坑爹的代码
-            self.teacher.count = teacher.count;
-            self.teacher.des = teacher.des;
-            self.teacher.mobile = teacher.mobile;
-            self.teacher.schoolID = teacher.schoolID;
-            self.teacher.credentials = teacher.credentials;
-            [self.tableView reloadData];
-        }
-
+        [NSKeyedArchiver archiveRootObject:json toFile:JXTeacherDetailJsonPath];
+        // 处理数据
+        [self dealData:json];
+        
     } failure:^(NSError *error) {
         JXLog(@"请求失败 - %@", error);
     }];
@@ -230,14 +246,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     JXDetailFooterView *footer = [JXDetailFooterView footerView];
     footer.delegate = self;
-#warning 还没设置数据
-//    footer.signupButtonClickedAction = ^{
-//        
-//    };
-//    
-//    footer.callButtonClickedAction = ^ {
-//        
-//    };
+    footer.mobile = self.teacher.mobile;
     
     return footer;
 }
@@ -282,7 +291,7 @@
     paras[@"cid"] = self.teacher.uid;
     paras[@"aidItem"] = [JXFeeGroupTool aidItemWithFeeGroups:self.feeGroups];
 
-    [MBProgressHUD showMessage:@"正在报名..." toView:self.view];
+    [MBProgressHUD showMessage:@"正在报名" toView:self.view];
     
     [JXHttpTool post:[NSString stringWithFormat:@"%@/Reservation", JXServerName] params:paras success:^(id json) {
         BOOL success = [json[@"success"] boolValue];
@@ -322,10 +331,13 @@
  */
 - (void)detailFooterViewDidClickedCallButton {
     // 拨打电话按钮被点击
-    NSString *str= @"tel:4221234567";
-    UIWebView *callWebview = [[UIWebView alloc] init];
-    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-    [self.view addSubview:callWebview];
+    NSString *mobile = self.teacher.mobile;
+    if (mobile.length) {
+        NSString *str= [NSString stringWithFormat:@"tel:%@", mobile];
+        UIWebView *callWebview = [[UIWebView alloc] init];
+        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+        [self.view addSubview:callWebview];
+    }
 }
 
 - (void)dealloc {

@@ -8,6 +8,11 @@
 
 #import "JXDetailFooterView.h"
 
+@interface JXDetailFooterView()
+@property (weak, nonatomic) IBOutlet UIButton *phoneCallButton;
+
+@end
+
 @implementation JXDetailFooterView
 
 + (instancetype)footerView {
@@ -17,20 +22,21 @@
 + (CGFloat)footerHeight {
     return 110;
 }
+
+- (void)setMobile:(NSString *)mobile {
+    _mobile = mobile;
+    
+    [self.phoneCallButton setTitle:[NSString stringWithFormat:@"拨打报名电话:%@", mobile] forState:UIControlStateNormal];
+}
+
 - (IBAction)signup:(UIButton *)sender {
-//    if (self.signupButtonClickedAction) {
-//        self.signupButtonClickedAction();
-//    }
     if ([self.delegate respondsToSelector:@selector(detailFooterViewDidClickedSignupButton)]) {
         [self.delegate detailFooterViewDidClickedSignupButton];
     }
 }
 
 - (IBAction)call:(UIButton *)sender {
-//    if (self.callButtonClickedAction) {
-//        self.callButtonClickedAction();
-//    }
-    
+   
     if ([self.delegate respondsToSelector:@selector(detailFooterViewDidClickedCallButton)]) {
         [self.delegate detailFooterViewDidClickedCallButton];
     }

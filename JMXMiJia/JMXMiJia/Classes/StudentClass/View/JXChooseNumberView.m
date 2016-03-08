@@ -33,4 +33,8 @@
     }
 }
 
+- (NSInteger)money {
+    return [self.numberLabel.text integerValue];
+}
+
 @end

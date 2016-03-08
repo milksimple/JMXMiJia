@@ -8,6 +8,8 @@
 //  13708803633  111111  进度测试接口
 //  18213857463
 
+#define JXPushInfoPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"pushInfo.archive"]
+
 #import "AppDelegate.h"
 #import "JXTabBarController.h"
 #import <BBBadgeBarButtonItem.h>
@@ -40,11 +42,12 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
     }
 
-    
     self.window = [[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    JXLog(@"self.window = %@", self.window);
     
     // 判断之前是否登录过
     JXAccount *account = [JXAccountTool account];
@@ -110,7 +113,10 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     JXLog(@"userInfo - %@", userInfo);
-//    application.applicationIconBadgeNumber = 0;
+    
+    application.applicationIconBadgeNumber = 0;
+    // 将最新数据插入到沙盒中存储的数组中
+    [NSKeyedArchiver archiveRootObject:userInfo toFile:JXPushInfoPath];
 }
 
 #pragma mark - 以下是检测屏幕方向和监听视频进入全屏，是实现用户横屏 视频自动进入横屏全屏 的实现的重要方法

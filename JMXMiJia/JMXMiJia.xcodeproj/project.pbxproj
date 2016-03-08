@@ -77,6 +77,7 @@
 		047F40EF1C841C4F00C77BEF /* JXStudentClassHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047F40EE1C841C4F00C77BEF /* JXStudentClassHeaderView.xib */; };
 		0491DCB21C8D70A10019C71C /* JXChooseNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491DCB11C8D70A10019C71C /* JXChooseNumberView.m */; };
 		0491DCB41C8D70AF0019C71C /* JXChooseNumberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0491DCB31C8D70AF0019C71C /* JXChooseNumberView.xib */; };
+		0491DCBB1C8E67D50019C71C /* JXPushInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491DCBA1C8E67D50019C71C /* JXPushInfo.m */; };
 		04A2BECC1C701288008CE488 /* JXBaseFeeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A2BECB1C701288008CE488 /* JXBaseFeeCell.xib */; };
 		04A2BED01C702BDB008CE488 /* JXAccommodationFeeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2BECE1C702BDB008CE488 /* JXAccommodationFeeCell.m */; };
 		04A2BED11C702BDB008CE488 /* JXAccommodationFeeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A2BECF1C702BDB008CE488 /* JXAccommodationFeeCell.xib */; };
@@ -276,6 +277,8 @@
 		0491DCB01C8D70A10019C71C /* JXChooseNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXChooseNumberView.h; sourceTree = "<group>"; };
 		0491DCB11C8D70A10019C71C /* JXChooseNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXChooseNumberView.m; sourceTree = "<group>"; };
 		0491DCB31C8D70AF0019C71C /* JXChooseNumberView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXChooseNumberView.xib; sourceTree = "<group>"; };
+		0491DCB91C8E67D50019C71C /* JXPushInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JXPushInfo.h; path = ../../Main/Model/JXPushInfo.h; sourceTree = "<group>"; };
+		0491DCBA1C8E67D50019C71C /* JXPushInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JXPushInfo.m; path = ../../Main/Model/JXPushInfo.m; sourceTree = "<group>"; };
 		04A2BECB1C701288008CE488 /* JXBaseFeeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXBaseFeeCell.xib; sourceTree = "<group>"; };
 		04A2BECD1C702BDB008CE488 /* JXAccommodationFeeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXAccommodationFeeCell.h; sourceTree = "<group>"; };
 		04A2BECE1C702BDB008CE488 /* JXAccommodationFeeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXAccommodationFeeCell.m; sourceTree = "<group>"; };
@@ -639,6 +642,8 @@
 		04F0AB8D1C2A34EE000EB562 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0491DCB91C8E67D50019C71C /* JXPushInfo.h */,
+				0491DCBA1C8E67D50019C71C /* JXPushInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1369,6 +1374,7 @@
 				041D31221C4E357B007C8E43 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				04F0ABC31C2A3ECA000EB562 /* JXTeacherController.m in Sources */,
 				04129CFF1C5F59DE0098C7AB /* JXChooseSexController.m in Sources */,
+				0491DCBB1C8E67D50019C71C /* JXPushInfo.m in Sources */,
 				041D311F1C4E357B007C8E43 /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				041D31331C4F804B007C8E43 /* JXTeacherHeaderView.m in Sources */,
 				04129CE71C59B0F80098C7AB /* JXFilterView.m in Sources */,

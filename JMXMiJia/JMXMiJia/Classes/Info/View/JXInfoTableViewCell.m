@@ -25,9 +25,9 @@
     
     [super layoutSubviews];
     
-//    self.contentView.jx_y = 10;
-//    self.contentView.jx_height = self.jx_height - self.contentView.jx_y;
-//    self.contentView.jx_x = 10;
-//    self.contentView.jx_width = self.jx_width - (2 * self.contentView.jx_x);
+    self.contentView.jx_y = 10;
+    self.contentView.jx_height = self.jx_height - self.contentView.jx_y;
+    self.contentView.jx_x = 10;
+    self.contentView.jx_width = self.jx_width - (2 * self.contentView.jx_x);
 }
 @end

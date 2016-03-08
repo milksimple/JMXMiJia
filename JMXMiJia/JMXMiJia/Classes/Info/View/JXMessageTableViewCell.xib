@@ -20,7 +20,8 @@
                             <constraint firstAttribute="height" constant="20" id="GSh-SI-AJX"/>
                             <constraint firstAttribute="width" constant="20" id="XNu-zP-rjV"/>
                         </constraints>
-                        <state key="normal" image="msg_icon"/>
+                        <state key="normal" image="info_icon_selected"/>
+                        <state key="selected" image="info_icon"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="同学你好，科目二你挂了" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ff6-uv-q6C">
                         <rect key="frame" x="40" y="0.0" width="240" height="44"/>
@@ -46,16 +47,6 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xS-5g-b9N">
-                        <rect key="frame" x="256" y="100" width="54" height="22"/>
-                        <color key="backgroundColor" red="0.97254901960784312" green="0.56470588235294117" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="22" id="4Sr-Xn-jZl"/>
-                            <constraint firstAttribute="width" constant="54" id="yoM-gh-KeE"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <state key="normal" title="回复" image="msg_response"/>
-                    </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ec-H6-bIS" userLabel="corverButton">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <constraints>
@@ -74,7 +65,6 @@
                     <constraint firstItem="PGA-Zl-bU7" firstAttribute="leading" secondItem="ff6-uv-q6C" secondAttribute="trailing" constant="10" id="91e-MU-Lne"/>
                     <constraint firstAttribute="bottom" secondItem="UNu-Q5-bkz" secondAttribute="bottom" constant="10" id="EGu-Uv-z3T"/>
                     <constraint firstItem="UNu-Q5-bkz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="54" id="EJU-Bi-7OJ"/>
-                    <constraint firstItem="2xS-5g-b9N" firstAttribute="trailing" secondItem="UNu-Q5-bkz" secondAttribute="trailing" id="IdS-A5-CoH"/>
                     <constraint firstAttribute="trailing" secondItem="PGA-Zl-bU7" secondAttribute="trailing" constant="10" id="Ie8-gG-LgA"/>
                     <constraint firstItem="PGA-Zl-bU7" firstAttribute="centerY" secondItem="ff6-uv-q6C" secondAttribute="centerY" id="Kgz-5B-3BN"/>
                     <constraint firstAttribute="trailing" secondItem="UNu-Q5-bkz" secondAttribute="trailing" constant="10" id="Kza-YP-FZS"/>
@@ -82,10 +72,8 @@
                     <constraint firstItem="jtI-N4-t4J" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="MWb-yB-ONj"/>
                     <constraint firstItem="ff6-uv-q6C" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Op9-qM-gcD"/>
                     <constraint firstItem="PGA-Zl-bU7" firstAttribute="centerY" secondItem="ff6-uv-q6C" secondAttribute="centerY" id="QTC-00-Aul"/>
-                    <constraint firstItem="2xS-5g-b9N" firstAttribute="top" secondItem="UNu-Q5-bkz" secondAttribute="bottom" constant="10" id="Qsl-7C-6Px"/>
                     <constraint firstAttribute="trailing" secondItem="1ec-H6-bIS" secondAttribute="trailing" id="Xme-Lp-BTB"/>
                     <constraint firstItem="1ec-H6-bIS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ZeB-iI-gNH"/>
-                    <constraint firstAttribute="bottom" secondItem="2xS-5g-b9N" secondAttribute="bottom" constant="10" id="dWc-vp-KXq"/>
                     <constraint firstItem="jtI-N4-t4J" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="e6B-uP-HRz"/>
                     <constraint firstItem="jtI-N4-t4J" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gxH-b8-624"/>
                     <constraint firstItem="jtI-N4-t4J" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="oEd-sg-U6U"/>
@@ -103,7 +91,6 @@
                         <exclude reference="EGu-Uv-z3T"/>
                         <exclude reference="LuO-bk-VWn"/>
                         <exclude reference="zIL-BF-4hg"/>
-                        <exclude reference="dWc-vp-KXq"/>
                         <exclude reference="Kgz-5B-3BN"/>
                         <exclude reference="uUJ-Fn-YCU"/>
                     </mask>
@@ -115,7 +102,6 @@
                 <outlet property="contentLabel" destination="UNu-Q5-bkz" id="PvR-y4-k1B"/>
                 <outlet property="corverButton" destination="1ec-H6-bIS" id="zcp-oD-rzf"/>
                 <outlet property="msgButton" destination="jtI-N4-t4J" id="nQ4-7i-qfP"/>
-                <outlet property="responseButton" destination="2xS-5g-b9N" id="RdP-yP-0lF"/>
                 <outlet property="titleLabel" destination="ff6-uv-q6C" id="vd9-xp-Foy"/>
             </connections>
             <point key="canvasLocation" x="179" y="301"/>
@@ -124,7 +110,7 @@
     <resources>
         <image name="accessory_down" width="21" height="21"/>
         <image name="accessory_up" width="21" height="21"/>
-        <image name="msg_icon" width="20" height="21"/>
-        <image name="msg_response" width="18" height="17"/>
+        <image name="info_icon" width="18" height="19"/>
+        <image name="info_icon_selected" width="18" height="19"/>
     </resources>
 </document>

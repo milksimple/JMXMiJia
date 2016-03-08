@@ -32,7 +32,7 @@
 
 @implementation JXForgotPwdController
 /** 倒计时 */
-static NSInteger timeout = 60;
+static NSInteger _timeout = 60;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -143,10 +143,10 @@ static NSInteger timeout = 60;
  *  倒计时
  */
 - (void)countDown {
-    timeout --;
-    [self.sendMsgButton setTitle:[NSString stringWithFormat:@"重新获取验证码(%zds)", timeout] forState:UIControlStateNormal];
-    if (timeout <= 0) { // 停止倒计时
-        timeout = 60;
+    _timeout --;
+    [self.sendMsgButton setTitle:[NSString stringWithFormat:@"重新获取验证码(%zds)", _timeout] forState:UIControlStateNormal];
+    if (_timeout <= 0) { // 停止倒计时
+        _timeout = 60;
         [self.timer invalidate];
         self.timer = nil;
         self.sendMsgButton.enabled = YES;
@@ -161,7 +161,7 @@ static NSInteger timeout = 60;
         [MBProgressHUD showError:@"请将信息填写完整"];
     }
     else {
-        [MBProgressHUD showMessage:@"正在重置密码..."];
+        [MBProgressHUD showMessage:@"正在重置密码"];
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.usernameField.text;
         paras[@"password"] = self.pwdField.text;

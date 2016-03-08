@@ -72,6 +72,9 @@
                     <exclude reference="gW9-nj-8L6"/>
                 </mask>
             </variation>
+            <connections>
+                <outlet property="phoneCallButton" destination="8Bw-aA-iCc" id="kj8-OD-dRy"/>
+            </connections>
             <point key="canvasLocation" x="625" y="121"/>
         </view>
     </objects>

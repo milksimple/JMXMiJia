@@ -30,4 +30,6 @@ typedef void (^DetailFooterClickedButtonAction)();
 @property (nonatomic, copy) DetailFooterClickedButtonAction callButtonClickedAction;
 
 @property (nonatomic, weak) id<JXDetailFooterViewDelegate> delegate;
+
+@property (nonatomic, copy) NSString *mobile;
 @end

@@ -129,6 +129,7 @@ static CGFloat margin = 20;
     paras[@"des"] = self.replyTextView.text;
     paras[@"date"] = self.commentedDate;
     paras[@"toId"] = @(account.teacherCID);
+    paras[@"tip"] = @(self.redBagView.money);
     
     // 发送评论
     [self sendCommentWithParas:paras];

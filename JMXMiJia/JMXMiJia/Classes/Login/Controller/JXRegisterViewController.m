@@ -129,7 +129,7 @@
         [SVProgressHUD showErrorWithStatus:@"两次输入的密码不匹配"];
     }
     else {
-        [SVProgressHUD showWithStatus:@"正在注册..." maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showWithStatus:@"正在注册" maskType:SVProgressHUDMaskTypeBlack];
         
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.usernameField.text;
