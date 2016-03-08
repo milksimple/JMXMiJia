@@ -47,11 +47,15 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
+        application.applicationIconBadgeNumber = 0;
+    }
+    
     JXLog(@"self.window = %@", self.window);
     
     // 判断之前是否登录过
     JXAccount *account = [JXAccountTool account];
-    if (account.hasLogin) { // 之前登录过
+    if (!account.hasLogin) { // 之前登录过
         JXTabBarController *tabBarController = [[JXTabBarController alloc] init];
         self.window.rootViewController = tabBarController;
     }
@@ -115,8 +119,6 @@
     JXLog(@"userInfo - %@", userInfo);
     
     application.applicationIconBadgeNumber = 0;
-    // 将最新数据插入到沙盒中存储的数组中
-    [NSKeyedArchiver archiveRootObject:userInfo toFile:JXPushInfoPath];
 }
 
 #pragma mark - 以下是检测屏幕方向和监听视频进入全屏，是实现用户横屏 视频自动进入横屏全屏 的实现的重要方法

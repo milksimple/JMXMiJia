@@ -6,12 +6,9 @@
 //  Copyright © 2015年 mac. All rights reserved.
 //
 
-#define JXPushInfoJsonPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"pushInfoJson.archive"]
+#define JXPushInfoPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"pushInfo.archive"]
 
 #import "JXInfoController.h"
-//#import "JXInfoHeaderView.h"
-//#import "JXMessageHeaderView.h"
-//#import "JXInfoTableViewCell.h"
 #import "JXMessageTableViewCell.h"
 #import <SDWebImageManager.h>
 #import "JXHttpTool.h"
@@ -74,9 +71,10 @@
     [self setupRefresh];
 
     // 加载本地数据
-    NSDictionary *json = [NSKeyedUnarchiver unarchiveObjectWithFile:JXPushInfoJsonPath];
-    if (json) {
-        [self dealData:json];
+    NSMutableArray *localPushInfos = [NSKeyedUnarchiver unarchiveObjectWithFile:JXPushInfoPath];
+    if (localPushInfos.count) {
+        self.pushInfos = localPushInfos;
+        [self.tableView reloadData];
     }
     
     // 获取最新数据
@@ -105,15 +103,11 @@
         
         BOOL success = [json[@"success"] boolValue];
         if (success) {
-            // 将最新资讯存入沙盒
-            [NSKeyedArchiver archiveRootObject:json toFile:JXPushInfoJsonPath];
-            
             [self dealData:json];
         }
         else {
             [MBProgressHUD showError:json[@"msg"]];
         }
-        [self dealData:json];
     } failure:^(NSError *error) {
         JXLog(@"请求失败 - %@", error);
     }];
@@ -123,6 +117,10 @@
     // 字典数组转模型数组
     NSMutableArray *newInfos = [JXPushInfo mj_objectArrayWithKeyValuesArray:json[@"rows"]];
     self.pushInfos = newInfos;
+    
+    // 将最新资讯存入沙盒
+    [NSKeyedArchiver archiveRootObject:self.pushInfos toFile:JXPushInfoPath];
+    
     self.isExplands = [NSMutableArray array];
     for (int i = 0; i < self.pushInfos.count; i ++) {
         [self.isExplands addObject:@0];
@@ -164,11 +162,11 @@
 /**
  *  编辑按钮被点击
  */
-- (void)editItemClicked {
-    BOOL editing = !self.tableView.editing;
-    [self.tableView setEditing:editing animated:YES];
-    self.navigationItem.rightBarButtonItem.title = editing ? @"完成" : @"编辑";
-}
+//- (void)editItemClicked {
+//    BOOL editing = !self.tableView.editing;
+//    [self.tableView setEditing:editing animated:YES];
+//    self.navigationItem.rightBarButtonItem.title = editing ? @"完成" : @"编辑";
+//}
 
 #pragma mark - tableview data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -179,8 +177,15 @@
 #pragma mark - table view delegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JXMessageTableViewCell *msgCell = [tableView dequeueReusableCellWithIdentifier:@"messageCell" forIndexPath:indexPath];
+    JXPushInfo *pushInfo = self.pushInfos[indexPath.row];
+    msgCell.pushInfo = pushInfo;
     msgCell.corverButtonClickedAction = ^{
         self.isExplands[indexPath.row] = @(![self.isExplands[indexPath.row] integerValue]);
+        if (pushInfo.hasRead == NO) {
+            pushInfo.hasRead = YES;
+            // 将修改后的数据存入沙盒
+            [NSKeyedArchiver archiveRootObject:self.pushInfos toFile:JXPushInfoPath];
+        }
         [self.tableView reloadData];
     };
     msgCell.expland = [self.isExplands[indexPath.row] boolValue];

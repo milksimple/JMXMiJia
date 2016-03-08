@@ -143,10 +143,26 @@ static CGFloat margin = 20;
 - (void)sendCommentWithParas:(NSDictionary *)paras {
     [JXHttpTool post:[NSString stringWithFormat:@"%@/Tucao", JXServerName] params:paras success:^(id json) {
         JXLog(@"评论成功 - %@", json);
-        [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
+        BOOL success = [json[@"success"] boolValue];
+        if (success) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
+            });
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD showErrorWithStatus:json[@"msg"]];
+            });
+        }
+        
+        
     } failure:^(NSError *error) {
         JXLog(@"评论失败 - %@", error);
-        [SVProgressHUD showErrorWithStatus:@"网络请求失败，请稍后重试!"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showErrorWithStatus:@"网络请求失败，请稍后重试!"];
+        });
+        
     }];
 }
 
