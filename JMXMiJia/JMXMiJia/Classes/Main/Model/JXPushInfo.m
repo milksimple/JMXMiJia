@@ -11,6 +11,8 @@
 
 @implementation JXPushInfo
 
+MJCodingImplementation;
+
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{@"ID":@"id"};
 }

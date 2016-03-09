@@ -33,6 +33,12 @@
 
 - (void)setPushInfo:(JXPushInfo *)pushInfo {
     _pushInfo = pushInfo;
+    
+    self.titleLabel.text = pushInfo.title;
+    
+    NSMutableString *cont = pushInfo.des.mutableCopy;
+    self.contentLabel.text = [cont stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    self.msgButton.selected = pushInfo.hasRead;
 }
 
 - (IBAction)corverButtonClicked:(UIButton *)corverButton {

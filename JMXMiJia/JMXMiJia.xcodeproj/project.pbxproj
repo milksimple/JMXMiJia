@@ -77,7 +77,6 @@
 		047F40EF1C841C4F00C77BEF /* JXStudentClassHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047F40EE1C841C4F00C77BEF /* JXStudentClassHeaderView.xib */; };
 		0491DCB21C8D70A10019C71C /* JXChooseNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491DCB11C8D70A10019C71C /* JXChooseNumberView.m */; };
 		0491DCB41C8D70AF0019C71C /* JXChooseNumberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0491DCB31C8D70AF0019C71C /* JXChooseNumberView.xib */; };
-		0491DCBB1C8E67D50019C71C /* JXPushInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491DCBA1C8E67D50019C71C /* JXPushInfo.m */; };
 		04A2BECC1C701288008CE488 /* JXBaseFeeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A2BECB1C701288008CE488 /* JXBaseFeeCell.xib */; };
 		04A2BED01C702BDB008CE488 /* JXAccommodationFeeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2BECE1C702BDB008CE488 /* JXAccommodationFeeCell.m */; };
 		04A2BED11C702BDB008CE488 /* JXAccommodationFeeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A2BECF1C702BDB008CE488 /* JXAccommodationFeeCell.xib */; };
@@ -130,6 +129,7 @@
 		04F0ABE41C2CDACC000EB562 /* JXTeacherToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F0ABE31C2CDACC000EB562 /* JXTeacherToolBar.xib */; };
 		04FF3DCE1C856DE500A085E1 /* JXToStudentComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FF3DCD1C856DE500A085E1 /* JXToStudentComment.m */; };
 		524813A41C4935120008828A /* JXHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 524813A31C4935120008828A /* JXHttpTool.m */; };
+		528EC5C81C8F01AD00064D8E /* JXPushInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 528EC5C71C8F01AD00064D8E /* JXPushInfo.m */; };
 		529627321C85CE0C00C773AB /* JXReplyToTeacherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 529627311C85CE0C00C773AB /* JXReplyToTeacherController.m */; };
 		5296273C1C85D94F00C773AB /* JXTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5296273B1C85D94F00C773AB /* JXTextView.m */; };
 		52A30C861C2FC57000A176A7 /* JXNavLetterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A30C851C2FC57000A176A7 /* JXNavLetterButton.m */; };
@@ -277,8 +277,6 @@
 		0491DCB01C8D70A10019C71C /* JXChooseNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXChooseNumberView.h; sourceTree = "<group>"; };
 		0491DCB11C8D70A10019C71C /* JXChooseNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXChooseNumberView.m; sourceTree = "<group>"; };
 		0491DCB31C8D70AF0019C71C /* JXChooseNumberView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXChooseNumberView.xib; sourceTree = "<group>"; };
-		0491DCB91C8E67D50019C71C /* JXPushInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JXPushInfo.h; path = ../../Main/Model/JXPushInfo.h; sourceTree = "<group>"; };
-		0491DCBA1C8E67D50019C71C /* JXPushInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JXPushInfo.m; path = ../../Main/Model/JXPushInfo.m; sourceTree = "<group>"; };
 		04A2BECB1C701288008CE488 /* JXBaseFeeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXBaseFeeCell.xib; sourceTree = "<group>"; };
 		04A2BECD1C702BDB008CE488 /* JXAccommodationFeeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXAccommodationFeeCell.h; sourceTree = "<group>"; };
 		04A2BECE1C702BDB008CE488 /* JXAccommodationFeeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXAccommodationFeeCell.m; sourceTree = "<group>"; };
@@ -374,6 +372,8 @@
 		1B5C3C437BBA4964B2BC3CA8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		524813A21C4935120008828A /* JXHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXHttpTool.h; sourceTree = "<group>"; };
 		524813A31C4935120008828A /* JXHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXHttpTool.m; sourceTree = "<group>"; };
+		528EC5C61C8F01AD00064D8E /* JXPushInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXPushInfo.h; sourceTree = "<group>"; };
+		528EC5C71C8F01AD00064D8E /* JXPushInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXPushInfo.m; sourceTree = "<group>"; };
 		529627301C85CE0C00C773AB /* JXReplyToTeacherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXReplyToTeacherController.h; sourceTree = "<group>"; };
 		529627311C85CE0C00C773AB /* JXReplyToTeacherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXReplyToTeacherController.m; sourceTree = "<group>"; };
 		5296273A1C85D94F00C773AB /* JXTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTextView.h; sourceTree = "<group>"; };
@@ -642,8 +642,6 @@
 		04F0AB8D1C2A34EE000EB562 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0491DCB91C8E67D50019C71C /* JXPushInfo.h */,
-				0491DCBA1C8E67D50019C71C /* JXPushInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -706,6 +704,8 @@
 		04F0AB911C2A34EE000EB562 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				528EC5C61C8F01AD00064D8E /* JXPushInfo.h */,
+				528EC5C71C8F01AD00064D8E /* JXPushInfo.m */,
 				041D31411C50B7CF007C8E43 /* JXOrderForm.h */,
 				041D31421C50B7CF007C8E43 /* JXOrderForm.m */,
 				04129CE21C58BE1F0098C7AB /* JXSearchParas.h */,
@@ -1178,7 +1178,7 @@
 				TargetAttributes = {
 					04F0AB531C2A2FCD000EB562 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 7U2B388HH6;
+						DevelopmentTeam = FNKL988VT9;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1374,7 +1374,7 @@
 				041D31221C4E357B007C8E43 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				04F0ABC31C2A3ECA000EB562 /* JXTeacherController.m in Sources */,
 				04129CFF1C5F59DE0098C7AB /* JXChooseSexController.m in Sources */,
-				0491DCBB1C8E67D50019C71C /* JXPushInfo.m in Sources */,
+				528EC5C81C8F01AD00064D8E /* JXPushInfo.m in Sources */,
 				041D311F1C4E357B007C8E43 /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				041D31331C4F804B007C8E43 /* JXTeacherHeaderView.m in Sources */,
 				04129CE71C59B0F80098C7AB /* JXFilterView.m in Sources */,
@@ -1539,15 +1539,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JMXMiJia/JMXMiJia-Prefix.pch";
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jml;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "417519a5-785d-4642-88b0-d8aa6eac5963";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1557,15 +1557,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JMXMiJia/JMXMiJia-Prefix.pch";
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jml;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "417519a5-785d-4642-88b0-d8aa6eac5963";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

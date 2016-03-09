@@ -104,7 +104,7 @@
                 <outlet property="msgButton" destination="jtI-N4-t4J" id="nQ4-7i-qfP"/>
                 <outlet property="titleLabel" destination="ff6-uv-q6C" id="vd9-xp-Foy"/>
             </connections>
-            <point key="canvasLocation" x="179" y="301"/>
+            <point key="canvasLocation" x="314" y="260"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -234,6 +234,11 @@
         
         // 字典数组转模型数组
         NSArray *moreTeachers = [JXTeacher mj_objectArrayWithKeyValuesArray:json[@"rows"]];
+        if (self.searchParas.feeGroups) {
+            for (JXTeacher *moreTeacher in moreTeachers) {
+                moreTeacher.price = [JXFeeGroupTool totalPayWithFeeGroups:self.searchParas.feeGroups];
+            }
+        }
         [self.teachers addObjectsFromArray:moreTeachers];
         [self.tableView reloadData];
         
