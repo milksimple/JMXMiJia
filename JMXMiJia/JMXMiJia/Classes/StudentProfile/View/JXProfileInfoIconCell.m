@@ -28,20 +28,20 @@ static CGFloat const margin = 10;
 
 - (void)setup {
     // 右边图片
-    UIImageView *rightImageView = [[UIImageView alloc] init];
-    rightImageView.clipsToBounds = YES;
-    [self addSubview:rightImageView];
-    self.rightImageView = rightImageView;
+//    UIImageView *rightImageView = [[UIImageView alloc] init];
+//    rightImageView.clipsToBounds = YES;
+//    [self addSubview:rightImageView];
+//    self.rightImageView = rightImageView;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat rightImageH = self.frame.size.height - margin;
-    CGFloat rightImageW = rightImageH;
-    CGFloat rightImageX = self.frame.size.width - rightImageW - 40;
-    CGFloat rightImageY = margin * 0.5;
-    self.rightImageView.frame = CGRectMake(rightImageX, rightImageY, rightImageW, rightImageH);
-    self.rightImageView.layer.cornerRadius = rightImageH*0.5;
+//    CGFloat rightImageH = self.frame.size.height - margin;
+//    CGFloat rightImageW = rightImageH;
+//    CGFloat rightImageX = self.frame.size.width - rightImageW - 40;
+//    CGFloat rightImageY = margin * 0.5;
+//    self.rightImageView.frame = CGRectMake(rightImageX, rightImageY, rightImageW, rightImageH);
+//    self.rightImageView.layer.cornerRadius = rightImageH*0.5;
 }
 @end

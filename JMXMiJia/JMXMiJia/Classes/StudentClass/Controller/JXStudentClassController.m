@@ -65,7 +65,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    JXLog(@"%f - %f", JXScreenW, JXScreenH);
     self.navigationItem.title = @"我的进度";
     
     [self setupTableView];

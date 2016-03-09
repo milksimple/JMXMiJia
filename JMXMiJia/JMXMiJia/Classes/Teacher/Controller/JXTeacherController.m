@@ -52,8 +52,6 @@
 @property (nonatomic, weak) JXFilterView *filterView;
 /** 自主订单的总金额 */
 @property (nonatomic, assign) NSInteger totalPay;
-///** 当前位置 */
-//@property (nonatomic, strong) CLLocation *location;
 @end
 
 @implementation JXTeacherController
@@ -71,18 +69,9 @@
         _searchParas = [[JXSearchParas alloc] init];
         _searchParas.star = -1;
         _searchParas.sex = JXSexAny;
-//        _searchParas.school = @"不限";
     }
     return _searchParas;
 }
-
-//- (CLLocation *)location {
-//    if (_location == nil) {
-//        JXAccount *account = [JXAccountTool account];
-//        _location = account.location;
-//    }
-//    return _location;
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -162,14 +151,14 @@
 - (void)loadNewTeachers {
     // 1.拼接请求参数
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"mobile"] = self.searchParas.mobile;
-    paras[@"password"] = self.searchParas.password;
+    JXAccount *account = [JXAccountTool account];
+    paras[@"mobile"] = account.mobile;
+    paras[@"password"] = account.password;
     paras[@"keyword"] = self.searchParas.keyword;
     paras[@"sex"] = @(self.searchParas.sex);
     paras[@"star"] = @(self.searchParas.star);
     paras[@"school"] = self.searchParas.school.uid;
     
-    JXAccount *account = [JXAccountTool account];
     if (account.location) {
         paras[@"lat"] = [NSString stringWithFormat:@"%f", account.location.coordinate.latitude];
         paras[@"lon"] = [NSString stringWithFormat:@"%f", account.location.coordinate.longitude];
@@ -177,7 +166,6 @@
     
     // 请求老师数据
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/CoachFace" params:paras success:^(id json) {
-        JXLog(@"教师数据 - %@", json);
         // 停止刷新状态
         [self.tableView.mj_header endRefreshing];
         
@@ -228,7 +216,6 @@
     
     // 取出后面的老师
     [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/CoachFace" params:paras success:^(id json) {
-        JXLog(@"loadMoreTeachers - json = %@", json);
         // 停止刷新状态
         [self.tableView.mj_footer endRefreshing];
         

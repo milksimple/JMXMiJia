@@ -340,7 +340,4 @@
     }
 }
 
-- (void)dealloc {
-    JXLog(@"JXTeacherDetailController - dealloc");
-}
 @end

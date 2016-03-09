@@ -11,6 +11,6 @@
 @interface JXProfileInfoIconCell : UITableViewCell
 
 @property (nonatomic, weak) UIImageView *accessory;
-@property (nonatomic, weak) UIImageView *rightImageView;
+//@property (nonatomic, weak) UIImageView *rightImageView;
 
 @end

@@ -127,6 +127,7 @@
 		04F0ABDF1C2BF36F000EB562 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABDE1C2BF36F000EB562 /* UIView+Extension.m */; };
 		04F0ABE21C2CDA56000EB562 /* JXTeacherToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0ABE11C2CDA56000EB562 /* JXTeacherToolBar.m */; };
 		04F0ABE41C2CDACC000EB562 /* JXTeacherToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F0ABE31C2CDACC000EB562 /* JXTeacherToolBar.xib */; };
+		04F3A81A1C8FCA00006B88F1 /* JXPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3A8191C8FCA00006B88F1 /* JXPayViewController.m */; };
 		04FF3DCE1C856DE500A085E1 /* JXToStudentComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FF3DCD1C856DE500A085E1 /* JXToStudentComment.m */; };
 		524813A41C4935120008828A /* JXHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 524813A31C4935120008828A /* JXHttpTool.m */; };
 		528EC5C81C8F01AD00064D8E /* JXPushInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 528EC5C71C8F01AD00064D8E /* JXPushInfo.m */; };
@@ -367,6 +368,8 @@
 		04F0ABE01C2CDA56000EB562 /* JXTeacherToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTeacherToolBar.h; sourceTree = "<group>"; };
 		04F0ABE11C2CDA56000EB562 /* JXTeacherToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTeacherToolBar.m; sourceTree = "<group>"; };
 		04F0ABE31C2CDACC000EB562 /* JXTeacherToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXTeacherToolBar.xib; sourceTree = "<group>"; };
+		04F3A8181C8FCA00006B88F1 /* JXPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXPayViewController.h; sourceTree = "<group>"; };
+		04F3A8191C8FCA00006B88F1 /* JXPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXPayViewController.m; sourceTree = "<group>"; };
 		04FF3DCC1C856DE500A085E1 /* JXToStudentComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXToStudentComment.h; sourceTree = "<group>"; };
 		04FF3DCD1C856DE500A085E1 /* JXToStudentComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXToStudentComment.m; sourceTree = "<group>"; };
 		1B5C3C437BBA4964B2BC3CA8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -854,6 +857,8 @@
 				041D31581C560AF7007C8E43 /* JXChangePwdController.h */,
 				041D31591C560AF7007C8E43 /* JXChangePwdController.m */,
 				041D315A1C560AF7007C8E43 /* JXChangePwdController.xib */,
+				04F3A8181C8FCA00006B88F1 /* JXPayViewController.h */,
+				04F3A8191C8FCA00006B88F1 /* JXPayViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1178,7 +1183,7 @@
 				TargetAttributes = {
 					04F0AB531C2A2FCD000EB562 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = FNKL988VT9;
+						DevelopmentTeam = 7U2B388HH6;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1396,6 +1401,7 @@
 				04129CFC1C5F29080098C7AB /* JXSchool.m in Sources */,
 				041D31211C4E357B007C8E43 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				04F0ABD51C2B9ECA000EB562 /* JXTeacher.m in Sources */,
+				04F3A81A1C8FCA00006B88F1 /* JXPayViewController.m in Sources */,
 				041D30CE1C44FCF0007C8E43 /* JXLoginViewController.m in Sources */,
 				04A2BEF91C71A94F008CE488 /* JXAutoOrderHeaderView.m in Sources */,
 				041D30D51C462752007C8E43 /* UIViewController+Extension.m in Sources */,
@@ -1545,7 +1551,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jml;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1563,7 +1569,7 @@
 				INFOPLIST_FILE = JMXMiJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jml;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.jmxjiami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

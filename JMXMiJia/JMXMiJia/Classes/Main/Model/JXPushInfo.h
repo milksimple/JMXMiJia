@@ -26,6 +26,4 @@ typedef enum {
 @property (nonatomic, copy) NSString *des;
 /** 日期 */
 @property (nonatomic, copy) NSString *sendTime;
-/** 是否已读 */
-@property (nonatomic, assign) BOOL hasRead;
 @end

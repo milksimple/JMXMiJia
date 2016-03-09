@@ -37,6 +37,7 @@ static NSInteger _timeout = 60;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.navigationItem.title = @"重置密码";
     self.view.backgroundColor = [UIColor whiteColor];
     CGFloat margin = 10; // field之间的间距
     CGFloat fieldH = 40; // field的高度
@@ -61,7 +62,7 @@ static NSInteger _timeout = 60;
     
     UIButton *resetButton = [[UIButton alloc] init];
     resetButton.layer.cornerRadius = fieldH * 0.5;
-    [resetButton setTitle:@"设置并登录" forState:UIControlStateNormal];
+    [resetButton setTitle:@"重置密码" forState:UIControlStateNormal];
     resetButton.backgroundColor = JXColor(254, 125, 0);
     // 监听按钮点击
     [resetButton addTarget:self action:@selector(resetButtonClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -165,19 +166,15 @@ static NSInteger _timeout = 60;
         NSMutableDictionary *paras = [NSMutableDictionary dictionary];
         paras[@"mobile"] = self.usernameField.text;
         paras[@"password"] = self.pwdField.text;
-        paras[@"checkCode"] = self.verifyField.text;
+        JXLog(@"%@", self.pwdField.text);
+        paras[@"code"] = self.verifyField.text;
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/ResetPassword" params:paras success:^(id json) {
             [MBProgressHUD hideHUD];
             if ([json[@"success"] boolValue] == 1) { // 设置成功
                 [MBProgressHUD showSuccess:@"重置密码成功!"];
-                // 存储登录状态
-                JXAccount *account = [JXAccountTool account];
-                account.hasLogin = YES;
-                [JXAccountTool saveAccount:account];
                 
-                UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                window.rootViewController = [[JXTabBarController alloc] init];
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
             else { // 设置失败
                 [MBProgressHUD showError:json[@"msg"]];

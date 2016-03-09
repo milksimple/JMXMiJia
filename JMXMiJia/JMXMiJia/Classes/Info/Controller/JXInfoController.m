@@ -57,6 +57,17 @@
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    if ([UIApplication sharedApplication].applicationIconBadgeNumber != 0) {
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    }
+    
+    NSString *letterBadge = [JXUserDefaults objectForKey:JXNavLetterItemBadgeKey];
+    if (![letterBadge isEqualToString:@"0"]) {
+        [JXUserDefaults setObject:@"0" forKey:JXNavLetterItemBadgeKey];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -99,8 +110,7 @@
     paras[@"start"] = @0;
     paras[@"count"] = @8;
     [JXHttpTool post:[NSString stringWithFormat:@"%@/InformationList", JXServerName] params:paras success:^(id json) {
-        JXLog(@"info json = %@", json);
-        
+        [self.tableView.mj_header endRefreshing];
         BOOL success = [json[@"success"] boolValue];
         if (success) {
             [self dealData:json];
@@ -109,6 +119,7 @@
             [MBProgressHUD showError:json[@"msg"]];
         }
     } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
         JXLog(@"请求失败 - %@", error);
     }];
 }
@@ -181,11 +192,6 @@
     msgCell.pushInfo = pushInfo;
     msgCell.corverButtonClickedAction = ^{
         self.isExplands[indexPath.row] = @(![self.isExplands[indexPath.row] integerValue]);
-        if (pushInfo.hasRead == NO) {
-            pushInfo.hasRead = YES;
-            // 将修改后的数据存入沙盒
-            [NSKeyedArchiver archiveRootObject:self.pushInfos toFile:JXPushInfoPath];
-        }
         [self.tableView reloadData];
     };
     msgCell.expland = [self.isExplands[indexPath.row] boolValue];
@@ -216,10 +222,6 @@
         return [explandCell rowHeight];
     }
     return 54;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    JXLog(@"didSelectRowAtIndexPath = %@", indexPath);
 }
 
 #pragma mark - 实现滑动删除

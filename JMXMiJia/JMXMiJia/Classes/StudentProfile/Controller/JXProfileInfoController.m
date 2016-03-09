@@ -39,7 +39,6 @@
         JXProfileInfoIconCell *iconInfoCell = [[JXProfileInfoIconCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         iconInfoCell.selectionStyle = UITableViewCellSelectionStyleNone;
         iconInfoCell.textLabel.text = @"修改头像";
-        [iconInfoCell.rightImageView sd_setImageWithURL:[NSURL URLWithString:[JXAccountTool account].photo]];
         return iconInfoCell;
     }
     else if (indexPath.row == 1) {
@@ -47,7 +46,6 @@
         nameCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         nameCell.selectionStyle = UITableViewCellSelectionStyleNone;
         nameCell.textLabel.text = @"修改姓名";
-        nameCell.detailTextLabel.text = [JXAccountTool account].name;
         return nameCell;
     }
     else {

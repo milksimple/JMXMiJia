@@ -21,10 +21,6 @@
 
 @implementation JXMessageTableViewCell
 
-//- (void)awakeFromNib {
-//    self.contentLabel.hidden = self.responseButton.hidden = YES;
-//}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
@@ -38,7 +34,6 @@
     
     NSMutableString *cont = pushInfo.des.mutableCopy;
     self.contentLabel.text = [cont stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    self.msgButton.selected = pushInfo.hasRead;
 }
 
 - (IBAction)corverButtonClicked:(UIButton *)corverButton {
@@ -51,7 +46,7 @@
 - (void)setExpland:(BOOL)expland {
     _expland = expland;
     
-    self.accessoryButton.selected = expland;;
+    self.accessoryButton.selected = expland;
     self.contentLabel.hidden = !expland;
 }
 

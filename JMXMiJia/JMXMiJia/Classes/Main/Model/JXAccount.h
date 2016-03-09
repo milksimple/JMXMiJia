@@ -6,10 +6,6 @@
 //  Copyright © 2016年 mac. All rights reserved.
 //  账号模型
 
-typedef enum {
-    JXAccountSexFemale = 0, // 女性
-    JXAccountSexMale        // 男性
-} JXAccountSex;
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
@@ -23,8 +19,6 @@ typedef enum {
 @property (nonatomic, copy) NSString *name;
 /** 推荐码 */
 @property (nonatomic, copy) NSString *rMobile;
-/** 性别 */
-@property (nonatomic, assign) JXAccountSex sex;
 /** pushToken */
 @property (nonatomic, copy) NSString *pushToken;
 /** 之前登录过 */

@@ -289,7 +289,6 @@ static CGFloat const JXSignLabelW = 30;
 }
 
 - (UIImage *)imageManager:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL {
-    JXLog(@"transformDownloadedImage----");
     // 以宽为直径裁剪为圆形
     UIImage *newImage = [self circleImageWithOriginImage:image diameter:image.size.width];
     return newImage;
