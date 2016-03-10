@@ -138,7 +138,6 @@
  */
 - (void)loginBtnClicked {
     JXAccount *account = [JXAccountTool account];
-    JXLog(@"loginBtnClicked - %@", account.pushToken);
     if (self.nameField.text.length == 0 || self.pwdField.text.length == 0) {
         [MBProgressHUD showError:@"请填写账号和密码" toView:self.view];
     }
@@ -151,7 +150,6 @@
         paras[@"pushToken"] = [JXAccountTool account].pushToken;
         
         [JXHttpTool post:@"http://10.255.1.25/dschoolAndroid/Login" params:paras success:^(id json) {
-            JXLog(@"login - %@", json);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view];
             });
@@ -168,7 +166,7 @@
                 });
                 
                 // 存入账号密码
-                account.mobile = json[@"mobile"];
+                account.mobile = paras[@"mobile"];
                 account.password = paras[@"password"];
                 [JXAccountTool saveAccount:account];
                 
@@ -177,7 +175,6 @@
                 
                 // 进入app主页
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                JXLog(@"keywindow = %@", window);
                 window.rootViewController = [[JXTabBarController alloc] init];
             }
         } failure:^(NSError *error) {
@@ -198,6 +195,7 @@
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
     paras[@"mobile"] = mobile;
     paras[@"password"] = password;
+    
     [JXHttpTool post:[NSString stringWithFormat:@"%@/TraineeInfo", JXServerName] params:paras success:^(id json) {
         JXLog(@"json = %@", json);
         BOOL success = json[@"success"];

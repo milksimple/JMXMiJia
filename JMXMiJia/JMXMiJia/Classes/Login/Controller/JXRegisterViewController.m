@@ -120,7 +120,6 @@
  */
 - (void)registerButtonClicked {
     JXAccount *account = [JXAccountTool account];
-    JXLog(@"registerButtonClicked - %@", account.pushToken);
     if (!self.usernameField.text.length || !self.pwdField.text.length || !self.pwdConfirmField || !self.realNameField || !self.sexField || !self.rMobileField) {
         [SVProgressHUD showErrorWithStatus:@"请将信息填写完整"];
     }
